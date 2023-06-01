@@ -1,10 +1,10 @@
-import { Text, View, ImageBackground } from "react-native";
+import { Text, View, ImageBackground, Pressable } from "react-native";
 import styles from "./style";
 import TagInput from "../../TagInput";
 import TagContainer from "../../TagContainer";
 import { LinearGradient } from 'expo-linear-gradient';
 
-export default function RecipeButton({ title, image }: { title: string, image: var }) {
+export default function RecipeButton({ navigation, title, image }: { title: string, image: var }) {
     const tagList = [
         { name: "banana" },
         { name: "maçã" },
@@ -12,7 +12,7 @@ export default function RecipeButton({ title, image }: { title: string, image: v
     ];
 
     return (
-        <View style={styles.container}>
+        <Pressable style={styles.container} onPress={() => navigation.navigate('Recipe')}>
             <View style={styles.image_container}>
                 <ImageBackground source={{ uri: image }} style={styles.image}>
                     <View style={styles.filter}>
@@ -44,6 +44,6 @@ export default function RecipeButton({ title, image }: { title: string, image: v
                 colors={["#00000020", 'transparent']}
                 style={styles.gradient}
             />
-        </View>
+        </Pressable >
     )
 }

@@ -7,7 +7,7 @@ const Spacing = () => (
     <View style={{ height: 20, width: "100%" }} />
 );
 
-export default function RecipeSearch() {
+export default function RecipeSearch({ navigation }) {
 
     const DATA = [
         {
@@ -39,7 +39,7 @@ export default function RecipeSearch() {
                     alignItems: "center",
                 }}
                 renderItem={({ item }) => (
-                    <RecipeButton title={item.title} image={item.image} />
+                    <RecipeButton navigation={navigation} title={item.title} image={item.image} />
                 )}
                 ItemSeparatorComponent={Spacing()}
             />

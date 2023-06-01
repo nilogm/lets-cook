@@ -4,13 +4,13 @@ import styles from "./style";
 
 const Spacing = () => (
     <View style={{ height: 10, width: "100%" }} />
-  );
+);
 
-export default function RecipeAccordion({title, data} : {title: string, data: const[]}){
+export default function RecipeAccordion({ title, data }: { title: string, data: const[] }) {
 
     const [open, setOpen] = useState(true)
 
-    const onPress = (link) => { 
+    const onPress = (link) => {
         setOpen(!open)
         LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
     }
@@ -21,15 +21,15 @@ export default function RecipeAccordion({title, data} : {title: string, data: co
                 <Text style={styles.title}>{title}</Text>
             </Pressable>
             {
-                open && 
-                <FlatList 
+                open &&
+                <FlatList
                     data={data}
-                    renderItem={({item}) => <Text style={{marginLeft: 20}}>
-                                                <Text style={styles.item_header}>{item.header}</Text>
-                                                <Text style={styles.item_info}>{item.info}</Text>
-                                            </Text>}
-                    ListHeaderComponent={ Spacing() }
-                    ListFooterComponent={ Spacing() }
+                    renderItem={({ item }) => <Text style={{ marginLeft: 20 }}>
+                        <Text style={styles.item_header}>{item.header}</Text>
+                        <Text style={styles.item_info}>{item.info}</Text>
+                    </Text>}
+                    ListHeaderComponent={Spacing()}
+                    ListFooterComponent={Spacing()}
                 />
             }
         </View>
