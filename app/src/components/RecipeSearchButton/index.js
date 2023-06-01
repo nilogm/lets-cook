@@ -1,10 +1,10 @@
 import { Text, View, ImageBackground, Pressable } from "react-native";
 import styles from "./style";
-import TagInput from "../../TagInput";
-import TagContainer from "../../TagContainer";
+import TagInput from "../TagInput";
+import TagContainer from "../TagContainer";
 import { LinearGradient } from 'expo-linear-gradient';
 
-export default function RecipeButton({ navigation, title, image }: { title: string, image: var }) {
+export default function RecipeSearchButton({ navigation, title, image }: { title: string, image: var }) {
     const tagList = [
         { name: "banana" },
         { name: "maçã" },
@@ -21,7 +21,6 @@ export default function RecipeButton({ navigation, title, image }: { title: stri
                     </View>
                 </ImageBackground>
             </View>
-
 
             <View style={styles.info_container}>
                 <LinearGradient
