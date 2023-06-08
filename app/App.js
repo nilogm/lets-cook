@@ -10,44 +10,39 @@ import Home from "./src/pages/Home"
 import Search from "./src/pages/Search"
 import Recipe from "./src/pages/Recipe"
 
-import { useState, useEffect } from "react";
-
 const Stack = createNativeStackNavigator();
-
-const getRecipes = async (ingredients, macros) => {
-  try {
-    var instrucoes;
-
-    instrucoes = {
-      "modoPreparo": [
-      ]
-    }
-    const numberofRecipes = 2;
-    const response = await fetch('https://api.spoonacular.com/recipes/complexSearch?apiKey=ed5efa73e002400393a5034f3327b3c4&includeIngredients=' + ingredients + '&'
-      + macros + '&number=' + numberofRecipes);
-    const json = await response.json();
-    return json.results;
-  } catch (error) {
-    console.error(error);
-  } finally {
-  }
-  return null;
-};
 
 
 function App() {
+  
+  const [isLoading, setLoading] = useState(true);
+  const [data, setData] = useState([]);
 
-  const [data, setData] = useState(null);
-  const [recipes, setRecipes] = useState(null);
+  const getRecipes = async (ingredients, macros) => {
+    try {          
+      
+      const numberofRecipes = 2;
+      const response = await fetch('https://api.spoonacular.com/recipes/complexSearch?apiKey=ed5efa73e002400393a5034f3327b3c4&addRecipeInformation=true&includeIngredients=' + ingredients +'&' 
+                                  + macros + '&number='+numberofRecipes);
+      const json = await response.json();    
+      
+      setData(json.results);    
+    
+    } catch (error) {
+      console.error(error);
+    } finally {
+    setLoading(false);
+      }
+  };
 
-  ingredients = "tomato,cheese";
-  macros = "maxFat=25&maxCholesterol=100";
+  const ingredients = "tomato,cheese";
+  const macros = "maxFat=25&maxCholesterol=100";
 
   useEffect(() => {
-    setRecipes(getRecipes(ingredients, macros));
+    getRecipes(ingredients, macros);
   }, []);
-  console.log(recipes);
 
+  console.log(data);
   return (
     <NavigationContainer>
       <Stack.Navigator>
