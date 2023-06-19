@@ -2,53 +2,48 @@ import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
     container: {
-        paddingHorizontal: 20
+        paddingHorizontal: 10,
+        alignContent: "center",
     },
     image_container: {
-        height: 120,
+        height: 100,
+        flexDirection: "row",
     },
     info_container: {
+        height: "100%",
+        width: "70%",
         backgroundColor: "white",
-        paddingBottom: 10,
     },
     tag_container: {
-        paddingHorizontal: 10,
-        paddingVertical: 2,
+        width: "100%",
+        backgroundColor: "#DDDDDD88",
+    },
+    taglist_container: {
+        paddingTop: 2,
+        paddingBottom: 7,
     },
     image: {
         height: "100%",
-        width: 150,
-    },
-    filter: {
-        backgroundColor: "#00000040",
-        height: "100%",
-        width: "100%",
-    },
-    title: {
-        fontWeight: "bold",
-        fontSize: 28,
-        color: "white",
-        padding: 10,
-        paddingLeft: 15,
-        position: 'absolute',
-    },
-    information_title: {
-        fontWeight: "bold",
-        fontSize: 16,
-        color: "white",
-        padding: 10,
-        position: 'absolute',
-    },
-    information_text: {
-        fontSize: 16,
-        position: 'absolute',
-        bottom: 0,
-        paddingLeft: 15,
-        padding: 10,
-        color: "white",
+        width: "30%",
     },
     text: {
         paddingLeft: 15,
+        paddingRight: 10,
+    },
+    title: {
+        paddingTop: 10,
+        fontSize: 20,
+        color: "black",
+    },
+    information_text: {
+        fontSize: 16,
+        color: "gray",
+        fontStyle: "italic",
+    },
+    tag_title:{
+        paddingLeft: 10,
+        fontSize: 16,
+        color: "black",
     },
     gradient: {
         height: 10

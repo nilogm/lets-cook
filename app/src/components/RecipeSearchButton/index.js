@@ -5,10 +5,13 @@ import TagContainer from "../TagContainer";
 import { LinearGradient } from 'expo-linear-gradient';
 
 export default function RecipeSearchButton({ navigation, title, image }: { title: string, image: var }) {
-    const tagList = [
-        { name: "banana" },
+    const ingredientes = [
         { name: "maçã" },
         { name: "aveia" },
+    ];
+    const macros = [
+        { name: "protein", value: 10, unit: "g" },
+        { name: "fat", value: 2, unit: "g" },
     ];
 
     return (
@@ -21,22 +24,16 @@ export default function RecipeSearchButton({ navigation, title, image }: { title
                 </View>
             </View>
 
-            {/* <View style={styles.info_container}>
+            <View style={styles.tag_container}>
                 <LinearGradient
-                    colors={["#00000070", 'transparent']}
+                    colors={["#00000030", 'transparent']}
                     style={styles.gradient}
                 />
 
-                {<Text style={[styles.information_title, styles.text]}>Macros:</Text>
-                <View style={styles.tag_container}>
-                    <TagContainer tagList={tagList}></TagContainer>
+                <View style={styles.taglist_container}>
+                    <TagContainer tagList={[...ingredientes, ...macros]}></TagContainer>
                 </View>
-
-                <Text style={[styles.information_title, styles.text]}>Macros:</Text>
-                <View style={styles.tag_container}>
-                    <TagContainer tagList={tagList}></TagContainer>
-                </View> }
-            </View> */}
+            </View>
 
             <LinearGradient
                 colors={["#00000020", 'transparent']}
