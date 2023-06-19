@@ -4,33 +4,21 @@ import styles from './style.js'
 import { useState } from 'react';
 
 
-export default function TagContainer({ tagList, enableCancelButton = false }) {
-
-    const [tagList_, setList] = useState(
-        [
-            { name: "min cals: 247 kcal" },
-            { name: "min prot: 10 g" },
-            { name: "min prot: 10 g" },
-            { name: "min prot: 10 g" },
-            { name: "min prot: 10 g" },
-        ]
-    )
-
-    const deleteItemByTag = (tag) => {
-        // const filteredData = tagList.filter(item => item.tag !== tag)
-        // setList(filteredData)
-    }
+export default function TagContainer({ tagList, cancelHandler = null, enableCancelButton = false }) {
 
     return (
         <FlatList
-            columnWrapperStyle={{
-                flexWrap: "wrap"
-            }}
-            numColumns={tagList_.length}
-            data={tagList_}
+            key={tagList.length}
+            columnWrapperStyle={
+                tagList.length > 1 && styles.items
+            }
+            style={styles.container}
+            numColumns={tagList.length}
+            data={tagList}
             renderItem={({ item }) => (
-                <TagIcon name={item.name} handler={deleteItemByTag} enableCancelButton={enableCancelButton} />
-            )}
+                <TagIcon tag={item} cancelHandler={cancelHandler} enableCancelButton={enableCancelButton} />
+            )
+            }
         />
     )
 }

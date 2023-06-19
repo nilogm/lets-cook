@@ -1,30 +1,31 @@
-import React, { useState } from "react";
-import { TextInput, Text, View, Button, FlatList, Pressable } from "react-native";
+import React, { useRef, useState } from "react";
+import { TextInput, View } from "react-native";
 import styles from "./style";
-import TagIcon from "../TagIcon";
 import TagContainer from "../TagContainer";
 
-export default function TagInput({ inputText, startingItems }) {
+export default function TagInput({ inputText, list, manager }) {
 
-    const [tagList, setList] = useState([])
+    const mainInput = useRef();
 
     const [input, setInput] = useState(null)
 
-    const addTag = (name) => {
-        if (!name) return
-
-        const filteredData = tagList.filter(item => item.tag === name)
+    const addTag = (tagName) => {
+        if (!tagName) return
+        const filteredData = list.filter(item => item.name === tagName)
         if (filteredData.length > 0)
             return
 
-        var newArray = [...tagList, { tag: name }]
+        var newArray = [...list, { name: tagName }]
         setInput(null)
-        setList(newArray)
+        manager(newArray)
+
+        mainInput.current.focus()
     }
 
-    const deleteItemByTag = (tag) => {
-        const filteredData = tagList.filter(item => item.tag !== tag)
-        setList(filteredData)
+    const deleteTag = (tagName) => {
+        if (!tagName) return
+        const filteredData = list.filter(item => item.name !== tagName)
+        manager(filteredData)
     }
 
     return (
@@ -35,8 +36,12 @@ export default function TagInput({ inputText, startingItems }) {
                 value={input}
                 onChangeText={setInput}
                 onSubmitEditing={() => addTag(input)}
+                returnKeyType="search"
+                blurOnSubmit={false}
+                selectTextOnFocus={true}
+                ref={mainInput}
             />
-            <TagContainer tagList={tagList} />
+            <TagContainer tagList={list} enableCancelButton={true} cancelHandler={deleteTag} />
         </View>
     );
 }
