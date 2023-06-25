@@ -45,8 +45,8 @@ export default function TagInput({ inputText, list, manager }) {
                     value={value}
                     onChangeText={setValue}
                     onSubmitEditing={() => addTag(input, value)}
-                    returnKeyType="search"
-                    keyboardType="numeric"
+                    // returnKeyType="search"
+                    keyboardType='decimal-pad'
                     selectTextOnFocus={true}
                     ref={numInput}
                 />

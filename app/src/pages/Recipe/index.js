@@ -1,7 +1,8 @@
 import { View, Text, Pressable } from "react-native";
 import RecipePage from '../../components/RecipePage';
+import SimilarRecipes from "../../components/SimilarRecipes";
 
-export default function Recipe() {
+export default function Recipe({ navigation}) {
 
     const info = [
         {
@@ -61,7 +62,11 @@ export default function Recipe() {
                 ingredients={ingre}
                 preparo={modo}
                 image={require("../../assets/salada.jpg")}
+                navigation={navigation}
             />
+            <SimilarRecipes>
+                
+            </SimilarRecipes>
         </View>
     );
 }
