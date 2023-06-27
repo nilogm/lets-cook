@@ -10,6 +10,7 @@ To start the npm server, run:
 
 ```bash
 cd app
+npm install
 npm start
 ```
 

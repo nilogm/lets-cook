@@ -4,6 +4,7 @@ import TagInput from '../../components/TagInput';
 import MacroInput from '../../components/MacroInput';
 import { useState, useEffect} from 'react';
 
+
 export default function Home({ navigation }) {
     
     const [data, setData] = useState([]);
@@ -35,11 +36,6 @@ export default function Home({ navigation }) {
         //     getRecipes(ingredients, macros);
         // }, []);
     }
-    
-
-    console.log(data);
-
-   
 
     const makeSearch = () => {
         let ingredient_search = '';
@@ -53,8 +49,6 @@ export default function Home({ navigation }) {
 
         return [ingredient_search, macro_search];
     }
-
-    //console.log(makeSearch())
 
     return (
         <View style={styles.container}>
