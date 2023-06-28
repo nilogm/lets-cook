@@ -7,58 +7,8 @@ import { LinearGradient } from 'expo-linear-gradient';
 import styles from "./style";
 
 
-export default function Recipe({ route, navigation }) {
-
-    const info = [
-        {
-            header: "Calorias: ",
-            info: "134 kcal"
-        },
-        {
-            header: "Tempo de preparo: ",
-            info: "20 minutos"
-        },
-    ]
-
-    const ingre = [
-        {
-            info: "5 folhas de alface",
-        },
-        {
-            info: "2 tomates",
-        },
-        {
-            info: "1/2 cebola",
-        },
-        {
-            info: "Sal e azeite a gosto",
-        },
-    ]
-
-    const modo = [
-        {
-            info: "Lave e corte o tomate em meias rodelas.",
-        },
-        {
-            info: "Lave e pique a cebola em quadradinhos pequenos.",
-        },
-        {
-            info: "Lave e rasgue as folhas de alface em tamanhos menores.",
-        },
-        {
-            info: "Coloque todos os ingredientes em uma vasilha e tempere com sal e azeite a gosto.",
-        },
-        {
-            info: "Coloque todos os ingredientes em uma vasilha e tempere com sal e azeite a gosto.",
-        },
-        {
-            info: "Coloque todos os ingredientes em uma vasilha e tempere com sal e azeite a gosto.",
-        },
-        {
-            info: "Coloque todos os ingredientes em uma vasilha e tempere com sal e azeite a gosto.",
-        },
-    ]
-
+export default function Recipe({ route, navigation }) {  
+    
     const recipe = route.params;
     const image = recipe.image;
 
@@ -76,6 +26,7 @@ export default function Recipe({ route, navigation }) {
             page: "Instructions"
         },
     ]
+
 
     return (
         <View>

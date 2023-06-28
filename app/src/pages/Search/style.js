@@ -11,6 +11,18 @@ const styles = StyleSheet.create({
     gradient:{
         marginBottom: 10,
         height: 10,
+    },
+    loadMoreView: {
+        paddingTop:40,                
+    },
+    loadMorePressable: {
+        backgroundColor: "orange",        
+        paddingLeft: 150,
+        alignContent:"center"
+    },
+    loadMoreText: {
+        fontSize:25, 
+        color: "white"       
     }
 });
 

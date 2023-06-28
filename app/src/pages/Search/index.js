@@ -1,27 +1,13 @@
-import { FlatList, View } from "react-native";
+import { FlatList, Pressable, View, Text } from "react-native";
 import RecipeSearchButton from "../../components/RecipeSearchButton"
 import TagIcon from "../../components/TagIcon";
 import styles from "./style";
 import { LinearGradient } from "expo-linear-gradient";
 
-export default function RecipeSearch({ navigation }) {
+export default function RecipeSearch({ route, navigation }) {
 
-    const results = [
-        {
-            "id": 715495,
-            "image": "https://spoonacular.com/recipeImages/715495-312x231.jpg",
-            "imageType": "jpg",
-            "nutrition": { "nutrients": [] },
-            "title": "Turkey Tomato Cheese Pizza"
-        },
-        {
-            "id": 715421,
-            "image": "https://spoonacular.com/recipeImages/715421-312x231.jpg",
-            "imageType": "jpg",
-            "nutrition": { "nutrients": [] },
-            "title": "Cheesy Chicken Enchilada Quinoa Casserole"
-        }
-    ]
+    const results = route.params   
+    console.log(route)
 
     const ingredients = [
         { name: "tomato" },
@@ -30,7 +16,8 @@ export default function RecipeSearch({ navigation }) {
     const macros = [
         { name: "maxFat", value: 10, unit: "g" },
         { name: "maxCholesterol", value: 2, unit: "g" }
-    ];
+    ];    
+        
 
     return (
         <View>
@@ -39,7 +26,7 @@ export default function RecipeSearch({ navigation }) {
                     horizontal={true}
                     scrollEnabled={true}
                     showsHorizontalScrollIndicator={false}
-                    data={[...ingredients, ...macros]}
+                    data={[...ingredients, ...macros]}                    
                     renderItem={({ item }) => (<TagIcon tag={item} />)}
                 />
             </View>
@@ -48,13 +35,26 @@ export default function RecipeSearch({ navigation }) {
                 style={styles.gradient}
             />
             <FlatList
+                style={{height:600}}
                 vertical={true}
                 scrollEnabled={true}
                 data={results}
                 contentContainerStyle={{ alignItems: "center" }}
-                renderItem={({ item }) => (<RecipeSearchButton navigation={navigation} title={item.title} image={item.image} />)}
+                renderItem={({ item, index}) => (
+                <RecipeSearchButton 
+                    navigation={navigation} title={item.title} image={item.image} 
+                    servings={item.servings} cookingTime={item.readyInMinutes} 
+                    results={results} index={index}
+                />)}
                 ItemSeparatorComponent={<View style={{ height: 5, width: "100%" }} />}
-            />
+            />     
+            <View style={styles.loadMoreView}>
+                <Pressable style= {styles.loadMorePressable} >
+                    <Text style={styles.loadMoreText}>Load More</Text>               
+                </Pressable>
+            </View>     
+
+
         </View>
     )
 }
