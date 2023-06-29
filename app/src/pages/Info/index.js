@@ -4,7 +4,7 @@ import styles from "./style";
 export default function Info({ route, navigation }) {
 
     const summary = route.params.summary;
-
+ 
     return (
         <View style={styles.container}>
             <Text style={styles.infoText}>

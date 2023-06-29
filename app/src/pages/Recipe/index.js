@@ -52,7 +52,7 @@ export default function Recipe({ route, navigation }) {
                 />
 
             </View>
-            <SimilarRecipes>
+            <SimilarRecipes id={recipe.id}>
 
             </SimilarRecipes>
         </View>

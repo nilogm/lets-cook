@@ -14,20 +14,23 @@ export default function Home({ navigation }) {
             const numberofRecipes = 7;
 
             const url = 'https://api.spoonacular.com/recipes/complexSearch?apiKey=ed5efa73e002400393a5034f3327b3c4&addRecipeInformation=true&includeIngredients='
-            + ingredients_search +'&' + macros_search+ '&number='+numberofRecipes
+            + ingredients_search +'&' + macros_search+ '&number='+numberofRecipes+"&&fillIngredients=true"
             console.log(url)
 
             const response = await fetch(url);
             
-            const json = await response.json();                
-      
-            setData(json.results);       
-            // console.log(json.results[0].title)
-            // console.log(json.results[0].image)
-            // console.log(json.results[0].readyInMinutes)
-            // console.log(json.results[0].servings)
+            const json = await response.json();     
+            
+            
+            const send = {
+                results: json.results,
+                source: url,
+                ingredientsUsed: ingredients,
+                macrosUsed: macros
+            }
+          
             return (
-                navigation.navigate('Search', json.results, url, ingredients, macros)
+                navigation.navigate('Search', send)
             )
     
         } catch (error) {

@@ -13,17 +13,18 @@ const styles = StyleSheet.create({
         height: 10,
     },
     loadMoreView: {
-        paddingTop:40,                
+        paddingTop: 40,
     },
     loadMorePressable: {
-        backgroundColor: "orange",        
+        backgroundColor: "orange",
         paddingLeft: 150,
-        alignContent:"center"
+        alignContent: "center"
     },
     loadMoreText: {
-        fontSize:25, 
-        color: "white"       
+        fontSize: 25,
+        color: "white"
     }
+    
 });
 
 export default styles

@@ -1,50 +1,42 @@
-import { View, Text, Pressable, Button, FlatList, Image } from "react-native";
+import React, { useState } from 'react';
+import { View, Text, Pressable, Button, FlatList, Image,  } from "react-native";
 import styles from "./style";
 
+const getSubstitutes = async (id) => {
+    try {     
 
-const data = [
-    {
-        id: 0,
-        image: "https://spoonacular.com/cdn/ingredients_100x100/butter-sliced.jpg",
-        name: "Butter",
-        amount: 100,
-        unit: "g",
-        replaceable: true
-    },
-    {
-        id: 1,
-        image: "https://spoonacular.com/cdn/ingredients_100x100/apple.jpg",
-        name: "Apples",
-        amount: 4,
-        unit: "",
-        replaceable: false
-    },
-    {
-        id: 2,
-        image: "https://spoonacular.com/cdn/ingredients_100x100/apricot-jam.jpg",
-        name: "Apricot preserves",
-        amount: 3,
-        unit: "",
-        replaceable: true
+        url = 'https://api.spoonacular.com/food/ingredients/{id}/substitutes?apiKey=ed5efa73e002400393a5034f3327b3c4'      
+
+        const response = await fetch(url);
+        
+        const json = await response.json();  
+       
+
+    } catch (error) {
+        console.error(error);
     }
-]
+};
 
 
-export default function Ingredients() {
-
+export default function Ingredients( {route, navigation}) {
+    const recipe = route.params
+    const ingredients = recipe.extendedIngredients
+    
     return (
         <View>
             <FlatList
                 style={styles.container}
-                data={data}
+                data={ingredients}
                 scrollEnabled={true}
                 showsVerticalScrollIndicator={false}
                 renderItem={({ item }) => (
                     <View style={styles.ingredientContainer}>
-                        <Image source={{ uri: item.image }} style={styles.image} />
+                        {/* <Image source={{ uri: item.image }} style={styles.image} /> */}
                         <Text style={styles.textBox}>
-                            <Text style={styles.unit}>{item.amount}{item.unit} </Text>
-                            <Text style={styles.text}>{item.name}</Text>
+                            <Text style={styles.unit}>{item.measures.us.amount} {item.measures.us.unitShort} </Text>
+                            <Pressable style={styles.pressable} onPress={() => {getSubstitutes(item.id)}}>
+                                <Text style={styles.text}>{item.name}</Text>
+                            </Pressable>
                         </Text>
                     </View>
                 )}

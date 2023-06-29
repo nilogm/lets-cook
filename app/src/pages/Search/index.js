@@ -4,20 +4,36 @@ import TagIcon from "../../components/TagIcon";
 import styles from "./style";
 import { LinearGradient } from "expo-linear-gradient";
 
+
+const getMoreRecipes = async (url, results) => {
+    try {      
+
+        url = url + "&offset=7"        
+
+        const response = await fetch(url);
+        
+        const json = await response.json();  
+        const moreResults = json.results
+
+        for (i = 0; i < 7; i++) {   
+            if (results.includes(moreResults[i]))         
+                results.push(moreResults[i])
+        }
+
+    } catch (error) {
+        console.error(error);
+    }
+};
+
 export default function RecipeSearch({ route, navigation }) {
 
-    const results = route.params   
-    console.log(route)
+    const results = route.params.results
 
-    const ingredients = [
-        { name: "tomato" },
-        { name: "cheese" }
-    ];
-    const macros = [
-        { name: "maxFat", value: 10, unit: "g" },
-        { name: "maxCholesterol", value: 2, unit: "g" }
-    ];    
-        
+    const url = route.params.source
+
+    ingredients = route.params.ingredientsUsed
+    macros = route.params.macrosUsed
+
 
     return (
         <View>
@@ -26,7 +42,7 @@ export default function RecipeSearch({ route, navigation }) {
                     horizontal={true}
                     scrollEnabled={true}
                     showsHorizontalScrollIndicator={false}
-                    data={[...ingredients, ...macros]}                    
+                    data={[...ingredients, ...macros]}
                     renderItem={({ item }) => (<TagIcon tag={item} />)}
                 />
             </View>
@@ -34,27 +50,26 @@ export default function RecipeSearch({ route, navigation }) {
                 colors={["#00000030", 'transparent']}
                 style={styles.gradient}
             />
-            <FlatList
-                style={{height:600}}
+            <FlatList   
+                style={{height:700}}     
                 vertical={true}
                 scrollEnabled={true}
                 data={results}
                 contentContainerStyle={{ alignItems: "center" }}
-                renderItem={({ item, index}) => (
-                <RecipeSearchButton 
-                    navigation={navigation} title={item.title} image={item.image} 
-                    servings={item.servings} cookingTime={item.readyInMinutes} 
-                    results={results} index={index}
-                />)}
+                renderItem={({ item, index }) => (
+                    <RecipeSearchButton
+                        navigation={navigation} title={item.title} image={item.image}
+                        servings={item.servings} cookingTime={item.readyInMinutes}
+                        results={results} index={index}
+                    />)}
                 ItemSeparatorComponent={<View style={{ height: 5, width: "100%" }} />}
-            />     
-            <View style={styles.loadMoreView}>
-                <Pressable style= {styles.loadMorePressable} >
-                    <Text style={styles.loadMoreText}>Load More</Text>               
-                </Pressable>
-            </View>     
 
-
+                ListFooterComponent= { () => <View style={styles.loadMoreView}>
+                                                <Pressable style={styles.loadMorePressable}  onPress={()=>{getMoreRecipes(url, results)}}>
+                                                    <Text style={styles.loadMoreText}>Load More</Text>
+                                                </Pressable>
+                                            </View>}
+            />
         </View>
     )
 }

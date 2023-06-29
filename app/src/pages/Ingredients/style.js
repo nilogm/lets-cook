@@ -22,10 +22,15 @@ const styles = StyleSheet.create({
     text: {
         fontSize: 20,
         fontWeight: 300,
+        paddingTop:35
     },
     image:{
         height: "100%",
         aspectRatio: 1
+    },
+    pressable:{
+        paddingLeft:20,        
+        paddingTop:10
     }
 });
 
