@@ -11,18 +11,10 @@ const styles = StyleSheet.create({
         width: '80%',
         height: 50,
     },
-    inputBox: {
-        flexDirection: 'row',
-        height: 50,
-        paddingLeft: 20,
-        fontSize: 20
-    },
     macroBox: {
-        backgroundColor: "#FaFaFa",
         width: '75%',
     },
     valueBox: {
-        backgroundColor: "#FAFAFA",
         flex: 1,
         marginLeft: 10,
     },

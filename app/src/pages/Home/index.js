@@ -1,8 +1,9 @@
-import { View, Button, Text } from 'react-native';
+import { View, Button, Text, Pressable } from 'react-native';
 import styles from './style.js';
 import TagInput from '../../components/TagInput';
 import MacroInput from '../../components/MacroInput';
 import { useState, useEffect } from 'react';
+import TagDiet from '../../components/TagDiet/index.js';
 
 export default function Home({ navigation }) {
 
@@ -40,6 +41,7 @@ export default function Home({ navigation }) {
 
     const [ingredients, setIngredients] = useState([]);
     const [macros, setMacros] = useState([]);
+    const [diets, setDiets] = useState([]);
 
 
 
@@ -65,9 +67,13 @@ export default function Home({ navigation }) {
             <View style={styles.titleBox}>
                 <Text style={styles.title}>Let's cook!</Text>
             </View>
-            <TagInput inputText="Ingredient" list={ingredients} manager={setIngredients} />
-            <MacroInput inputText="Macros" list={macros} manager={setMacros} />
-            <Button title='Search' onPress={() => { makeSearch() }} />
+            <TagInput list={ingredients} manager={setIngredients} style={styles.inputBox}/>
+            <MacroInput list={macros} manager={setMacros} style={styles.inputBox}/>
+            <View style={{alignSelf: "center", width: "80%", height: 1, backgroundColor: "#AAAAAA", marginBottom: 20}}></View>
+            <TagDiet list={diets} manager={setDiets} style={styles.inputBox}></TagDiet>
+            <View style={{alignItems: 'center', justifyContent: "center", flex: 1}}>
+                <Pressable style={{ aspectRatio: 1, backgroundColor : "#FFAA33CC", height: 100, borderRadius: 50}} onPress={makeSearch}/>
+            </View>
         </View>
     )
 }

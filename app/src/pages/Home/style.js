@@ -14,7 +14,15 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 56,
         fontWeight: 300
-    }
+    },
+    inputBox: {
+        backgroundColor: "#FaFaFa",
+        flexDirection: 'row',
+        height: 50,
+        paddingLeft: 20,
+        fontSize: 16,
+        marginBottom: 10
+    },
 });
 
 export default styles

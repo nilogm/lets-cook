@@ -1,26 +1,19 @@
 import { View, Text, Pressable } from "react-native";
 import styles from "./style"
 
-/**
- * Creates _Tag_ instance with given name.
- * @param {string} name tag name.
- * @param {function} cancelHandler "close" button function handler (default: null).
- * @param {boolean} enableCancelButton (default: false).
- * @returns 
- */
-export default function TagIcon({ tag, focus = false, cancelHandler = null, enableCancelButton = false }: { focus : boolean, cancelHandler: function, enableCancelButton: boolean }) {
+type tag = {
+    name: string,
+    amount: double | int | undefined,
+    unit: string | undefined,
+}
 
-    const removeTag = () => {
-        if (enableCancelButton == true)
-            cancelHandler(tag.name)
-    }
+export default function TagIcon({ tag, style, focus = false, onClick = null }: { tag: tag, focus: boolean, onClick: function }) {
 
     return (
         <Pressable style={styles.boxContainer}
-            onPress={() => removeTag()}>
+            onPress={() => {onClick(tag)}}>
             {/* change color based on macro */}
-            {/* icon */}
-            {/* <Image></Image> */}
+            {/* add icon */}
             <Text style={[styles.text, focus ? styles.textFocus : styles.textLesser]}>
                 <Text>{tag.name}</Text>
                 {

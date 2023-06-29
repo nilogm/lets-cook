@@ -4,8 +4,7 @@ import styles from './style.js'
 import { useState } from 'react';
 
 
-export default function TagContainer({ tagList, cancelHandler = null, enableCancelButton = false } : {tagList : Array, cancelHandler : function}) {
-
+export default function TagContainer({ tagList, focus = false, onClick = null }: { tagList: Array, onClick: function }) {
     return (
         <FlatList
             key={tagList.length}
@@ -16,7 +15,7 @@ export default function TagContainer({ tagList, cancelHandler = null, enableCanc
             numColumns={tagList.length}
             data={tagList}
             renderItem={({ item }) => (
-                <TagIcon tag={item} cancelHandler={cancelHandler} enableCancelButton={enableCancelButton} />
+                <TagIcon tag={item} focus={focus} onClick={onClick} />
             )
             }
         />
