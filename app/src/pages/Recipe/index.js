@@ -35,8 +35,11 @@ export default function Recipe({ route, navigation }) {
                     <View style={styles.headerContainer}>
                         <Text style={styles.headerTitle} numberOfLines={2}>{recipe.title}</Text>
                         <View style={{ marginTop: 5 }}>
-                            <Text style={styles.headerInformation}>{recipe.servings} servings</Text>
                             <Text style={styles.headerInformation}>{recipe.readyInMinutes} minutes</Text>
+                            <Text style={styles.headerInformation}>
+                                <Text>{recipe.servings} serving</Text>
+                                {recipe.servings > 1 && <Text>s</Text>}
+                            </Text>
                         </View>
                     </View>
                 </View>

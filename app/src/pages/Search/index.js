@@ -6,17 +6,17 @@ import { LinearGradient } from "expo-linear-gradient";
 
 
 const getMoreRecipes = async (url, results) => {
-    try {      
+    try {
 
-        url = url + "&offset=7"        
+        url = url + "&offset=7"
 
         const response = await fetch(url);
-        
-        const json = await response.json();  
+
+        const json = await response.json();
         const moreResults = json.results
 
-        for (i = 0; i < 7; i++) {   
-            if (results.includes(moreResults[i]))         
+        for (i = 0; i < 7; i++) {
+            if (results.includes(moreResults[i]))
                 results.push(moreResults[i])
         }
 
@@ -36,7 +36,7 @@ export default function RecipeSearch({ route, navigation }) {
     macros = data.macrosUsed
 
     return (
-        <View>
+        <View style={{ flex: 1 }}>
             <View style={styles.container}>
                 <FlatList
                     horizontal={true}
@@ -46,14 +46,17 @@ export default function RecipeSearch({ route, navigation }) {
                     renderItem={({ item }) => (<TagIcon tag={item} />)}
                 />
             </View>
+
             <LinearGradient
                 colors={["#00000030", 'transparent']}
                 style={styles.gradient}
             />
-            <FlatList   
-                style={{height:700}}     
+
+            <FlatList
+                style={styles.list}
                 vertical={true}
                 scrollEnabled={true}
+                showsVerticalScrollIndicator={false}
                 data={results}
                 contentContainerStyle={{ alignItems: "center" }}
                 renderItem={({ item, index }) => (
@@ -61,13 +64,12 @@ export default function RecipeSearch({ route, navigation }) {
                         navigation={navigation} data={item}
                         results={results} index={index}
                     />)}
-                ItemSeparatorComponent={<View style={{ height: 5, width: "100%" }} />}
-
-                ListFooterComponent= { () => <View style={styles.loadMoreView}>
-                                                <Pressable style={styles.loadMorePressable}  onPress={()=>{getMoreRecipes(url, results)}}>
-                                                    <Text style={styles.loadMoreText}>Load More</Text>
-                                                </Pressable>
-                                            </View>}
+                ItemSeparatorComponent={<View style={{ height: 10, width: "100%" }} />}
+                ListFooterComponent={
+                    <Pressable style={styles.loadMorePressable} onPress={() => { getMoreRecipes(url, results) }}>
+                        <Text style={styles.loadMoreText}>Load More</Text>
+                    </Pressable>
+                }
             />
         </View>
     )

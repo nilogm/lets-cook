@@ -3,16 +3,15 @@ import { StyleSheet } from "react-native";
 const styles = StyleSheet.create({
     mainContainer: {
         alignItems: "center",
-        paddingBottom: 20
+        paddingBottom: 10,
     },
     inputBox: {
-        backgroundColor: "#eeeeee",
+        backgroundColor: "#FaFaFa",
         flexDirection: 'row',
         width: '80%',
         height: 50,
-        marginVertical: 10,
         paddingLeft: 20,
-        fontSize: 20,
+        fontSize: 20
     }
 });
 

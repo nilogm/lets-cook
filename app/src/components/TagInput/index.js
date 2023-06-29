@@ -7,7 +7,7 @@ export default function TagInput({ inputText, list, manager }) {
 
     const mainInput = useRef();
 
-    const [input, setInput] = useState(null)
+    const [input, setInput] = useState('')
 
     const addTag = (tagName) => {
         if (!tagName) return

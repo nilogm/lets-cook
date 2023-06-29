@@ -23,8 +23,6 @@ type Search = {
 };
 
 export default function RecipeSearchButton({ navigation, data, results, index }: { data: Search, results: JSON, index: int }) {
-
-    console.log(data.nutrition);
     var nutrients = [];
 
     if (data.nutrition != undefined)
@@ -40,7 +38,7 @@ export default function RecipeSearchButton({ navigation, data, results, index }:
                 <View style={styles.info_container}>
                     <Text style={[styles.text, styles.title]} numberOfLines={2}>{data.title}</Text>
                     <Text style={[styles.text, styles.information_text]}>
-                        <Text>{data.readyInMinutes}' . </Text>
+                        <Text>{data.readyInMinutes}' • </Text>
                         <Text>
                             <Text>{data.servings} serving</Text>
                             {data.servings > 1 && <Text>s</Text>}
@@ -57,7 +55,7 @@ export default function RecipeSearchButton({ navigation, data, results, index }:
                 />
 
                 <View style={styles.taglist_container}>
-                    <TagContainer tagList={[...ingredients, ...nutrients]}></TagContainer>
+                    <TagContainer tagList={[...ingredients, ...nutrients, {name: '...'}]}></TagContainer>
                 </View>
             </View>
 

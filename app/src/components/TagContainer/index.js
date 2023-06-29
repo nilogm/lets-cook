@@ -6,17 +6,15 @@ import { useState } from 'react';
 
 export default function TagContainer({ tagList, cancelHandler = null, enableCancelButton = false } : {tagList : Array, cancelHandler : function}) {
 
-    var longTagList = [...tagList.slice(0, 4), {name: "..."}];
-
     return (
         <FlatList
-            key={longTagList.length}
+            key={tagList.length}
             columnWrapperStyle={
-                longTagList.length > 1 && styles.items
+                tagList.length > 1 && styles.items
             }
             style={styles.container}
-            numColumns={longTagList.length}
-            data={longTagList}
+            numColumns={tagList.length}
+            data={tagList}
             renderItem={({ item }) => (
                 <TagIcon tag={item} cancelHandler={cancelHandler} enableCancelButton={enableCancelButton} />
             )
