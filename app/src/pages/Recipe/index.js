@@ -1,6 +1,5 @@
 import React from "react";
 import { Text, View, FlatList, Image, ImageBackground, Pressable, ScrollView } from "react-native";
-import RecipePage from '../../components/RecipePage';
 import SimilarRecipes from "../../components/SimilarRecipes";
 import RecipeInformationButton from "../../components/RecipeInformationButton";
 import { LinearGradient } from 'expo-linear-gradient';
@@ -10,7 +9,6 @@ import styles from "./style";
 export default function Recipe({ route, navigation }) {  
     
     const recipe = route.params;
-    const image = recipe.image;
 
     const blocks = [
         {
@@ -27,12 +25,13 @@ export default function Recipe({ route, navigation }) {
         },
     ]
 
+    navigation.setOptions({ title: route.params.title })
 
     return (
         <View>
             <View>
                 <View style={styles.container}>
-                    <Image source={{ uri: image }} style={styles.image}></Image>
+                    <Image source={{ uri: recipe.image }} style={styles.image}></Image>
                     <View style={styles.headerContainer}>
                         <Text style={styles.headerTitle} numberOfLines={2}>{recipe.title}</Text>
                         <View style={{ marginTop: 5 }}>

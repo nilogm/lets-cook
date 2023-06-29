@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
     },
     items: {
         justifyContent: "center",
-        flexWrap: "wrap"
+        flexWrap: "wrap",
     }
 });
 

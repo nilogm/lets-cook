@@ -8,8 +8,7 @@ const getSubstitutes = async (id) => {
         url = 'https://api.spoonacular.com/food/ingredients/{id}/substitutes?apiKey=ed5efa73e002400393a5034f3327b3c4'      
 
         const response = await fetch(url);
-        
-        const json = await response.json();  
+        const json = await response.json();
        
 
     } catch (error) {
@@ -19,8 +18,8 @@ const getSubstitutes = async (id) => {
 
 
 export default function Ingredients( {route, navigation}) {
-    const recipe = route.params
-    const ingredients = recipe.extendedIngredients
+    const recipe = route.params;
+    const ingredients = recipe.extendedIngredients;
     
     return (
         <View>
@@ -32,12 +31,12 @@ export default function Ingredients( {route, navigation}) {
                 renderItem={({ item }) => (
                     <View style={styles.ingredientContainer}>
                         {/* <Image source={{ uri: item.image }} style={styles.image} /> */}
-                        <Text style={styles.textBox}>
-                            <Text style={styles.unit}>{item.measures.us.amount} {item.measures.us.unitShort} </Text>
-                            <Pressable style={styles.pressable} onPress={() => {getSubstitutes(item.id)}}>
+                        <View style={styles.textBox}>
+                            <Text style={styles.unit}>{item.measures.us.amount} {item.unit}  </Text>
+                            <Pressable style={{backgroundColor: "#AFAFAFA0"}} onPress={() => {getSubstitutes(item.id)}}>
                                 <Text style={styles.text}>{item.name}</Text>
                             </Pressable>
-                        </Text>
+                        </View>
                     </View>
                 )}
                 ItemSeparatorComponent={<View style={{ height: 10, width: "100%" }} />}

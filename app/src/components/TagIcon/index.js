@@ -8,7 +8,7 @@ import styles from "./style"
  * @param {boolean} enableCancelButton (default: false).
  * @returns 
  */
-export default function TagIcon({ tag, cancelHandler = null, enableCancelButton = false }: { cancelHandler: function, enableCancelButton: boolean }) {
+export default function TagIcon({ tag, focus = false, cancelHandler = null, enableCancelButton = false }: { focus : boolean, cancelHandler: function, enableCancelButton: boolean }) {
 
     const removeTag = () => {
         if (enableCancelButton == true)
@@ -21,11 +21,13 @@ export default function TagIcon({ tag, cancelHandler = null, enableCancelButton 
             {/* change color based on macro */}
             {/* icon */}
             {/* <Image></Image> */}
-            <Text style={styles.textTitle}>{tag.name}</Text>
-            {
-                (tag.value != null) &&
-                <Text style={styles.textTitle}> {tag.value}{tag.unit}</Text>
-            }
+            <Text style={[styles.text, focus ? styles.textFocus : styles.textLesser]}>
+                <Text>{tag.name}</Text>
+                {
+                    (tag.amount != null) &&
+                    <Text style={styles.textLesserContent}>: {tag.amount} {tag.unit}</Text>
+                }
+            </Text>
         </Pressable>
     )
 

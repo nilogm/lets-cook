@@ -3,29 +3,50 @@ import styles from "./style";
 import TagInput from "../TagInput";
 import TagContainer from "../TagContainer";
 import { LinearGradient } from 'expo-linear-gradient';
+import { useState } from "react";
 
-export default function RecipeSearchButton({ navigation, title, image, servings, cookingTime, results, index }: 
-                                    { title: string, image: var, servings: string, cookingTime: string, results: JSON, index: int }) {
-    const ingredientes = [
-        { name: "maçã" },
-        { name: "aveia" },
-    ];
-    const macros = [
-        { name: "protein", value: 10, unit: "g" },
-        { name: "fat", value: 2, unit: "g" },
-    ];
+type Search = {
+    title: string,
+    image: var,
+    cookingMinutes: string,
+    preparationMinutes: string,
+    readyInMinutes: string,
+    servings: string,
+    dishTypes: Array,
+    diets: Array,
+    dairyFree: boolean,
+    vegan: boolean,
+    vegetarian: boolean,
+    healthScore: int,
+    nutrition: Array | undefined,
+    missedIngredients: Array
+};
 
-    
+export default function RecipeSearchButton({ navigation, data, results, index }: { data: Search, results: JSON, index: int }) {
+
+    console.log(data.nutrition);
+    var nutrients = [];
+
+    if (data.nutrition != undefined)
+        nutrients = data.nutrition.nutrients;
+    const ingredients = data.missedIngredients;
 
     return (
         <Pressable style={styles.container} onPress={() => {
             navigation.navigate('Recipe', results[index]);
         }}>
             <View style={styles.image_container}>
-                <Image source={{ uri: image }} style={styles.image} />
+                <Image source={{ uri: data.image }} style={styles.image} />
                 <View style={styles.info_container}>
-                    <Text style={[styles.text, styles.title]} numberOfLines={2}>{title}</Text>
-                    <Text style={[styles.text, styles.information_text]}>{cookingTime}' . {servings} servings</Text>
+                    <Text style={[styles.text, styles.title]} numberOfLines={2}>{data.title}</Text>
+                    <Text style={[styles.text, styles.information_text]}>
+                        <Text>{data.readyInMinutes}' . </Text>
+                        <Text>
+                            <Text>{data.servings} serving</Text>
+                            {data.servings > 1 && <Text>s</Text>}
+                        </Text>
+                    </Text>
+
                 </View>
             </View>
 
@@ -36,7 +57,7 @@ export default function RecipeSearchButton({ navigation, title, image, servings,
                 />
 
                 <View style={styles.taglist_container}>
-                    <TagContainer tagList={[...ingredientes, ...macros]}></TagContainer>
+                    <TagContainer tagList={[...ingredients, ...nutrients]}></TagContainer>
                 </View>
             </View>
 

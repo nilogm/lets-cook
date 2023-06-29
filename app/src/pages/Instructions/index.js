@@ -17,8 +17,7 @@ function getIngredientsTotal(steps) {
 
 export default function Instructions({ route, navigation }) {
 
-	const steps = route.params.analyzedInstructions[0].steps  
-
+	const steps = route.params.analyzedInstructions[0].steps
 	
 	return (
 		<View>
@@ -31,10 +30,9 @@ export default function Instructions({ route, navigation }) {
 					return (
 						<View style={styles.textContainer}>
 							<Text>
-								<Text style={styles.number}>{item.number}.</Text>
+								<Text style={styles.number}>{item.number}. </Text>
 								<Text style={styles.text}>
-												
-								
+
 								</Text>
 							</Text>
 						

@@ -27,13 +27,13 @@ const getMoreRecipes = async (url, results) => {
 
 export default function RecipeSearch({ route, navigation }) {
 
-    const results = route.params.results
+    const data = route.params;
 
-    const url = route.params.source
+    const results = data.results;
+    const url = data.source;
 
-    ingredients = route.params.ingredientsUsed
-    macros = route.params.macrosUsed
-
+    ingredients = data.ingredientsUsed
+    macros = data.macrosUsed
 
     return (
         <View>
@@ -58,8 +58,7 @@ export default function RecipeSearch({ route, navigation }) {
                 contentContainerStyle={{ alignItems: "center" }}
                 renderItem={({ item, index }) => (
                     <RecipeSearchButton
-                        navigation={navigation} title={item.title} image={item.image}
-                        servings={item.servings} cookingTime={item.readyInMinutes}
+                        navigation={navigation} data={item}
                         results={results} index={index}
                     />)}
                 ItemSeparatorComponent={<View style={{ height: 5, width: "100%" }} />}

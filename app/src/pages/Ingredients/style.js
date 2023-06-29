@@ -12,26 +12,22 @@ const styles = StyleSheet.create({
     },
     textBox: {
         flex: 1,
-        paddingLeft: 20,
+        flexDirection: "row",
+        marginLeft: 20,
     },
     unit: {
         fontSize: 20,
-        fontWeight: "bold",
+        fontWeight: 500,
         color: "orange",
     },
     text: {
         fontSize: 20,
         fontWeight: 300,
-        paddingTop:35
     },
     image:{
         height: "100%",
         aspectRatio: 1
     },
-    pressable:{
-        paddingLeft:20,        
-        paddingTop:10
-    }
 });
 
 export default styles

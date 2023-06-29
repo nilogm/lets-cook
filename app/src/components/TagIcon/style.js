@@ -13,11 +13,20 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         margin: 3,
     },
-    textTitle: {
-        fontSize: 16,
+    text: {
         color: "black",
         marginEnd: 5,
+    },
+    textFocus: {
+        fontSize: 16,
+    },
+    textLesser: {
+        fontSize: 12,
+    },
+    textLesserContent: {
+        fontWeight: 300,
     }
+
 });
 
 export default styles
