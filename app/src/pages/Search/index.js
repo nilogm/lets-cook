@@ -61,7 +61,7 @@ export default function RecipeSearch({ route, navigation }) {
                 renderItem={({ item, index }) => (
                     <RecipeSearchButton
                         navigation={navigation} data={item}
-                        index={index} similar={false}
+                        index={index}
                     />)}
                 ItemSeparatorComponent={<View style={{ height: 5, width: "100%" }} />}
 

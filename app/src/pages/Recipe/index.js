@@ -6,9 +6,9 @@ import { LinearGradient } from 'expo-linear-gradient';
 import styles from "./style";
 
 
-export default function Recipe({ route, navigation }) {  
-    
-    
+export default function Recipe({ route, navigation }) {
+
+
     const recipe = route.params.recipe;
     const similarRecipes = route.params.similarRecipes
 
@@ -54,7 +54,7 @@ export default function Recipe({ route, navigation }) {
 
             </View>
             <SimilarRecipes navigation={navigation} similarRecipes={similarRecipes} /> 
-            
+
         </View>
     );
 }

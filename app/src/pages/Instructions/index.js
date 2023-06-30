@@ -3,7 +3,6 @@ import { View, Text, Pressable, FlatList, Image } from "react-native";
 import styles from "./style";
 
 function getIngredientsTotal(steps) {
-     
     for (i=0; i<steps.length; i++) {
         let ingredientsArray = steps[i].ingredients
         for (j=0; j<ingredientsArray.length; j++) {      
@@ -32,10 +31,8 @@ export default function Instructions({ route, navigation }) {
 							<Text>
 								<Text style={styles.number}>{item.number}. </Text>
 								<Text style={styles.text}>
-
 								</Text>
 							</Text>
-						
 						</View>
 					)
 				}}

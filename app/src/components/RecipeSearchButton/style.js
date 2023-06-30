@@ -4,12 +4,6 @@ const styles = StyleSheet.create({
     container: {
         paddingHorizontal: 10,
         alignContent: "center",
-        
-    },
-    containerSimilar: {
-        paddingHorizontal: 10,
-        alignContent: "center",
-        width: "60%"        
     },
     image_container: {
         height: 100,
@@ -35,6 +29,7 @@ const styles = StyleSheet.create({
     text: {
         paddingLeft: 15,
         paddingRight: 10,
+        fontWeight: 300,
     },
     title: {
         paddingTop: 10,

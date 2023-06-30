@@ -7,8 +7,8 @@ import { useState } from "react";
 
 
 
-const getSimilar = async (id, navigation, data ) => {  
-    const similar = []     
+const getSimilar = async (id, navigation, data) => {
+    const similar = []
 
     try {
 
@@ -16,22 +16,22 @@ const getSimilar = async (id, navigation, data ) => {
 
         const response = await fetch(url);
 
-        const json = await response.json();        
+        const json = await response.json();
 
         for (i = 0; i < 2; i++) {
             const response2 = await fetch("https://api.spoonacular.com/recipes/" + json[i].id +
                 "/information?apiKey=ed5efa73e002400393a5034f3327b3c4")
             const json2 = await response2.json()
             similar.push(json2)
-        }  
+        }
 
         const send = {
             recipe: data,
             similarRecipes: similar
         }
-        
-        return (   
-            navigation.navigate('Recipe', send)     
+
+        return (
+            navigation.navigate('Recipe', send)
         )
 
     } catch (error) {
@@ -56,32 +56,22 @@ type Search = {
     missedIngredients: Array
 };
 
-export default function RecipeSearchButton({ navigation, data, similar}: { data: Search, similar: Boolean}) {
-    
-    
+export default function RecipeSearchButton({ navigation, data, similar = false }: { data: Search, similar: Boolean }) {
+
     var nutrients = [];
     var ingredients = [];
-    var style_container = {}
-    if (similar == false) {
+    if (!similar) {
         if (data.nutrition != undefined)
-            nutrients = data.nutrition.nutrients; 
+            nutrients = data.nutrition.nutrients;
 
-        ingredients = data.missedIngredients; 
-        style_container = styles.container
+        ingredients = data.missedIngredients;
     }
-    else {
-        style_container = styles.containerSimilar
-    }
-
-    const getSimilarandNavigate = () => {
-        getSimilar(data.id, navigation, data)        
-    }
-    
 
     return (
-        <Pressable style={style_container} onPress={() => {
-            getSimilarandNavigate()
-        }}>
+        <Pressable
+            style={styles.container}
+            onPress={() => { getSimilar(data.id, navigation, data) }}
+        >
             <View style={styles.image_container}>
                 <Image source={{ uri: data.image }} style={styles.image} />
                 <View style={styles.info_container}>
@@ -96,24 +86,26 @@ export default function RecipeSearchButton({ navigation, data, similar}: { data:
 
                 </View>
             </View>
-            {similar==false &&
-            <View style={styles.tag_container}>
-                <LinearGradient
-                    colors={["#00000030", 'transparent']}
-                    style={styles.gradient}
-                />
 
-                <View style={styles.taglist_container}>
-                    <TagContainer tagList={[...ingredients, ...nutrients]}></TagContainer>
+            {
+                !similar &&
+                <View style={styles.tag_container}>
+                    <LinearGradient
+                        colors={["#00000030", 'transparent']}
+                        style={styles.gradient}
+                    />
+
+                    <View style={styles.taglist_container}>
+                        <TagContainer tagList={[...ingredients, ...nutrients]}></TagContainer>
+                    </View>
                 </View>
-            </View>
             }
 
             <LinearGradient
                 colors={["#00000020", 'transparent']}
                 style={styles.gradient}
             />
-            
+
         </Pressable>
     )
 }

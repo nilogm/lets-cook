@@ -1,19 +1,14 @@
 import { StyleSheet } from "react-native";
 
-
-
 const styles = StyleSheet.create({
     container: {
-        paddingTop:50,
-        alignContent: "center"
-    },   
-   
+        width: "100%"
+    },
     title: {
-        paddingLeft: 100,
-        fontSize: 25,       
+        margin: 10,
+        fontSize: 24,
+        fontWeight: 300
     }
-
-
 })
 
 
