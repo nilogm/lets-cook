@@ -5,8 +5,10 @@ import styles from "./style";
 import { LinearGradient } from "expo-linear-gradient";
 
 
+
 const getMoreRecipes = async (url, results) => {
-    try {      
+    try {
+          
 
         url = url + "&offset=7"        
 
@@ -16,8 +18,8 @@ const getMoreRecipes = async (url, results) => {
         const moreResults = json.results
 
         for (i = 0; i < 7; i++) {   
-            if (results.includes(moreResults[i]))         
-                results.push(moreResults[i])
+            // if (!results.includes(moreResults[i]))         
+            results.push(moreResults[i])
         }
 
     } catch (error) {
@@ -59,7 +61,7 @@ export default function RecipeSearch({ route, navigation }) {
                 renderItem={({ item, index }) => (
                     <RecipeSearchButton
                         navigation={navigation} data={item}
-                        results={results} index={index}
+                        index={index} similar={false}
                     />)}
                 ItemSeparatorComponent={<View style={{ height: 5, width: "100%" }} />}
 

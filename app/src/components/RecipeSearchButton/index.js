@@ -5,6 +5,40 @@ import TagContainer from "../TagContainer";
 import { LinearGradient } from 'expo-linear-gradient';
 import { useState } from "react";
 
+
+
+const getSimilar = async (id, navigation, data ) => {  
+    const similar = []     
+
+    try {
+
+        url = 'https://api.spoonacular.com/recipes/' + id + '/similar?apiKey=ed5efa73e002400393a5034f3327b3c4&number=2'
+
+        const response = await fetch(url);
+
+        const json = await response.json();        
+
+        for (i = 0; i < 2; i++) {
+            const response2 = await fetch("https://api.spoonacular.com/recipes/" + json[i].id +
+                "/information?apiKey=ed5efa73e002400393a5034f3327b3c4")
+            const json2 = await response2.json()
+            similar.push(json2)
+        }  
+
+        const send = {
+            recipe: data,
+            similarRecipes: similar
+        }
+        
+        return (   
+            navigation.navigate('Recipe', send)     
+        )
+
+    } catch (error) {
+        console.error(error)
+    }
+}
+
 type Search = {
     title: string,
     image: var,
@@ -22,18 +56,31 @@ type Search = {
     missedIngredients: Array
 };
 
-export default function RecipeSearchButton({ navigation, data, results, index }: { data: Search, results: JSON, index: int }) {
-
-    console.log(data.nutrition);
+export default function RecipeSearchButton({ navigation, data, similar}: { data: Search, similar: Boolean}) {
+    
+    
     var nutrients = [];
+    var ingredients = [];
+    var style_container = {}
+    if (similar == false) {
+        if (data.nutrition != undefined)
+            nutrients = data.nutrition.nutrients; 
 
-    if (data.nutrition != undefined)
-        nutrients = data.nutrition.nutrients;
-    const ingredients = data.missedIngredients;
+        ingredients = data.missedIngredients; 
+        style_container = styles.container
+    }
+    else {
+        style_container = styles.containerSimilar
+    }
+
+    const getSimilarandNavigate = () => {
+        getSimilar(data.id, navigation, data)        
+    }
+    
 
     return (
-        <Pressable style={styles.container} onPress={() => {
-            navigation.navigate('Recipe', results[index]);
+        <Pressable style={style_container} onPress={() => {
+            getSimilarandNavigate()
         }}>
             <View style={styles.image_container}>
                 <Image source={{ uri: data.image }} style={styles.image} />
@@ -49,7 +96,7 @@ export default function RecipeSearchButton({ navigation, data, results, index }:
 
                 </View>
             </View>
-
+            {similar==false &&
             <View style={styles.tag_container}>
                 <LinearGradient
                     colors={["#00000030", 'transparent']}
@@ -60,11 +107,13 @@ export default function RecipeSearchButton({ navigation, data, results, index }:
                     <TagContainer tagList={[...ingredients, ...nutrients]}></TagContainer>
                 </View>
             </View>
+            }
 
             <LinearGradient
                 colors={["#00000020", 'transparent']}
                 style={styles.gradient}
             />
+            
         </Pressable>
     )
 }

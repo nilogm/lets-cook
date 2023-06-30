@@ -8,7 +8,9 @@ import styles from "./style";
 
 export default function Recipe({ route, navigation }) {  
     
-    const recipe = route.params;
+    
+    const recipe = route.params.recipe;
+    const similarRecipes = route.params.similarRecipes
 
     const blocks = [
         {
@@ -51,9 +53,8 @@ export default function Recipe({ route, navigation }) {
                 />
 
             </View>
-            <SimilarRecipes id={recipe.id}>
-
-            </SimilarRecipes>
+            <SimilarRecipes navigation={navigation} similarRecipes={similarRecipes} /> 
+            
         </View>
     );
 }

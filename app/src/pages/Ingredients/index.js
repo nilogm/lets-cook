@@ -5,7 +5,7 @@ import styles from "./style";
 const getSubstitutes = async (id) => {
     try {     
 
-        url = 'https://api.spoonacular.com/food/ingredients/{id}/substitutes?apiKey=ed5efa73e002400393a5034f3327b3c4'      
+        url = 'https://api.spoonacular.com/food/ingredients/{id}/substitutes?apiKey=e365b60980d24026979b52053ea8f456'      
 
         const response = await fetch(url);
         const json = await response.json();

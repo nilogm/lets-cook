@@ -4,6 +4,12 @@ const styles = StyleSheet.create({
     container: {
         paddingHorizontal: 10,
         alignContent: "center",
+        
+    },
+    containerSimilar: {
+        paddingHorizontal: 10,
+        alignContent: "center",
+        width: "60%"        
     },
     image_container: {
         height: 100,
