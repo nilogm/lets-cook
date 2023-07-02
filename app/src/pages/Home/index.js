@@ -49,6 +49,11 @@ export default function Home({ navigation }) {
 
 
     const makeSearch = () => {
+        console.log(ingredients);
+        console.log(macros);
+        console.log(diets);
+        return;
+
         let ingredient_search = '';
         ingredients.forEach(element => {
             ingredient_search += element.name + ',';

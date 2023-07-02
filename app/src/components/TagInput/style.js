@@ -7,6 +7,7 @@ const styles = StyleSheet.create({
     },
     inputBox: {
         width: '80%',
+        marginBottom: 10,
     },
     
 });

@@ -1,5 +1,6 @@
 import { View, Text, Pressable } from "react-native";
 import styles from "./style"
+import { useState } from "react";
 
 type tag = {
     name: string,
@@ -7,14 +8,24 @@ type tag = {
     unit: string | undefined,
 }
 
-export default function TagIcon({ tag, style, focus = false, onClick = null }: { tag: tag, focus: boolean, onClick: function }) {
+export default function TagIcon({ tag, style, focus = false, onClick = null, changeColor = false }: { tag: tag, focus: boolean, onClick: function, changeColor : boolean }) {
+
+    const [enabled, toggleEnabled] = useState(false);
+
+    const onPressed = () => {
+        if (changeColor)
+            toggleEnabled(!enabled);
+
+        if (onClick)
+            onClick(tag)
+    }
 
     return (
-        <Pressable style={styles.boxContainer}
-            onPress={() => {onClick(tag)}}>
+        <Pressable style={[styles.boxContainer, enabled && styles.enabled]}
+            onPress={onPressed}>
             {/* change color based on macro */}
             {/* add icon */}
-            <Text style={[styles.text, focus ? styles.textFocus : styles.textLesser]}>
+            <Text style={[styles.text, focus ? styles.textFocus : enabled ? styles.enabledText : styles.textLesser]}>
                 <Text>{tag.name}</Text>
                 {
                     (tag.amount != null) &&

@@ -6,29 +6,48 @@ const styles = StyleSheet.create({
         paddingBottom: 10
     },
     tagBox: {
-        justifyContent: "space-between",
-        flexDirection: 'row',
+        flexDirection: 'column',
         width: '80%',
-        height: 50,
+        gap: 10,
+        marginBottom: 10,
     },
-    macroBox: {
-        width: '75%',
+    autocompleteBox: {
+        width: "100%", 
+        backgroundColor: "#FFFFFF", 
+        padding: 10 
+    },
+    autocompleteText: { 
+        fontWeight: 300
+    },
+    secondContainer: {
+        alignSelf: "center",
+        flexDirection: "row",
+        width: "90%",
+        justifyContent: "space-between"
+    },
+    valueContainer: {
+        justifyContent: "center",
+        flexDirection: "row",
+        alignItems: "center",
+        gap: 6
     },
     valueBox: {
-        flex: 1,
-        marginLeft: 10,
+        height: 40,
+        width: 50,
+        paddingLeft: 0,
+        textAlign: "center",
+        fontSize: 12,
     },
-    parameterContainer: {
-        flexDirection: "row",
-        alignItems: "center"
-    },
-    parameterText:{
+    valuesText: {
         fontSize: 16,
-        fontWeight: 300,
+        fontWeight: 300
     },
-    parameterTextFocus:{
-        fontWeight: "bold",
-        color: "orange"
+    sendButton: {
+        aspectRatio: 1,
+        height: 40,
+        alignSelf: "center",
+        borderRadius: 50,
+        backgroundColor: "orange"
     }
 });
 

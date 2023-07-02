@@ -4,7 +4,8 @@ import styles from './style.js'
 import { useState } from 'react';
 
 
-export default function TagContainer({ tagList, focus = false, onClick = null }: { tagList: Array, onClick: function }) {
+export default function TagContainer({ tagList, focus = false, onClick = null, changeColor = false }: { tagList: Array, onClick: function }) {
+
     return (
         <FlatList
             key={tagList.length}
@@ -15,7 +16,7 @@ export default function TagContainer({ tagList, focus = false, onClick = null }:
             numColumns={tagList.length}
             data={tagList}
             renderItem={({ item }) => (
-                <TagIcon tag={item} focus={focus} onClick={onClick} />
+                <TagIcon tag={item} focus={focus} onClick={onClick} changeColor={changeColor}/>
             )
             }
         />

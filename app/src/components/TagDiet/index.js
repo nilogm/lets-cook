@@ -31,7 +31,7 @@ export default function TagDiet({ list, manager, style }) {
 
     return (
         <View style={styles.mainContainer}>
-            <TagContainer tagList={allDiets} onClick={addDiet} />
+            <TagContainer tagList={allDiets} onClick={addDiet} changeColor={true} />
         </View>
     );
 }

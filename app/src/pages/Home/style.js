@@ -20,8 +20,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         height: 50,
         paddingLeft: 20,
-        fontSize: 16,
-        marginBottom: 10
+        fontSize: 16
     },
 });
 
