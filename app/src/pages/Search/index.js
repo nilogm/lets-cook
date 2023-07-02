@@ -45,7 +45,7 @@ export default function RecipeSearch({ route, navigation }) {
 
     };
     return (
-        <View>
+        <View style={{ flex: 1 }}>
             <View style={styles.container}>
                 <FlatList
                     horizontal={true}
@@ -55,14 +55,17 @@ export default function RecipeSearch({ route, navigation }) {
                     renderItem={({ item }) => (<TagIcon tag={item} />)}
                 />
             </View>
+
             <LinearGradient
                 colors={["#00000030", 'transparent']}
                 style={styles.gradient}
             />
+
             <FlatList
-                style={{ height: 700 }}
+                style={styles.list}
                 vertical={true}
                 scrollEnabled={true}
+                showsVerticalScrollIndicator={false}
                 data={results}
                 contentContainerStyle={{ alignItems: "center" }}
                 renderItem={({ item, index }) => (

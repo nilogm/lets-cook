@@ -3,30 +3,51 @@ import { StyleSheet } from "react-native";
 const styles = StyleSheet.create({
     mainContainer: {
         alignItems: "center",
-        paddingBottom: 20
+        paddingBottom: 10
     },
     tagBox: {
-        justifyContent: "space-between",
-        flexDirection: 'row',
+        flexDirection: 'column',
         width: '80%',
-        height: 50,
-        marginVertical: 10,
+        gap: 10,
+        marginBottom: 10,
     },
-    inputBox: {
-        backgroundColor: "#eeeeee",
-        flexDirection: 'row',
-        width: '75%',
-        height: 50,
-        paddingLeft: 20,
-        fontSize: 20,
+    autocompleteBox: {
+        width: "100%", 
+        backgroundColor: "#FFFFFF", 
+        padding: 10 
+    },
+    autocompleteText: { 
+        fontWeight: 300
+    },
+    secondContainer: {
+        alignSelf: "center",
+        flexDirection: "row",
+        width: "90%",
+        justifyContent: "space-between"
+    },
+    valueContainer: {
+        justifyContent: "center",
+        flexDirection: "row",
+        alignItems: "center",
+        gap: 6
     },
     valueBox: {
-        backgroundColor: "#aaaaee",
-        flexDirection: 'row',
-        width: '20%',
-        height: 50,
-        paddingLeft: 20,
-        fontSize: 20,
+        height: 40,
+        width: 50,
+        paddingLeft: 0,
+        textAlign: "center",
+        fontSize: 12,
+    },
+    valuesText: {
+        fontSize: 16,
+        fontWeight: 300
+    },
+    sendButton: {
+        aspectRatio: 1,
+        height: 40,
+        alignSelf: "center",
+        borderRadius: 50,
+        backgroundColor: "orange"
     }
 });
 

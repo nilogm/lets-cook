@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
         padding: 20,
         flexDirection: "row"
     },
-    headerContainer:{
+    headerContainer: {
         marginLeft: 20,
         flex: 1,
     },
@@ -29,7 +29,10 @@ const styles = StyleSheet.create({
     },
     blocks: {
         padding: 20,
-        flexDirection: "row",
+    },
+    itemsContainer: {
+        justifyContent: "space-between",
+        width: "100%",
     },
 });
 

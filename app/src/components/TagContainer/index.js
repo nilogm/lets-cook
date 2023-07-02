@@ -4,21 +4,19 @@ import styles from './style.js'
 import { useState } from 'react';
 
 
-export default function TagContainer({ tagList, cancelHandler = null, enableCancelButton = false } : {tagList : Array, cancelHandler : function}) {
-
-    var longTagList = [...tagList.slice(0, 4), {name: "..."}];
+export default function TagContainer({ tagList, focus = false, onClick = null, changeColor = false }: { tagList: Array, onClick: function }) {
 
     return (
         <FlatList
-            key={longTagList.length}
+            key={tagList.length}
             columnWrapperStyle={
-                longTagList.length > 1 && styles.items
+                tagList.length > 1 && styles.items
             }
             style={styles.container}
-            numColumns={longTagList.length}
-            data={longTagList}
+            numColumns={tagList.length}
+            data={tagList}
             renderItem={({ item }) => (
-                <TagIcon tag={item} cancelHandler={cancelHandler} enableCancelButton={enableCancelButton} />
+                <TagIcon tag={item} focus={focus} onClick={onClick} changeColor={changeColor}/>
             )
             }
         />

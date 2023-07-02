@@ -1,27 +1,29 @@
 import { View, Text, Pressable } from "react-native";
 import styles from "./style"
+import { useState } from "react";
 
-/**
- * Creates _Tag_ instance with given name.
- * @param {string} name tag name.
- * @param {function} cancelHandler "close" button function handler (default: null).
- * @param {boolean} enableCancelButton (default: false).
- * @returns 
- */
-export default function TagIcon({ tag, focus = false, cancelHandler = null, enableCancelButton = false }: { focus : boolean, cancelHandler: function, enableCancelButton: boolean }) {
+type tag = {
+    name: string,
+    amount: double | int | undefined,
+    unit: string | undefined,
+}
 
-    const removeTag = () => {
-        if (enableCancelButton == true)
-            cancelHandler(tag.name)
+export default function TagIcon({ tag, style, focus = false, onClick = null, changeColor = false }: { tag: tag, focus: boolean, onClick: function, changeColor : boolean }) {
+
+    const [enabled, toggleEnabled] = useState(false);
+
+    const onPressed = () => {
+        if (changeColor)
+            toggleEnabled(!enabled);
+
+        if (onClick)
+            onClick(tag)
     }
 
     return (
-        <Pressable style={styles.boxContainer}
-            onPress={() => removeTag()}>
-            {/* change color based on macro */}
-            {/* icon */}
-            {/* <Image></Image> */}
-            <Text style={[styles.text, focus ? styles.textFocus : styles.textLesser]}>
+        <Pressable style={[styles.boxContainer, enabled && styles.enabled]}
+            onPress={onPressed}>
+            <Text style={[styles.text, focus ? styles.textFocus : enabled ? styles.enabledText : styles.textLesser]}>
                 <Text>{tag.name}</Text>
                 {
                     (tag.amount != null) &&

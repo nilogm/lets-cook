@@ -2,31 +2,19 @@ import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
     container: {
-        width: 240,
+        gap: 6,
     },
     block: {
-        height: 160,
-        backgroundColor: "#DFDFDFAA",
-        padding: 20,
-        paddingVertical: 10,
+        height: 80,
+        borderRadius: 50,
+        aspectRatio: 1,
+        backgroundColor: "#DADAAA",
     },
     header: {
         width: "100%",
-        fontSize: 20,
-        fontWeight: "bold",
+        textAlign: "center",
+        fontSize: 16,
     },
-    text: {
-        fontSize: 14,
-    },
-    informationContainer: {
-        flex: 1,
-        width: "100%",
-        backgroundColor: "#AFAFAFAA",
-        overflow: "hidden",
-    },
-    gradient: {
-        height: 10
-    }
 });
 
 export default styles

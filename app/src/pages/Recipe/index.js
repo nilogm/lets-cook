@@ -38,19 +38,26 @@ export default function Recipe({ route, navigation }) {
                     <View style={styles.headerContainer}>
                         <Text style={styles.headerTitle} numberOfLines={2}>{recipe.title}</Text>
                         <View style={{ marginTop: 5 }}>
-                            <Text style={styles.headerInformation}>{recipe.servings} servings</Text>
                             <Text style={styles.headerInformation}>{recipe.readyInMinutes} minutes</Text>
+                            <Text style={styles.headerInformation}>
+                                <Text>{recipe.servings} serving</Text>
+                                {recipe.servings > 1 && <Text>s</Text>}
+                            </Text>
                         </View>
                     </View>
                 </View>
 
                 <FlatList
                     style={styles.blocks}
-                    horizontal={true}
                     data={blocks}
-                    showsHorizontalScrollIndicator={false}
-                    renderItem={({ item }) => (<RecipeInformationButton isUS_measure={isUS_measure} navigation={navigation} title={item.title} data={recipe} page={item.page}></RecipeInformationButton>)}
-                    ItemSeparatorComponent={<View style={{ height: "100%", width: 20 }} />}
+                    horizontal={true}
+                    contentContainerStyle={styles.itemsContainer}
+                    renderItem={({ item }) => (
+                        <RecipeInformationButton isUS_measure={isUS_measure}
+                            navigation={navigation}
+                            title={item.title}
+                            data={recipe}
+                            page={item.page} />)}
                 />
 
             </View>

@@ -8,23 +8,24 @@ const styles = StyleSheet.create({
         backgroundColor: "white",
         alignContent: "center",
     },
-    gradient:{
-        marginBottom: 10,
+    gradient: {
         height: 10,
+        zIndex: 10
     },
-    loadMoreView: {
-        paddingTop: 40,
+    list: {
+        height: "100%",
+        paddingTop: 20,
+        marginTop: -10
     },
     loadMorePressable: {
-        backgroundColor: "orange",
-        paddingLeft: 150,
-        alignContent: "center"
+        marginTop: 20,
+        marginBottom: 40,
+        alignContent: "center",
     },
     loadMoreText: {
-        fontSize: 25,
-        color: "white"
+        fontSize: 20,
     }
-    
+
 });
 
 export default styles

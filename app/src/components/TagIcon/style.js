@@ -8,10 +8,13 @@ const styles = StyleSheet.create({
         padding: 10,
         paddingVertical: 5,
         paddingRight: 5,
-        backgroundColor: "#ffdf00",
+        backgroundColor: "#FFFFFFAA",
         borderRadius: 20,
         flexDirection: "row",
         margin: 3,
+    },
+    enabled : {
+        backgroundColor: "#33df33",
     },
     text: {
         color: "black",
@@ -25,8 +28,12 @@ const styles = StyleSheet.create({
     },
     textLesserContent: {
         fontWeight: 300,
+    },
+    enabledText : {
+        fontSize: 12,
+        color: "white",
+        fontWeight: "bold"
     }
-
 });
 
 export default styles

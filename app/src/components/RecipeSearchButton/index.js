@@ -5,8 +5,6 @@ import TagContainer from "../TagContainer";
 import { LinearGradient } from 'expo-linear-gradient';
 import { useState } from "react";
 
-
-
 const getSimilar = async (id, navigation, data, isUS_measure) => {
     const similar = []
 
@@ -40,7 +38,7 @@ const getSimilar = async (id, navigation, data, isUS_measure) => {
     }
 }
 
-type Search = {
+type search = {
     title: string,
     image: var,
     cookingMinutes: string,
@@ -57,7 +55,7 @@ type Search = {
     missedIngredients: Array
 };
 
-export default function RecipeSearchButton({ navigation, data, similar = false, isUS_measure }: { data: Search, similar: Boolean, isUS_measure: Boolean }) {
+export default function RecipeSearchButton({ navigation, data, similar = false, isUS_measure }: { data: search, similar: boolean, isUS_measure: boolean  }) {
 
     var nutrients = [];
     var ingredients = [];
@@ -68,20 +66,15 @@ export default function RecipeSearchButton({ navigation, data, similar = false, 
         ingredients = data.missedIngredients;
     }
 
-    // console.log(data.extendedIngredients)
-
-
     return (
-        <Pressable
-            style={styles.container}
-            onPress={() => { getSimilar(data.id, navigation, data, isUS_measure) }}
-        >
+        <Pressable style={styles.container}
+            onPress={() => { getSimilar(data.id, navigation, data, isUS_measure) }}>
             <View style={styles.image_container}>
                 <Image source={{ uri: data.image }} style={styles.image} />
                 <View style={styles.info_container}>
                     <Text style={[styles.text, styles.title]} numberOfLines={2}>{data.title}</Text>
                     <Text style={[styles.text, styles.information_text]}>
-                        <Text>{data.readyInMinutes}' . </Text>
+                        <Text>{data.readyInMinutes}' • </Text>
                         <Text>
                             <Text>{data.servings} serving</Text>
                             {data.servings > 1 && <Text>s</Text>}
@@ -109,7 +102,6 @@ export default function RecipeSearchButton({ navigation, data, similar = false, 
                 colors={["#00000020", 'transparent']}
                 style={styles.gradient}
             />
-
         </Pressable>
     )
 }
