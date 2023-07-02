@@ -1,4 +1,4 @@
-import { View, Button } from 'react-native';
+import { View, Button, Switch } from 'react-native';
 import styles from './style.js';
 import TagInput from '../../components/TagInput';
 import MacroInput from '../../components/MacroInput';
@@ -6,7 +6,8 @@ import { useState, useEffect} from 'react';
 
 export default function Home({ navigation }) {
     
-    const [data, setData] = useState([]);
+    const [isUS_measure, setIsUS_measure] = useState(false)
+    const toggleSwitch = () => setIsUS_measure(previousState => !previousState);
 
     const getRecipes = async (ingredients_search, macros_search) => {
         try {        
@@ -26,7 +27,8 @@ export default function Home({ navigation }) {
                 results: json.results,
                 source: url,
                 ingredientsUsed: ingredients,
-                macrosUsed: macros
+                macrosUsed: macros,
+                isUS_measure: isUS_measure
             }
           
             return (
@@ -39,12 +41,7 @@ export default function Home({ navigation }) {
     };
 
     const [ingredients, setIngredients] = useState([]);
-    const [macros, setMacros] = useState([]);
-
-                   
-         
-    
-   
+    const [macros, setMacros] = useState([]);  
 
     const makeSearch = () => {
         let ingredient_search = '';
@@ -59,12 +56,19 @@ export default function Home({ navigation }) {
         getRecipes(ingredient_search, macro_search)
         
     }
-
+    
     return (
         <View style={styles.container}>
             <TagInput inputText="Ingredient" list={ingredients} manager={setIngredients} />
             <MacroInput inputText="Macros" list={macros} manager={setMacros} />
             <Button title='Search' onPress={() => { makeSearch() } } />
+
+            <Switch                        
+                trackColor={{false: '#767577', true: '#c90414'}}
+                thumbColor={isUS_measure ? '#3925cf' : '#c96304'}
+                onValueChange={toggleSwitch}
+                value={isUS_measure}
+            />
         </View>
     )
 }

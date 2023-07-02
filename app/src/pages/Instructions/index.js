@@ -2,22 +2,13 @@ import React from "react";
 import { View, Text, Pressable, FlatList, Image } from "react-native";
 import styles from "./style";
 
-function getIngredientsTotal(steps) {
-    for (i=0; i<steps.length; i++) {
-        let ingredientsArray = steps[i].ingredients
-        for (j=0; j<ingredientsArray.length; j++) {      
-             
-            if (ingredientsPrint.includes({"name": ingredientsArray[j].name }, 0))        
-                ingredientsPrint.push({"name": ingredientsArray[j].name}) 
-        }                
-    }     
-}
 
 
-export default function Instructions({ route, navigation }) {
 
-	const steps = route.params.analyzedInstructions[0].steps
-	
+export default function Instructions({ route}) {
+
+	const steps = route.params.recipe.analyzedInstructions[0].steps
+
 	return (
 		<View>
 			<FlatList
@@ -30,7 +21,7 @@ export default function Instructions({ route, navigation }) {
 						<View style={styles.textContainer}>
 							<Text>
 								<Text style={styles.number}>{item.number}. </Text>
-								<Text style={styles.text}>
+								<Text style={styles.text}> {item.step}
 								</Text>
 							</Text>
 						</View>

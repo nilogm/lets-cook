@@ -3,10 +3,17 @@ import { LinearGradient } from 'expo-linear-gradient';
 import styles from "./style";
 
 
-export default function Recipe({ navigation, title, data, page }) {
+export default function Recipe({ navigation, title, data, page, isUS_measure }) {
+
+    send = {
+        recipe: data,
+        isUS_measure: isUS_measure
+    }
+
+    console.log("USMEASURE:", isUS_measure)
     return (
         <View style={styles.container}>
-            <Pressable onPress={() => { navigation.navigate(page, data) }} style={styles.block}>
+            <Pressable onPress={() => { navigation.navigate(page, send) }} style={styles.block}>
                 <Text style={styles.header} numberOfLines={2}>{title}</Text>
                 <View style={styles.informationContainer}>
                     <Text style={styles.text}>information.</Text>

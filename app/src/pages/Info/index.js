@@ -3,7 +3,7 @@ import styles from "./style";
 
 export default function Info({ route, navigation }) {
 
-    const summary = route.params.summary;
+    const summary = route.params.recipe.summary;
  
     return (
         <View style={styles.container}>

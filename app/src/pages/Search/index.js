@@ -4,11 +4,8 @@ import TagIcon from "../../components/TagIcon";
 import styles from "./style";
 import { LinearGradient } from "expo-linear-gradient";
 
-
-
 const getMoreRecipes = async (url, results) => {
-    try {
-          
+    try {         
 
         url = url + "&offset=7"        
 
@@ -33,9 +30,9 @@ export default function RecipeSearch({ route, navigation }) {
 
     const results = data.results;
     const url = data.source;
-
-    ingredients = data.ingredientsUsed
-    macros = data.macrosUsed
+    const ingredients = data.ingredientsUsed
+    const macros = data.macrosUsed
+    const isUS_measure = data.isUS_measure
 
     return (
         <View>
@@ -61,7 +58,7 @@ export default function RecipeSearch({ route, navigation }) {
                 renderItem={({ item, index }) => (
                     <RecipeSearchButton
                         navigation={navigation} data={item}
-                        index={index}
+                        index={index} isUS_measure={isUS_measure}
                     />)}
                 ItemSeparatorComponent={<View style={{ height: 5, width: "100%" }} />}
 

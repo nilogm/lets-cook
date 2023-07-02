@@ -11,6 +11,7 @@ export default function Recipe({ route, navigation }) {
 
     const recipe = route.params.recipe;
     const similarRecipes = route.params.similarRecipes
+    const isUS_measure = route.params.isUS_measure
 
     const blocks = [
         {
@@ -48,7 +49,7 @@ export default function Recipe({ route, navigation }) {
                     horizontal={true}
                     data={blocks}
                     showsHorizontalScrollIndicator={false}
-                    renderItem={({ item }) => (<RecipeInformationButton navigation={navigation} title={item.title} data={recipe} page={item.page}></RecipeInformationButton>)}
+                    renderItem={({ item }) => (<RecipeInformationButton isUS_measure={isUS_measure} navigation={navigation} title={item.title} data={recipe} page={item.page}></RecipeInformationButton>)}
                     ItemSeparatorComponent={<View style={{ height: "100%", width: 20 }} />}
                 />
 

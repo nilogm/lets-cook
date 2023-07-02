@@ -7,7 +7,7 @@ import { useState } from "react";
 
 
 
-const getSimilar = async (id, navigation, data) => {
+const getSimilar = async (id, navigation, data, isUS_measure) => {
     const similar = []
 
     try {
@@ -27,7 +27,8 @@ const getSimilar = async (id, navigation, data) => {
 
         const send = {
             recipe: data,
-            similarRecipes: similar
+            similarRecipes: similar,
+            isUS_measure: isUS_measure
         }
 
         return (
@@ -56,7 +57,7 @@ type Search = {
     missedIngredients: Array
 };
 
-export default function RecipeSearchButton({ navigation, data, similar = false }: { data: Search, similar: Boolean }) {
+export default function RecipeSearchButton({ navigation, data, similar = false, isUS_measure }: { data: Search, similar: Boolean, isUS_measure: Boolean }) {
 
     var nutrients = [];
     var ingredients = [];
@@ -67,10 +68,13 @@ export default function RecipeSearchButton({ navigation, data, similar = false }
         ingredients = data.missedIngredients;
     }
 
+    // console.log(data.extendedIngredients)
+
+
     return (
         <Pressable
             style={styles.container}
-            onPress={() => { getSimilar(data.id, navigation, data) }}
+            onPress={() => { getSimilar(data.id, navigation, data, isUS_measure) }}
         >
             <View style={styles.image_container}>
                 <Image source={{ uri: data.image }} style={styles.image} />
