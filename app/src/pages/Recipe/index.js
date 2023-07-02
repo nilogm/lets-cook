@@ -6,8 +6,8 @@ import { LinearGradient } from 'expo-linear-gradient';
 import styles from "./style";
 
 
-export default function Recipe({ route, navigation }) {  
-    
+export default function Recipe({ route, navigation }) {
+
     const recipe = route.params;
 
     const blocks = [
@@ -46,11 +46,15 @@ export default function Recipe({ route, navigation }) {
 
                 <FlatList
                     style={styles.blocks}
-                    horizontal={true}
                     data={blocks}
-                    showsHorizontalScrollIndicator={false}
-                    renderItem={({ item }) => (<RecipeInformationButton navigation={navigation} title={item.title} data={recipe} page={item.page}></RecipeInformationButton>)}
-                    ItemSeparatorComponent={<View style={{ height: "100%", width: 20 }} />}
+                    horizontal={true}
+                    contentContainerStyle={styles.itemsContainer}
+                    renderItem={({ item }) => (
+                        <RecipeInformationButton
+                            navigation={navigation}
+                            title={item.title}
+                            data={recipe}
+                            page={item.page} />)}
                 />
 
             </View>

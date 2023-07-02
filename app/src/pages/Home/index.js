@@ -52,7 +52,7 @@ export default function Home({ navigation }) {
         console.log(ingredients);
         console.log(macros);
         console.log(diets);
-        return;
+        // return;
 
         let ingredient_search = '';
         ingredients.forEach(element => {
