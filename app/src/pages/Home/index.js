@@ -58,7 +58,7 @@ export default function Home({ navigation }) {
         });
         let macro_search = '';
         macros.forEach(element => {
-            macro_search += element.name + '=' + element.value + "&";
+            macro_search += element.name + '=' + element.amount + "&";
         });
 
         getRecipes(ingredient_search, macro_search)
