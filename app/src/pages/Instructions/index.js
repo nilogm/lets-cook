@@ -3,8 +3,6 @@ import { View, Text, Pressable, FlatList, Image } from "react-native";
 import styles from "./style";
 
 
-
-
 export default function Instructions({ route}) {
 
 	const steps = route.params.recipe.analyzedInstructions[0].steps

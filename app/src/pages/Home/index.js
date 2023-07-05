@@ -1,41 +1,41 @@
 import { View, Button, Switch, ActivityIndicator, Text, Pressable } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { get_key } from '../../utils/index.js';
+import { tag } from '../../types/index.js';
+import TagDiet from "../../components/tag_selection/TagDiet"
+import MacroInput from '../../components/tag_selection/MacroInput';
+import TagInput from '../../components/tag_selection/TagInput';
 import styles from './style.js';
-import TagInput from '../../components/TagInput';
-import MacroInput from '../../components/MacroInput';
-import { useState, useEffect } from 'react';
-import TagDiet from '../../components/TagDiet/index.js';
 
 export default function Home({ navigation }) {
-
-    const [isUS_measure, setIsUS_measure] = useState(false)
-    const toggleSwitch = () => setIsUS_measure(previousState => !previousState);
     const [isLoading, setIsLoading] = useState(false);
+
+    const [unitUS, setUnitUS] = useState(true);
+	const toggle = (state) => {
+		setUnitUS(state);
+	}
 
     const getRecipes = async (ingredients_search, macros_search) => {
         try {
-            
+
             const numberofRecipes = 7;
 
-            const url = 'https://api.spoonacular.com/recipes/complexSearch?apiKey=ed5efa73e002400393a5034f3327b3c4&addRecipeInformation=true&includeIngredients='
+            const url = 'https://api.spoonacular.com/recipes/complexSearch' + get_key() + '&addRecipeInformation=true&includeIngredients='
                 + ingredients_search + '&' + macros_search + '&number=' + numberofRecipes + "&&fillIngredients=true"
             console.log(url)
 
             const response = await fetch(url);
-
             const json = await response.json();
-
 
             const send = {
                 results: json.results,
                 source: url,
                 ingredientsUsed: ingredients,
                 macrosUsed: macros,
-                isUS_measure: isUS_measure
+                isUS_measure: unitUS,
             }
 
-            return (
-                navigation.navigate('Search', send)
-            )
+            return navigation.navigate('Search', send);
 
         } catch (error) {
             console.error(error);
@@ -44,6 +44,15 @@ export default function Home({ navigation }) {
         }
 
     };
+
+    // navigation.setOptions({
+    //     headerRight: () => (
+    //         <Switch
+    //             onValueChange={(state) => toggle(state)}
+    //             value={unitUS}
+    //         />
+    //     ),
+    // });
 
     const [ingredients, setIngredients] = useState([]);
     const [macros, setMacros] = useState([]);
@@ -71,26 +80,19 @@ export default function Home({ navigation }) {
                 <Text style={styles.title}>Let's cook!</Text>
             </View>
 
-            <TagInput list={ingredients} manager={setIngredients} style={styles.inputBox}/>
+            <TagInput list={ingredients} manager={setIngredients} style={styles.inputBox} />
 
-            <MacroInput list={macros} manager={setMacros} style={styles.inputBox}/>
+            <MacroInput list={macros} manager={setMacros} style={styles.inputBox} />
 
-            <View style={{alignSelf: "center", width: "80%", height: 1, backgroundColor: "#AAAAAA", marginBottom: 20}}></View>
+            <View style={{ alignSelf: "center", width: "80%", height: 1, backgroundColor: "#AAAAAA", marginBottom: 20 }}></View>
 
             <TagDiet list={diets} manager={setDiets} style={styles.inputBox}></TagDiet>
 
-            <View style={{alignItems: 'center', justifyContent: "center", flex: 1}}>
-                <Pressable style={{ aspectRatio: 1, backgroundColor : "#FFAA33CC", height: 100, borderRadius: 50}} onPress={makeSearch}>
+            <View style={{ alignItems: 'center', justifyContent: "center", flex: 1 }}>
+                <Pressable style={{ aspectRatio: 1, backgroundColor: "#FFAA33CC", height: 100, borderRadius: 50 }} onPress={makeSearch}>
                     {isLoading && <ActivityIndicator size="large" color="yellow" />}
                 </Pressable>
             </View>
-
-            <Switch
-                trackColor={{ false: '#767577', true: '#c90414' }}
-                thumbColor={isUS_measure ? '#3925cf' : '#c96304'}
-                onValueChange={toggleSwitch}
-                value={isUS_measure}
-            />
         </View>
     )
 }

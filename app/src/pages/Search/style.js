@@ -18,11 +18,15 @@ const styles = StyleSheet.create({
         marginTop: -10
     },
     loadMorePressable: {
-        marginTop: 20,
-        marginBottom: 40,
         alignContent: "center",
+        padding: 10,
+        marginTop: 10, 
+        marginBottom: 40,
+        borderRadius: 50,
+        paddingHorizontal: 20,
     },
     loadMoreText: {
+        color: "#777777",
         fontSize: 20,
     }
 

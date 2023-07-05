@@ -1,14 +1,27 @@
 import React, { useRef, useState } from "react";
 import { Pressable, TextInput, View, Text, Switch, FlatList } from "react-native";
+import { tag } from "../../../types";
+import { allMacros } from "../../../data";
 import TagContainer from "../TagContainer";
 import styles from "./style";
 
-export default function MacroInput({ list, manager, style }) {
+/**
+ * Input for macros.
+ * @param {Array<tag>} list current list of macros, changeable.
+ * @param {function} manager function handler to execute list updates.
+ * @param {Object} style textbox style.
+ * @returns 
+ */
+export default function MacroInput({ list, manager, style }: {
+    list: Array<tag>,
+    manager: function,
+    style: Object,
+}) {
 
     const [input, setInput] = useState('')
 
-    const [minValue, setMinValue] = useState(0)
-    const [maxValue, setMaxValue] = useState(100)
+    const [minValue, setMinValue] = useState("")
+    const [maxValue, setMaxValue] = useState("")
 
     const [unit, setUnit] = useState("");
 
@@ -18,20 +31,20 @@ export default function MacroInput({ list, manager, style }) {
         if (input == "") return
 
         var newArray = list;
-        if (minValue != 0) {
+        if (minValue != "") {
             const filteredData = newArray.filter(item => item.name !== "min" + input)
             newArray = [...filteredData, { name: "min" + input, amount: minValue, unit: "g" }]
         }
 
-        if (maxValue != 100){
+        if (maxValue != "") {
             const filteredData = newArray.filter(item => item.name !== "max" + input)
             newArray = [...newArray, { name: "max" + input, amount: maxValue, unit: "g" }]
         }
 
         setInput("")
         setUnit("")
-        setMinValue(0)
-        setMaxValue(100)
+        setMinValue("")
+        setMaxValue("")
 
         manager(newArray)
     }
@@ -58,153 +71,6 @@ export default function MacroInput({ list, manager, style }) {
         setInput(item.name);
         setUnit(item.unit);
     }
-
-    const allMacros = [
-        {
-            name: "Carbs",
-            unit: "g"
-        },
-        {
-            name: "Protein",
-            unit: "g"
-        },
-        {
-            name: "Calories",
-            unit: "kcal"
-        },
-        {
-            name: "Fat",
-            unit: "g"
-        },
-        {
-            name: "Alcohol",
-            unit: "g"
-        },
-        {
-            name: "Caffeine",
-            unit: "mg"
-        },
-        {
-            name: "Copper",
-            unit: "mg"
-        },
-        {
-            name: "Calcium",
-            unit: "mg"
-        },
-        {
-            name: "Choline",
-            unit: "mg"
-        },
-        {
-            name: "Cholesterol",
-            unit: "mg"
-        },
-        {
-            name: "Fluoride",
-            unit: "mg"
-        },
-        {
-            name: "SaturatedFat",
-            unit: "g"
-        },
-        {
-            name: "VitaminA",
-            unit: "IU"
-        },
-        {
-            name: "VitaminC",
-            unit: "mg"
-        },
-        {
-            name: "VitaminD",
-            unit: "µg"
-        },
-        {
-            name: "VitaminE",
-            unit: "mg"
-        },
-        {
-            name: "VitaminK",
-            unit: "µm"
-        },
-        {
-            name: "VitaminB1",
-            unit: "mg"
-        },
-        {
-            name: "VitaminB2",
-            unit: "mg"
-        },
-        {
-            name: "VitaminB5",
-            unit: "mg"
-        },
-        {
-            name: "VitaminB3",
-            unit: "mg"
-        },
-        {
-            name: "VitaminB6",
-            unit: "mg"
-        },
-        {
-            name: "VitaminB12",
-            unit: "µm"
-        },
-        {
-            name: "Fiber",
-            unit: "g"
-        },
-        {
-            name: "Folate",
-            unit: "mg"
-        },
-        {
-            name: "FolicAcid",
-            unit: "µg"
-        },
-        {
-            name: "Iodine",
-            unit: "µg"
-        },
-        {
-            name: "Iron",
-            unit: "mg"
-        },
-        {
-            name: "Magnesium",
-            unit: "mg"
-        },
-        {
-            name: "Manganese",
-            unit: "mg"
-        },
-        {
-            name: "Phosphorus",
-            unit: "mg"
-        },
-        {
-            name: "Potassium",
-            unit: "mg"
-        },
-        {
-            name: "Selenium",
-            unit: "µg"
-        },
-        {
-            name: "Sodium",
-            unit: "mg"
-        },
-        {
-            name: "Sugar",
-            unit: "g"
-        },
-        {
-            name: "Zinc",
-            unit: "mg"
-        }
-    ];
 
     return (
         <View style={styles.mainContainer}>
@@ -247,7 +113,7 @@ export default function MacroInput({ list, manager, style }) {
                         <Text style={styles.valuesText}>to</Text>
                         <TextInput
                             placeholder={"100" + unit}
-                            maxLength={3}
+                            maxLength={2}
                             style={[style, styles.valueBox]}
                             value={maxValue}
                             onChangeText={setMaxValue}
@@ -260,7 +126,7 @@ export default function MacroInput({ list, manager, style }) {
                     <Pressable style={styles.sendButton} onPress={addTag} />
                 </View>
             </View>
-            <TagContainer tagList={list} onClick={deleteTag} />
+            <TagContainer tagList={list} args={{ iconArgs: { onClick: deleteTag } }} />
         </View>
     );
 }

@@ -1,76 +1,117 @@
 import React, { useState } from 'react';
-import { View, Text, Pressable, Button, FlatList, Image, } from "react-native";
+import { View, Pressable, FlatList, Modal } from "react-native";
+import { get_key, round_ml } from '../../utils';
+import { substitute, ingredient } from '../../types';
+import IngredientDisplay from '../../components/IngredientDisplay';
+import IngredientPopup from '../../components/IngredientPopup';
 import styles from "./style";
 
-const getSubstitutes = async (id) => {
+
+async function searchSubstitutes(id) {
     try {
-        url = 'https://api.spoonacular.com/food/ingredients/' + id + '/substitutes?apiKey=ed5efa73e002400393a5034f3327b3c4'
+        url = 'https://api.spoonacular.com/food/ingredients/' + id + '/substitutes' + get_key();
 
-        console.log(id);
+        const response = await fetch(url);
+        const json = await response.json();
 
-        const response = await fetch(url);        
-
-        const json = await response.json();      
-        
-        var message = ""
-        if (json.status == "success") {           
-            message = json.substitutes[0]
-        }
-        else {         
-            message = json.message
-            
-        }      
-        console.log(message)
-
-        return (
-            <View style={{backgroundColor:"blue"}}>
-                <Text>{message}</Text>
-            </View>
-        )
-
-
+        return json;
     } catch (error) {
         console.error(error);
     }
-};
+
+    return null;
+}
+
+const makeSearch = async (id) => {
+    const result = await searchSubstitutes(id);
+    return result;
+}
 
 
-export default function Ingredients({ route}) {
+export default function Ingredients({ route }) {
     const recipe = route.params.recipe;
-    const isUS_measure = route.params.isUS_measure
-    const ingredients = recipe.extendedIngredients;
-    console.log(ingredients[0].measures.metric)
-   
+    const usPreference = route.params.isUS_measure
+    var ingredients_ = recipe.extendedIngredients;
+
+    const [modalVisible, setModalVisible] = useState(false);
+
+    const [currentItem, setItem] = useState(null);
+
+    const [substitutes, setSubstitutes] = useState([]);
+    const [message, setMessage] = useState("");
+
+    const [usUnitEnabled, toggleUnit] = useState(usPreference);
+
+    ingredients_.forEach((element : ingredient) => {
+        var found_usPreference = Object.keys(element).filter(item => item === "usPreference").length == 1;
+        if (!found_usPreference)
+            element.usPreference = usPreference
+        element.measures.metric.amount = round_ml(element);
+    })
+    const [ingredients, setIngredients] = useState(ingredients_);
+
+    const loadPopup = (item) => {
+        (async () => {
+            var subs = await makeSearch(item.id)
+
+            setSubstitutes([]);
+            if (subs.status == 'success') {
+                let substituteList : Array<substitute> = [];
+                subs.substitutes.forEach((element: string) => {
+                    var split_str = (element.split(' = '));
+                    substituteList = [...substituteList, {
+                        comparison: split_str[0],
+                        substitute: split_str[1]
+                    }]
+                })
+                setSubstitutes(substituteList)
+            }
+
+            setItem(item);
+
+            setMessage(subs.message);
+            setModalVisible(true);
+        })()
+    }
+
+    const togglePreference = (state) => {
+        toggleUnit(state);
+        if (currentItem)
+            currentItem.usPreference = state;
+    }
+
     return (
         <View>
             <FlatList
                 style={styles.container}
+                contentContainerStyle={{paddingBottom: 50,}}
                 data={ingredients}
                 scrollEnabled={true}
                 showsVerticalScrollIndicator={false}
                 renderItem={({ item }) => (
-                    <View style={styles.ingredientContainer}>
-                        {/* <Image source={{ uri: item.image }} style={styles.image} /> */}
-                        <View style={styles.textBox}>
-                            {
-                                isUS_measure &&
-                                <Text style={styles.unit}>{item.measures.us.amount} {item.unit}  </Text>
-                            }
-                            {
-                                !isUS_measure &&
-                                <Text style={styles.unit}>{item.measures.metric.amount} {item.measures.metric.unitShort}  </Text>
-
-                            }
-                            <Pressable style={{ backgroundColor: "#AFAFAFA0" }}
-                                onPress={() => { getSubstitutes(item.id) }}>
-
-                                <Text style={styles.text}>{item.name}</Text>
-                            </Pressable>
-                        </View>
-                    </View>
+                    <Pressable onPress={() => { loadPopup(item) }}>
+                        <IngredientDisplay item={item} />
+                    </Pressable>
                 )}
-                ItemSeparatorComponent={<View style={{ height: 10, width: "100%" }} />}
+                ItemSeparatorComponent={<View style={{ height: 1, margin: 10, width: "100%", backgroundColor: "#CCCCCC" }} />}
             />
+
+            <Modal
+                animationType='slide'
+                transparent={true}
+                visible={modalVisible}
+                onRequestClose={() => { setModalVisible(!modalVisible); }}>
+
+                <View style={styles.centeredView}>
+                    <IngredientPopup
+                        ingredient={currentItem}
+                        substitutes={substitutes}
+                        message={message}
+                        togglePreference={togglePreference}
+                        setModalVisible={setModalVisible} />
+                </View>
+
+            </Modal>
         </View>
 
     );

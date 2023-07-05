@@ -1,17 +1,16 @@
+import { Text, View, FlatList, Image } from "react-native";
 import React from "react";
-import { Text, View, FlatList, Image, ImageBackground, Pressable, ScrollView } from "react-native";
+import { LinearGradient } from 'expo-linear-gradient';
+import { recipe } from "../../types";
 import SimilarRecipes from "../../components/SimilarRecipes";
 import RecipeInformationButton from "../../components/RecipeInformationButton";
-import { LinearGradient } from 'expo-linear-gradient';
 import styles from "./style";
 
 
 export default function Recipe({ route, navigation }) {
-
-
-    const recipe = route.params.recipe;
-    const similarRecipes = route.params.similarRecipes
-    const isUS_measure = route.params.isUS_measure
+    const recipe : recipe = route.params.recipe;
+    const similarRecipes : Array<Object> = route.params.similarRecipes
+    const isUS_measure : boolean = route.params.isUS_measure
 
     const blocks = [
         {
@@ -27,8 +26,6 @@ export default function Recipe({ route, navigation }) {
             page: "Instructions"
         },
     ]
-
-    navigation.setOptions({ title: route.params.title })
 
     return (
         <View>

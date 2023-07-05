@@ -1,16 +1,16 @@
 import { FlatList, Pressable, View, Text, ActivityIndicator } from "react-native";
 import { useState } from 'react';
-
-import RecipeSearchButton from "../../components/RecipeSearchButton"
-import TagIcon from "../../components/TagIcon";
-import styles from "./style";
 import { LinearGradient } from "expo-linear-gradient";
+import RecipeSearchButton from "../../components/RecipeSearchButton"
+import TagIcon from "../../components/tag_selection/TagIcon";
+import styles from "./style";
 
 
 
 export default function RecipeSearch({ route, navigation }) {
 
     const [isLoading, setIsLoading] = useState(false);
+    const [offset, setOffset] = useState(7);
 
     const data = route.params;
 
@@ -24,7 +24,8 @@ export default function RecipeSearch({ route, navigation }) {
         try {
             setIsLoading(!isLoading);
 
-            url = url + "&offset=7"
+            setOffset(offset + 7);
+            url = url + "&offset=" + offset;
 
             const response = await fetch(url);
 
@@ -32,7 +33,7 @@ export default function RecipeSearch({ route, navigation }) {
             const moreResults = json.results
 
             for (i = 0; i < 7; i++) {
-                // if (!results.includes(moreResults[i]))         
+                // if (!results.includes(moreResults[i]))
                 results.push(moreResults[i])
             }
 
@@ -70,17 +71,20 @@ export default function RecipeSearch({ route, navigation }) {
                 contentContainerStyle={{ alignItems: "center" }}
                 renderItem={({ item, index }) => (
                     <RecipeSearchButton
-                        navigation={navigation} data={item}
-                        index={index} isUS_measure={isUS_measure}
+                        navigation={navigation} recipe={item}
+                        args={{ "isUS_measure": isUS_measure }}
                     />)}
                 ItemSeparatorComponent={<View style={{ height: 5, width: "100%" }} />}
 
                 ListFooterComponent={() => <View style={styles.loadMoreView}>
                     <Pressable style={styles.loadMorePressable} onPress={() => { getMoreRecipes(url, results) }}>
-                        {isLoading && <ActivityIndicator size="large" color="yellow" />}
-                        <Text style={styles.loadMoreText}>
-                            {isLoading ? "loading..." : "More Recipes"}
-                        </Text>
+                        {
+                            isLoading && <ActivityIndicator size="large" color="#777777" />
+                        }
+                        {
+                            !isLoading && <Text style={styles.loadMoreText}>More Recipes</Text>
+                        }
+
                     </Pressable>
                 </View>}
             />

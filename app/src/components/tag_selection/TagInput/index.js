@@ -1,9 +1,21 @@
 import React, { useRef, useState } from "react";
 import { TextInput, View } from "react-native";
-import styles from "./style";
+import { tag } from "../../../types";
 import TagContainer from "../TagContainer";
+import styles from "./style";
 
-export default function TagInput({ list, manager, style }) {
+/**
+ * Input for ingredients.
+ * @param {Array<list>} list current list of ingredients, changeable.
+ * @param {function} manager function handler to execute list updates.
+ * @param {Object} style textbox style.
+ * @returns 
+ */
+export default function TagInput({ list, manager, style }: {
+    list: Array<tag>,
+    manager: function,
+    style: Object
+}) {
 
     const mainInput = useRef();
 
@@ -42,7 +54,7 @@ export default function TagInput({ list, manager, style }) {
                 selectTextOnFocus={true}
                 ref={mainInput}
             />
-            <TagContainer tagList={list} onClick={deleteTag} />
+            <TagContainer tagList={list} args={{ iconArgs: { onClick: deleteTag } }} />
         </View>
     );
 }
