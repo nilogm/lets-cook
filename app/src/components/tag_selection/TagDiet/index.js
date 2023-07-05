@@ -5,6 +5,9 @@ import { allDiets } from "../../../data";
 import TagContainer from "../TagContainer";
 import styles from "./style";
 
+
+
+
 /**
  * Tag container display with selectable tags.
  * @param {Array<tag>} list current list of macros, changeable.
@@ -25,6 +28,8 @@ export default function TagDiet({ list, manager }: {
         else
             var newArray = [...list, diet.name]
         manager(newArray)
+
+        
     }
 
     return (

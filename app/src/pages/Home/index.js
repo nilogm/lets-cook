@@ -15,13 +15,13 @@ export default function Home({ navigation }) {
 		setUnitUS(state);
 	}
 
-    const getRecipes = async (ingredients_search, macros_search) => {
+    const getRecipes = async (ingredients_search, macros_search, diets_search) => {
         try {
 
             const numberofRecipes = 7;
 
             const url = 'https://api.spoonacular.com/recipes/complexSearch' + get_key() + '&addRecipeInformation=true&includeIngredients='
-                + ingredients_search + '&' + macros_search + '&number=' + numberofRecipes + "&&fillIngredients=true"
+                + ingredients_search + '&' + macros_search + '&number=' + numberofRecipes + "&fillIngredients=true&diet=" + diets_search
             console.log(url)
 
             const response = await fetch(url);
@@ -60,8 +60,15 @@ export default function Home({ navigation }) {
 
     const makeSearch = () => {
         setIsLoading(!isLoading);
+        
+        let diets_search = '';
+
+        diets.forEach(element => {
+            diets_search += element + ',';
+        });
 
         let ingredient_search = '';
+
         ingredients.forEach(element => {
             ingredient_search += element.name + ',';
         });
@@ -69,8 +76,10 @@ export default function Home({ navigation }) {
         macros.forEach(element => {
             macro_search += element.name + '=' + element.amount + "&";
         });
+        console.log(diets_search)
 
-        getRecipes(ingredient_search, macro_search)
+        getRecipes(ingredient_search, macro_search, diets_search)
+
 
     }
 
