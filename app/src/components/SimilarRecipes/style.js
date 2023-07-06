@@ -8,7 +8,12 @@ const styles = StyleSheet.create({
         margin: 10,
         fontSize: 24,
         fontWeight: 300
+    },
+    list: { 
+        width: "100%", 
+        paddingTop: 5 
     }
+    
 })
 
 

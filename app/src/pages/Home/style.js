@@ -31,6 +31,20 @@ const styles = StyleSheet.create({
         textAlign: "center",
         fontWeight: 300
     },
+    searchPressableContainer: {
+        alignItems: 'center', 
+        justifyContent: "center", 
+        flex: 1 
+    },
+    searchPressableLoad: {
+        aspectRatio: 1, 
+        backgroundColor: "#FFAA33CC", 
+        height: 100, 
+        borderRadius: 50,
+        paddingTop:33,
+        paddingLeft: 5
+    },
+
 });
 
 export default styles

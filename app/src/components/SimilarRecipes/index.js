@@ -15,7 +15,7 @@ export default function SimilarRecipes({ navigation, similarRecipes }: {
         <View style={styles.container}>
             <Text style={styles.title}>Similar Recipes</Text>
             <FlatList
-                style={{ width: "100%" }}
+                style={styles.list}
                 data={similarRecipes}
                 contentContainerStyle={{ alignContent: "center" }}
                 renderItem={({ item }) => (

@@ -41,12 +41,15 @@ export default function TagInput({ list, manager, style, setPopupMessage }: {
     }
 
     const searchItem = async (search: string) => {
-        try {        
+        try {      
+            
+            
 
             const url = 'https://api.spoonacular.com/food/ingredients/autocomplete' + get_key() +'&query=' + search +'&number=4'
 
             const response = await fetch(url);
             const json = await response.json(); 
+            console.log(json)
             setMatches(json)        
            
 
@@ -62,11 +65,9 @@ export default function TagInput({ list, manager, style, setPopupMessage }: {
         manager(filteredData)
     }
 
-    const setTag = (item) => {
-        // setInput(item.name);
+    const setTag = (item) => {        
         addTag(item.name)
-        setMatches([])        
-        // Keyboard.dismiss()
+        setMatches([])             
     }
 
     return (

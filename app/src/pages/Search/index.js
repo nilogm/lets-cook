@@ -32,8 +32,7 @@ export default function RecipeSearch({ route, navigation }) {
             const json = await response.json();
             const moreResults = json.results
 
-            for (i = 0; i < 7; i++) {
-                // if (!results.includes(moreResults[i]))
+            for (i = 0; i < moreResults.length; i++) {               
                 results.push(moreResults[i])
             }
 
@@ -79,10 +78,10 @@ export default function RecipeSearch({ route, navigation }) {
                 ListFooterComponent={() => <View style={styles.loadMoreView}>
                     <Pressable style={styles.loadMorePressable} onPress={() => { getMoreRecipes(url, results) }}>
                         {
-                            isLoading && <ActivityIndicator size="large" color="#777777" />
-                        }
-                        {
-                            !isLoading && <Text style={styles.loadMoreText}>More Recipes</Text>
+                            isLoading ?
+                            <ActivityIndicator size="large" color="#777777" />
+                            :                       
+                            <Text style={styles.loadMoreText}>More Recipes</Text>
                         }
 
                     </Pressable>

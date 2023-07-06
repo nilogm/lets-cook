@@ -24,7 +24,7 @@ export default function Home({ navigation }) {
 
             const url = 'https://api.spoonacular.com/recipes/complexSearch' + get_key(1) + '&addRecipeInformation=true&includeIngredients='
                 + ingredients_search + '&' + macros_search + '&number=' + numberofRecipes + "&fillIngredients=true&diet=" + diets_search
-            console.log(url)
+           
 
             const response = await fetch(url);
             const json = await response.json();
@@ -89,8 +89,8 @@ export default function Home({ navigation }) {
 
             <TagDiet list={diets} manager={setDiets} style={styles.inputBox}></TagDiet>
 
-            <View style={{ alignItems: 'center', justifyContent: "center", flex: 1 }}>
-                <Pressable style={{ aspectRatio: 1, backgroundColor: "#FFAA33CC", height: 100, borderRadius: 50 }} onPress={makeSearch}>
+            <View style={styles.searchPressableContainer}>
+                <Pressable style={styles.searchPressableLoad} onPress={makeSearch}>
                     {isLoading && <ActivityIndicator size="large" color="yellow" />}
                 </Pressable>
             </View>
@@ -114,7 +114,6 @@ export default function Home({ navigation }) {
                         </View>
                     )} setPopupMessage={setModalMessage}/>
                 </View>
-
             </Modal>
         </View>
     )

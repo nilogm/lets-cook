@@ -43,7 +43,7 @@ export default function Recipe({ route, navigation }) {
                         </View>
                     </View>
                 </View>
-
+            
                 <FlatList
                     style={styles.blocks}
                     data={blocks}
@@ -58,8 +58,9 @@ export default function Recipe({ route, navigation }) {
                 />
 
             </View>
-            <SimilarRecipes navigation={navigation} similarRecipes={similarRecipes} /> 
-
+            <View style = {{marginTop: 30}}>
+                <SimilarRecipes navigation={navigation} similarRecipes={similarRecipes} /> 
+            </View>
         </View>
     );
 }

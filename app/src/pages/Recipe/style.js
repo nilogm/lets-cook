@@ -29,6 +29,7 @@ const styles = StyleSheet.create({
     },
     blocks: {
         padding: 20,
+        marginTop: 30
     },
     itemsContainer: {
         justifyContent: "space-between",
