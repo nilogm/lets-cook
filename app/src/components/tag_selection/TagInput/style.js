@@ -9,6 +9,14 @@ const styles = StyleSheet.create({
         width: '80%',
         marginBottom: 10,
     },
+    autocompleteBox: {
+        width: "100%", 
+        backgroundColor: "#FFFFFF", 
+        padding: 10 
+    },
+    autocompleteText: { 
+        fontWeight: 300
+    },
     
 });
 

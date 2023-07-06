@@ -1,4 +1,4 @@
-import { View, Button, Switch, ActivityIndicator, Text, Pressable } from 'react-native';
+import { View, Button, Switch, ActivityIndicator, Text, Pressable} from 'react-native';
 import React, { useState, useEffect } from 'react';
 import { get_key } from '../../utils/index.js';
 import { tag } from '../../types/index.js';
