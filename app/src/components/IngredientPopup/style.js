@@ -2,11 +2,8 @@ import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
     container: {
-        width: "80%",
-        backgroundColor: "white",
         alignItems: 'center',
-        elevation: 3,
-        padding: 20,
+        width: "100%",
     },
     headerContainer: {
         alignItems: "center",
@@ -27,23 +24,26 @@ const styles = StyleSheet.create({
     button: {
         padding: 10,
     },
-    confirmButton: {
-        marginTop: 20,
-    },
     text: {
         textAlign: 'center',
         fontWeight: 300,
     },
-    messageText:{
+    messageText: {
         marginBottom: 10,
     },
-    selectedText:{
+    selectedText: {
         color: 'orange',
         fontWeight: 'bold',
     },
     titleText: {
         fontWeight: 'bold',
     },
+    line: {
+        height: 1,
+        margin: 10,
+        width: "80%",
+        backgroundColor: "#CCCCCC"
+    }
 });
 
 export default styles

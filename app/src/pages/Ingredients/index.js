@@ -5,6 +5,7 @@ import { substitute, ingredient } from '../../types';
 import IngredientDisplay from '../../components/IngredientDisplay';
 import IngredientPopup from '../../components/IngredientPopup';
 import styles from "./style";
+import Popup from '../../components/Popup';
 
 
 async function searchSubstitutes(id) {
@@ -33,7 +34,7 @@ export default function Ingredients({ route }) {
     const usPreference = route.params.isUS_measure
     var ingredients_ = recipe.extendedIngredients;
 
-    const [modalVisible, setModalVisible] = useState(false);
+    const [modalMessage, setModalMessage] = useState("");
 
     const [currentItem, setItem] = useState(null);
 
@@ -42,7 +43,7 @@ export default function Ingredients({ route }) {
 
     const [usUnitEnabled, toggleUnit] = useState(usPreference);
 
-    ingredients_.forEach((element : ingredient) => {
+    ingredients_.forEach((element: ingredient) => {
         var found_usPreference = Object.keys(element).filter(item => item === "usPreference").length == 1;
         if (!found_usPreference)
             element.usPreference = usPreference
@@ -56,7 +57,7 @@ export default function Ingredients({ route }) {
 
             setSubstitutes([]);
             if (subs.status == 'success') {
-                let substituteList : Array<substitute> = [];
+                let substituteList: Array<substitute> = [];
                 subs.substitutes.forEach((element: string) => {
                     var split_str = (element.split(' = '));
                     substituteList = [...substituteList, {
@@ -70,7 +71,7 @@ export default function Ingredients({ route }) {
             setItem(item);
 
             setMessage(subs.message);
-            setModalVisible(true);
+            setModalMessage("visible");
         })()
     }
 
@@ -84,7 +85,7 @@ export default function Ingredients({ route }) {
         <View>
             <FlatList
                 style={styles.container}
-                contentContainerStyle={{paddingBottom: 50,}}
+                contentContainerStyle={{ paddingBottom: 50, }}
                 data={ingredients}
                 scrollEnabled={true}
                 showsVerticalScrollIndicator={false}
@@ -99,17 +100,20 @@ export default function Ingredients({ route }) {
             <Modal
                 animationType='slide'
                 transparent={true}
-                visible={modalVisible}
-                onRequestClose={() => { setModalVisible(!modalVisible); }}>
+                visible={modalMessage != ""}
+                onRequestClose={() => { setModalMessage("") }}>
 
-                <View style={styles.centeredView}>
-                    <IngredientPopup
-                        ingredient={currentItem}
-                        substitutes={substitutes}
-                        message={message}
-                        togglePreference={togglePreference}
-                        setModalVisible={setModalVisible} />
+                <View style={styles.popup}>
+                    <Popup content={(
+                        <IngredientPopup
+                            ingredient={currentItem}
+                            substitutes={substitutes}
+                            message={message}
+                            togglePreference={togglePreference} />
+                    )} setPopupMessage={setModalMessage} />
                 </View>
+
+
 
             </Modal>
         </View>

@@ -1,22 +1,20 @@
 import { View, Text, Pressable, FlatList, Image } from "react-native";
-import { ingredient } from "../../types";
+import { ingredient, substitute } from "../../types";
 import styles from "./style";
 
 /**
- * Popup that displays the ingredient name, image, possible units and substitutes. Toggles preference unit when "togglePreference" is given
+ * Popup that displays the ingredient name, image, possible units and substitutes. Toggles preference unit when "togglePreference" is given.
  * @param {ingredient} ingredient ingredient object the popup is being referered to.
  * @param {substitutes} substitutes substitutes to the ingredient.
  * @param {message} message message to be displayed in popup.
  * @param {function} togglePreference function handler that toggles the unit/metric preference.
- * @param {setModalVisible} setModalVisible function handler that toggles the popup visibility.
  * @returns 
  */
-export default function IngredientPopup({ ingredient, substitutes, message, togglePreference = null, setModalVisible }: {
+export default function IngredientPopup({ ingredient, substitutes, message, togglePreference = null}: {
     togglePreference: function,
-    setModalVisible: function,
     ingredient : ingredient,
     message: string,
-    substitutes : Array[]
+    substitutes : Array<substitute>
 }) {
 
     const getName = () => {
@@ -59,7 +57,7 @@ export default function IngredientPopup({ ingredient, substitutes, message, togg
                 </View>
             }
 
-            <View style={{ height: 1, margin: 10, width: "80%", backgroundColor: "#CCCCCC" }} />
+            <View style={styles.line} />
 
             <Text style={[styles.text, styles.messageText]}>{message}</Text>
 
@@ -74,13 +72,6 @@ export default function IngredientPopup({ ingredient, substitutes, message, togg
                 )}
                 ItemSeparatorComponent={<View style={{ height: 5, width: "100%" }} />}
             />
-
-            <Pressable
-                style={[styles.button, styles.confirmButton]}
-                onPress={() => setModalVisible(false)}>
-                <Text style={styles.text}>OK</Text>
-            </Pressable>
-
         </View>
     );
 

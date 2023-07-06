@@ -4,7 +4,7 @@ const styles = StyleSheet.create({
     container: {
         padding: 20,
     },
-    centeredView: {
+    popup: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',

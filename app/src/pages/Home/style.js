@@ -22,6 +22,15 @@ const styles = StyleSheet.create({
         paddingLeft: 20,
         fontSize: 16
     },
+    popup: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    popupText : {
+        textAlign: "center",
+        fontWeight: 300
+    },
 });
 
 export default styles

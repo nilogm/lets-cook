@@ -9,12 +9,14 @@ import styles from "./style";
  * @param {Array<list>} list current list of ingredients, changeable.
  * @param {function} manager function handler to execute list updates.
  * @param {Object} style textbox style.
+ * @param {function} setPopupMessage function handler to change message displayed in error popup.
  * @returns 
  */
-export default function TagInput({ list, manager, style }: {
+export default function TagInput({ list, manager, style, setPopupMessage }: {
     list: Array<tag>,
     manager: function,
-    style: Object
+    style: Object,
+    setPopupMessage: function
 }) {
 
     const mainInput = useRef();
@@ -23,6 +25,11 @@ export default function TagInput({ list, manager, style }: {
 
     const addTag = (tagName) => {
         if (!tagName) return
+
+        // ao fazer o autocomplete,
+        // se o ingrediente existir, setPopupMessage("")
+        // caso contrário, setPopupMessage({tagName})
+
         tagName = tagName.toLowerCase();
         const filteredData = list.filter(item => item.name === tagName)
         if (filteredData.length > 0)

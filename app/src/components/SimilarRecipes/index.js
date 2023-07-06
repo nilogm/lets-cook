@@ -5,11 +5,11 @@ import styles from "./style";
 /**
  * 
  * @param {*} navigation
- * @param {Array<string>} similarRecipes
+ * @param {Array<Object>} similarRecipes
  * @returns 
  */
 export default function SimilarRecipes({ navigation, similarRecipes }: {
-    similarRecipes: Array<string>,
+    similarRecipes: Array<Object>,
 }) {
     return (
         <View style={styles.container}>
@@ -20,7 +20,7 @@ export default function SimilarRecipes({ navigation, similarRecipes }: {
                 contentContainerStyle={{ alignContent: "center" }}
                 renderItem={({ item }) => (
                     <RecipeSearchButton
-                        navigation={navigation} data={item} args={{ similar: true }}
+                        navigation={navigation} recipe={item} args={{ similar: true }}
                     />
                 )}
                 ItemSeparatorComponent={

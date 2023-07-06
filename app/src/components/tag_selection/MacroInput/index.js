@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { Pressable, TextInput, View, Text, Switch, FlatList } from "react-native";
+import { Pressable, TextInput, View, Text, FlatList } from "react-native";
 import { tag } from "../../../types";
 import { allMacros } from "../../../data";
 import TagContainer from "../TagContainer";
@@ -10,12 +10,14 @@ import styles from "./style";
  * @param {Array<tag>} list current list of macros, changeable.
  * @param {function} manager function handler to execute list updates.
  * @param {Object} style textbox style.
+ * @param {function} setPopupMessage function handler to change message displayed in error popup.
  * @returns 
  */
-export default function MacroInput({ list, manager, style }: {
+export default function MacroInput({ list, manager, style, setPopupMessage }: {
     list: Array<tag>,
     manager: function,
     style: Object,
+    setPopupMessage: function
 }) {
 
     const [input, setInput] = useState('')
@@ -29,6 +31,12 @@ export default function MacroInput({ list, manager, style }: {
 
     const addTag = () => {
         if (input == "") return
+        if (allMacros.filter(item => item.name === input).length == 0){
+            setPopupMessage(input)
+            return
+        }
+
+        setPopupMessage("")
 
         var newArray = list;
         if (minValue != "") {
@@ -38,7 +46,7 @@ export default function MacroInput({ list, manager, style }: {
 
         if (maxValue != "") {
             const filteredData = newArray.filter(item => item.name !== "max" + input)
-            newArray = [...newArray, { name: "max" + input, amount: maxValue, unit: "g" }]
+            newArray = [...filteredData, { name: "max" + input, amount: maxValue, unit: "g" }]
         }
 
         setInput("")

@@ -74,7 +74,6 @@ export default function RecipeSearchButton({ navigation, recipe, args }: {
             nutrients = recipe.nutrition.nutrients;
             console.log(Object.keys(nutrients))
         }
-
         ingredients = recipe.missedIngredients;
     }
 

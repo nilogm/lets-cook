@@ -1,19 +1,21 @@
-import { View, Button, Switch, ActivityIndicator, Text, Pressable } from 'react-native';
+import { View, ActivityIndicator, Text, Pressable, Modal } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import { get_key } from '../../utils/index.js';
-import { tag } from '../../types/index.js';
+import { tag, ModalStatus } from '../../types/index.js';
 import TagDiet from "../../components/tag_selection/TagDiet"
 import MacroInput from '../../components/tag_selection/MacroInput';
 import TagInput from '../../components/tag_selection/TagInput';
 import styles from './style.js';
+import Popup from '../../components/Popup/index.js';
+
 
 export default function Home({ navigation }) {
     const [isLoading, setIsLoading] = useState(false);
 
-    const [unitUS, setUnitUS] = useState(true);
-	const toggle = (state) => {
-		setUnitUS(state);
-	}
+    const [unitUS, setUnitUS] = useState(false);
+    const toggle = (state) => {
+        setUnitUS(state);
+    }
 
     const getRecipes = async (ingredients_search, macros_search, diets_search) => {
         try {
@@ -45,14 +47,7 @@ export default function Home({ navigation }) {
 
     };
 
-    // navigation.setOptions({
-    //     headerRight: () => (
-    //         <Switch
-    //             onValueChange={(state) => toggle(state)}
-    //             value={unitUS}
-    //         />
-    //     ),
-    // });
+    const [modalMessage, setModalMessage] = useState("");
 
     const [ingredients, setIngredients] = useState([]);
     const [macros, setMacros] = useState([]);
@@ -60,7 +55,7 @@ export default function Home({ navigation }) {
 
     const makeSearch = () => {
         setIsLoading(!isLoading);
-        
+
         let diets_search = '';
 
         diets.forEach(element => {
@@ -76,11 +71,8 @@ export default function Home({ navigation }) {
         macros.forEach(element => {
             macro_search += element.name + '=' + element.amount + "&";
         });
-        console.log(diets_search)
 
         getRecipes(ingredient_search, macro_search, diets_search)
-
-
     }
 
     return (
@@ -89,9 +81,9 @@ export default function Home({ navigation }) {
                 <Text style={styles.title}>Let's cook!</Text>
             </View>
 
-            <TagInput list={ingredients} manager={setIngredients} style={styles.inputBox} />
+            <TagInput list={ingredients} manager={setIngredients} style={styles.inputBox} setPopupMessage={setModalMessage} />
 
-            <MacroInput list={macros} manager={setMacros} style={styles.inputBox} />
+            <MacroInput list={macros} manager={setMacros} style={styles.inputBox} setPopupMessage={setModalMessage} />
 
             <View style={{ alignSelf: "center", width: "80%", height: 1, backgroundColor: "#AAAAAA", marginBottom: 20 }}></View>
 
@@ -102,6 +94,28 @@ export default function Home({ navigation }) {
                     {isLoading && <ActivityIndicator size="large" color="yellow" />}
                 </Pressable>
             </View>
+
+            <Modal
+                animationType='slide'
+                transparent={true}
+                visible={modalMessage != ""}
+                onRequestClose={() => { setModalMessage("") }}>
+
+                <View style={styles.popup}>
+                    <Popup content={(
+                        <View>
+                            {
+                                modalMessage != "" &&
+                                <View>
+                                    <Text style={styles.popupText}>Keyword "{modalMessage}" doesn't exist.</Text>
+                                    <Text style={styles.popupText}>Check for unnecessary spacing or incorrect writing.</Text>
+                                </View>
+                            }
+                        </View>
+                    )} setPopupMessage={setModalMessage}/>
+                </View>
+
+            </Modal>
         </View>
     )
 }
