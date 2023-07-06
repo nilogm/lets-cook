@@ -1,4 +1,5 @@
 import { View, Text, Pressable, FlatList, Image } from "react-native";
+import { get_name, get_image } from "../../utils";
 import { ingredient, substitute } from "../../types";
 import styles from "./style";
 
@@ -17,17 +18,13 @@ export default function IngredientPopup({ ingredient, substitutes, message, togg
     substitutes : Array<substitute>
 }) {
 
-    const getName = () => {
-        return ingredient.name[0].toUpperCase() + ingredient.name.slice(1);
-    }
-
     return (
         <View style={styles.container}>
             {
                 ingredient &&
                 <View style={styles.headerContainer}>
-                    <Image source={{ uri: "https://spoonacular.com/cdn/ingredients_100x100/" + ingredient.image }} style={styles.image} />
-                    <Text style={[styles.text, styles.titleText]}>{getName()}</Text>
+                    <Image source={{ uri: get_image(ingredient.image) }} style={styles.image} />
+                    <Text style={[styles.text, styles.titleText]}>{getName(ingredient.name)}</Text>
                 </View>
             }
 
