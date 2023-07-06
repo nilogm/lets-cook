@@ -15,15 +15,18 @@ import styles from "./style";
  */
 const getSimilar = async (navigation, data, isUS_measure) => {
     const similar = []
+    
 
     try {
-        url = 'https://api.spoonacular.com/recipes/' + data.id + '/similar' + get_key() + '&number=2'
+        url = 'https://api.spoonacular.com/recipes/' + data.id + '/similar' + get_key(1) + '&number=2'
 
         const response = await fetch(url);
         const json = await response.json();
 
-        for (i = 0; i < 2; i++) {
-            const response2 = await fetch("https://api.spoonacular.com/recipes/" + json[i].id + "/information" + get_key())
+ 
+
+        for (i = 0; i < json.length; i++) {
+            const response2 = await fetch("https://api.spoonacular.com/recipes/" + json[i].id + "/information" + get_key(1))
             const json2 = await response2.json()
             similar.push(json2)
         }
@@ -74,7 +77,6 @@ export default function RecipeSearchButton({ navigation, recipe, args }: {
             nutrients = recipe.nutrition.nutrients;
             console.log(Object.keys(nutrients))
         }
-
         ingredients = recipe.missedIngredients;
     }
 

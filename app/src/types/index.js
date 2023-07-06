@@ -13,8 +13,8 @@ export type nutrients = {
 }
 
 export type substitute = {
-    comparison : string,
-    substitute : string,
+    comparison: string,
+    substitute: string,
 }
 
 export type recipe = {
@@ -36,9 +36,7 @@ export type recipe = {
 
 export type tag = {
     name: string,
-    amount : float | undefined,
-    unit : string | undefined,
+    amount: float | undefined,
+    unit: string | undefined,
     unitLong: string | undefined,
 }
-
-
