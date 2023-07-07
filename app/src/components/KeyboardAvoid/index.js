@@ -3,11 +3,9 @@ import { Keyboard, KeyboardAvoidingView, ScrollView, TouchableWithoutFeedback } 
 export default function KeyboardAvoid({ children }) {
     return (
         <KeyboardAvoidingView style={{ flex: 1 }}>
-            <ScrollView>
-                <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-                    {children}
-                </TouchableWithoutFeedback>
-            </ScrollView>
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                {children}
+            </TouchableWithoutFeedback>
         </KeyboardAvoidingView>
     );
 }

@@ -2,16 +2,14 @@ import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
     mainContainer: {
-        alignItems: "center",
-        paddingBottom: 10,
-    },
-    inputBox: {
+        alignSelf: 'center',
+        flexDirection: 'column',
         width: '80%',
         marginBottom: 10,
     },
     autocompleteBox: {
         width: "100%", 
-        backgroundColor: "#FFFFFF", 
+        backgroundColor: "#FFFFFF",
         padding: 10 
     },
     autocompleteText: { 

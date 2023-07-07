@@ -6,6 +6,7 @@ import { Line } from "../../components/assets";
 import SimilarRecipes from "../../components/SimilarRecipes";
 import RecipeInformationButton from "../../components/RecipeInformationButton";
 import styles from "./style";
+import LoadingModal from "../../components/LoadingModal";
 
 
 export default function Recipe({ route, navigation }) {
@@ -60,14 +61,7 @@ export default function Recipe({ route, navigation }) {
 
             <SimilarRecipes navigation={navigation} similarRecipes={similarRecipes} setIsLoading={setIsLoading} />
 
-            <Modal style={styles.popup}
-                transparent={true}
-                visible={isLoading}>
-                {
-                    isLoading &&
-                    <ActivityIndicator size="large" color="gray" />
-                }
-            </Modal>
+            <LoadingModal isVisible={isLoading}/>
         </View>
     );
 }

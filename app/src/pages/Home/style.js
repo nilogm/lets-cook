@@ -2,18 +2,15 @@ import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
         paddingTop: 30,
         backgroundColor: "#0000000A"
     },
-    titleBox: {
-        alignSelf: "center",
-        width: "80%",
-        marginBottom: 20,
-    },
     title: {
+        width: "80%",
+        alignSelf: "center",
         fontSize: 56,
-        fontWeight: 300
+        fontWeight: 300,
+        marginBottom: 20,
     },
     inputBox: {
         backgroundColor: "#FaFaFa",

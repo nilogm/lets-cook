@@ -33,10 +33,6 @@ const styles = StyleSheet.create({
         gap: 20,
         width: "100%",
     },
-    popup: {
-        justifyContent: 'center',
-        alignItems: 'center',
-    }
 });
 
 export default styles

@@ -4,48 +4,34 @@ import { LinearGradient } from "expo-linear-gradient";
 import RecipeSearchButton from "../../components/RecipeSearchButton"
 import TagIcon from "../../components/tag_selection/TagIcon";
 import styles from "./style";
+import { get_more_recipes } from "../../api";
+import LoadingModal from "../../components/LoadingModal";
 
 
 
 export default function RecipeSearch({ route, navigation }) {
 
+    const [isLoadingMore, setIsLoadingMore] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [offset, setOffset] = useState(7);
 
     const data = route.params;
 
-    const results = data.results;
+    var results = data.results;
     const url = data.source;
     const ingredients = data.ingredientsUsed
     const macros = data.macrosUsed
-    const isUS_measure = data.isUS_measure
+    const diets = data.dietsUsed
 
-    const getMoreRecipes = async (url, results) => {
-        try {
-            setIsLoading(!isLoading);
+    const loadMore = async () => {
+        setIsLoadingMore(true)
+        setOffset(offset + 7)
+        results = await get_more_recipes(url, results, offset)
+        setIsLoadingMore(false)
+    }
 
-            setOffset(offset + 7);
-            url = url + "&offset=" + offset;
-
-            const response = await fetch(url);
-
-            const json = await response.json();
-            const moreResults = json.results
-
-            for (i = 0; i < moreResults.length; i++) {
-                results.push(moreResults[i])
-            }
-
-        } catch (error) {
-            console.error(error);
-        }
-        finally {
-            setIsLoading(false);
-        }
-
-    };
     return (
-        <View>
+        <View >
             <View style={styles.container}>
                 <FlatList
                     horizontal={true}
@@ -75,9 +61,9 @@ export default function RecipeSearch({ route, navigation }) {
                 ItemSeparatorComponent={<View style={{ height: 5, width: "100%" }} />}
 
                 ListFooterComponent={() => <View style={styles.loadMoreView}>
-                    <Pressable style={styles.loadMorePressable} onPress={() => { getMoreRecipes(url, results) }}>
+                    <Pressable style={styles.loadMorePressable} onPress={loadMore}>
                         {
-                            isLoading ?
+                            isLoadingMore ?
                                 <ActivityIndicator size="large" color="#777777" />
                                 :
                                 <Text style={styles.loadMoreText}>More Recipes</Text>
@@ -87,14 +73,7 @@ export default function RecipeSearch({ route, navigation }) {
                 </View>}
             />
 
-            <Modal style={styles.popup}
-                transparent={true}
-                visible={isLoading}>
-                {
-                    isLoading &&
-                    <ActivityIndicator size="large" color="gray" />
-                }
-            </Modal>
+            <LoadingModal isVisible={isLoading} />
         </View>
     )
 }

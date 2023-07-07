@@ -4,7 +4,7 @@
  * @param {int} index index of the API key to use.
  * @returns string with "?apiKey=[API key]".
  */
-export const get_key = (index = 0) => {
+export const get_key = (index = 1) => {
     const keys = ["60e0914780694a9789b017e7519fd30e", "ed5efa73e002400393a5034f3327b3c4", "8b93086b35874e698fc2efb972938a5f"]
     return "?apiKey=" + keys[index];
 }
@@ -47,7 +47,7 @@ export const make_search = async (id: int) => {
  * @param {*} data 
  * @returns 
  */
-export const get_similar = async ( data ) => {
+export const get_similar = async (data) => {
     var similar = [];
 
     try {
@@ -71,6 +71,8 @@ export const get_similar = async ( data ) => {
         console.error(error)
     }
 }
+
+
 /**
  * Searches for recipes with the given fiters.
  * @param {string} ingredients_search 
@@ -96,4 +98,46 @@ export const get_recipes = async (ingredients_search, macros_search, diets_searc
         console.error(error);
     }
 
+};
+
+/**
+ * Busca e retorna ingredientes em autocomplete.
+ * @param {string} search search string.
+ */
+export const search_item = async (search: string) => {
+    try {
+        const url = 'https://api.spoonacular.com/food/ingredients/autocomplete' + get_key() + '&query=' + search + '&number=5'
+        const response = await fetch(url);
+        const json = await response.json();
+
+        return json
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+
+/**
+ * Loads more recipes with the original filters' url.
+ * @param {string} url original search url.
+ * @param {Array<Object>} results list of recipe results.
+ * @param {int} offset load offset.
+ */
+export const get_more_recipes = async (url: string, results: Array<Object>, offset : int) => {
+    try {
+        url = url + "&offset=" + offset;
+
+        const response = await fetch(url);
+
+        const json = await response.json();
+        const moreResults = json.results
+
+        for (i = 0; i < moreResults.length; i++)
+            results.push(moreResults[i])
+        return results
+
+    } catch (error) {
+        console.error(error);
+    }
+    return null
 };

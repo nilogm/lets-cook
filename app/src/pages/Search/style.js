@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     loadMorePressable: {
         alignContent: "center",
         padding: 10,
-        marginTop: 10, 
+        marginTop: 10,
         marginBottom: 40,
         borderRadius: 50,
         paddingHorizontal: 20,
@@ -29,11 +29,6 @@ const styles = StyleSheet.create({
         color: "#777777",
         fontSize: 20,
     },
-    popup: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-    }
 });
 
 export default styles

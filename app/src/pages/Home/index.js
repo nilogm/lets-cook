@@ -1,12 +1,13 @@
 import { View, Button, Switch, ActivityIndicator, Text, Pressable, Modal } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import { get_recipes } from '../../api';
+import { Line } from '../../components/assets'
 import TagDiet from "../../components/tag_selection/TagDiet"
 import MacroInput from '../../components/tag_selection/MacroInput';
 import TagInput from '../../components/tag_selection/TagInput';
+import Popup from '../../components/Popup';
+import KeyboardAvoid from '../../components/KeyboardAvoid';
 import styles from './style.js';
-import Popup from '../../components/Popup/index.js';
-import KeyboardAvoid from '../../components/KeyboardAvoid/index.js';
 
 
 export default function Home({ navigation }) {
@@ -46,7 +47,7 @@ export default function Home({ navigation }) {
         results.ingredientsUsed = ingredients
         results.macrosUsed = macros
         results.dietsUsed = diets
-        
+
         setIsLoading(false)
 
         navigation.navigate('Search', results);
@@ -55,15 +56,13 @@ export default function Home({ navigation }) {
     return (
         <KeyboardAvoid>
             <View style={styles.container}>
-                <View style={styles.titleBox}>
-                    <Text style={styles.title}>Let's cook!</Text>
-                </View>
+                <Text style={styles.title}>Let's cook!</Text>
 
                 <TagInput list={ingredients} manager={setIngredients} style={styles.inputBox} setPopupMessage={setModalMessage} />
 
                 <MacroInput list={macros} manager={setMacros} style={styles.inputBox} setPopupMessage={setModalMessage} />
 
-                <View style={{ alignSelf: "center", width: "80%", height: 1, backgroundColor: "#AAAAAA", marginBottom: 20 }}></View>
+                <Line />
 
                 <TagDiet list={diets} manager={setDiets} style={styles.inputBox}></TagDiet>
 

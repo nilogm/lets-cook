@@ -9,6 +9,7 @@ import styles from './style.js'
 type container_args = {
     small: boolean,
     iconArgs: tag_args,
+    style: Object
 }
 
 /**
@@ -24,7 +25,8 @@ export default function TagContainer({ tagList, args }: {
 
     var default_args = {
         "small": false,
-        "iconArgs" : null,
+        "iconArgs": null,
+        "style": null,
     };
     args = set_params(default_args, args);
 
@@ -39,12 +41,10 @@ export default function TagContainer({ tagList, args }: {
             columnWrapperStyle={
                 tagList.length > 1 && styles.items
             }
-            style={styles.container}
+            style={[styles.container, args.style]}
             numColumns={tagList.length}
             data={tagList}
-            renderItem={({ item }) => (
-                <TagIcon tag={item} args={args.iconArgs} />
-            )
+            renderItem={({ item }) => (<TagIcon tag={item} args={args.iconArgs} />)
             }
         />
     )
