@@ -4,8 +4,8 @@
  * @param {int} index index of the API key to use.
  * @returns string with "?apiKey=[API key]".
  */
-export const get_key = (index = 0) => {
-    const keys = ["60e0914780694a9789b017e7519fd30e", "ed5efa73e002400393a5034f3327b3c4"]
+export const get_key = (index = 0) => {    
+    const keys = ["60e0914780694a9789b017e7519fd30e", "ed5efa73e002400393a5034f3327b3c4", "e365b60980d24026979b52053ea8f456"]
     return "?apiKey=" + keys[index];
 }
 

@@ -18,7 +18,7 @@ const getSimilar = async (navigation, data, isUS_measure) => {
     
 
     try {
-        url = 'https://api.spoonacular.com/recipes/' + data.id + '/similar' + get_key(1) + '&number=3'
+        url = 'https://api.spoonacular.com/recipes/' + data.id + '/similar' + get_key(2) + '&number=3'
 
         const response = await fetch(url);
         const json = await response.json();
@@ -26,7 +26,7 @@ const getSimilar = async (navigation, data, isUS_measure) => {
  
 
         for (i = 0; i < json.length; i++) {
-            const response2 = await fetch("https://api.spoonacular.com/recipes/" + json[i].id + "/information" + get_key(1))
+            const response2 = await fetch("https://api.spoonacular.com/recipes/" + json[i].id + "/information" + get_key(2))
             const json2 = await response2.json()
             similar.push(json2)
         }

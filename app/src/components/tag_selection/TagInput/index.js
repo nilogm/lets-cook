@@ -28,9 +28,10 @@ export default function TagInput({ list, manager, style, setPopupMessage }: {
 
     const addTag = (tagName) => {
         if (!tagName) return
+        setMatches([])
         tagName = tagName.toLowerCase();
         const filteredData = list.filter(item => item.name === tagName)
-        if (filteredData.length > 0)
+        if (filteredData.length > 0) 
             return
 
         var newArray = [...list, { name: tagName }]
@@ -41,12 +42,11 @@ export default function TagInput({ list, manager, style, setPopupMessage }: {
     }
 
     const searchItem = async (search: string) => {
-        try {      
-            
+        try {        
             
 
-            const url = 'https://api.spoonacular.com/food/ingredients/autocomplete' + get_key() +'&query=' + search +'&number=4'
-
+            const url = 'https://api.spoonacular.com/food/ingredients/autocomplete' + get_key(2) +'&query=' + search +'&number=4'
+            console.log(url)
             const response = await fetch(url);
             const json = await response.json(); 
             console.log(json)
@@ -79,8 +79,7 @@ export default function TagInput({ list, manager, style, setPopupMessage }: {
                 onChangeText={(search) => {
                     setInput(search)
                     searchItem(search)
-                }}
-                onSubmitEditing={() => addTag(input)}
+                }}                
                 returnKeyType="search"
                 blurOnSubmit={false}
                 selectTextOnFocus={true}

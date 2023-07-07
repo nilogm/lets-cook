@@ -17,9 +17,6 @@ Brown Rice, and Vegetable Fried Rice</a>.
 */
 
 
-
-
-
 var summary = ""
     const s = []
     summary = "You can never have too many Chinese recipes, so give Cauliflower, Brown Rice,\
@@ -35,25 +32,33 @@ var summary = ""
      >Cauliflower, Brown Rice, and Vegetable Fried Rice</a>, and <a href=https://spoonacular.com/recipes/cauliflower-brown-rice-and-vegetable-fried-rice-1230097>\
      Cauliflower, Brown Rice, and Vegetable Fried Rice</a>."
 
-    const renderSummary = () => {
-        var sentence = ""
-        var isBold = false
-        for (i =0; i< summary.length; i++) {
-            const c = summary[i]
-            if (c == '<') {
-                s.push({bold: isBold, phrase: sentence})
-                isBold = !isBold
-                sentence = ""
-                i += 2
-                if (summary[i] == '>')  i++
-            }
-            else {
-                console.log(c)
-                sentece = sentence.concat(c)
-            }
+    var result = []
+
+    var splitResult = summary.split("<a")[0]
+
+    var lastDot = -1
+    
+    for (i =0; i< splitResult.length; i++) {
+        if (splitResult[i] == ".") {
+            lastDot = i
         }
     }
 
+    summary = splitResult.substring(0, lastDot+1)
+  
+    
+
+    const renderSummary = () => {
+        var splitted = (summary.split("<b>"))
+        for (i=0; i< splitted.length; i++) {            
+            var splitted2 =  splitted[i].split("</b>")
+            for (j=0; j<splitted2.length; j++) {
+                result.push(splitted2[j])
+            }
+        }      
+   }
+   
+
     renderSummary()
 
-    console.log(s)
+    

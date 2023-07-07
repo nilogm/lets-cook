@@ -112,9 +112,6 @@ export default function Ingredients({ route }) {
                             togglePreference={togglePreference} />
                     )} setPopupMessage={setModalMessage} />
                 </View>
-
-
-
             </Modal>
         </View>
 

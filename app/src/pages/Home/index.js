@@ -22,7 +22,7 @@ export default function Home({ navigation }) {
 
             const numberofRecipes = 7;
 
-            const url = 'https://api.spoonacular.com/recipes/complexSearch' + get_key(1) + '&addRecipeInformation=true&includeIngredients='
+            const url = 'https://api.spoonacular.com/recipes/complexSearch' + get_key(2) + '&addRecipeInformation=true&includeIngredients='
                 + ingredients_search + '&' + macros_search + '&number=' + numberofRecipes + "&fillIngredients=true&diet=" + diets_search
            
 
