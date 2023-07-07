@@ -24,7 +24,7 @@ export default function IngredientPopup({ ingredient, substitutes, message, togg
                 ingredient &&
                 <View style={styles.headerContainer}>
                     <Image source={{ uri: get_image(ingredient.image) }} style={styles.image} />
-                    <Text style={[styles.text, styles.titleText]}>{getName(ingredient.name)}</Text>
+                    <Text style={[styles.text, styles.titleText]}>{get_name(ingredient.name)}</Text>
                 </View>
             }
 

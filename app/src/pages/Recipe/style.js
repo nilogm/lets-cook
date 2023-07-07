@@ -3,38 +3,40 @@ import { StyleSheet } from "react-native";
 const styles = StyleSheet.create({
     container: {
         width: '100%',
-        backgroundColor: '#AFAFAFA0',
-        height: 180,
+        height: 140,
         padding: 20,
-        flexDirection: "row"
+        flexDirection: "row",
+        gap: 15
     },
     headerContainer: {
-        marginLeft: 20,
         flex: 1,
+        justifyContent: "center",
     },
     headerTitle: {
         fontWeight: "bold",
-        fontSize: 24
+        fontSize: 20
     },
     headerInformation: {
         fontStyle: "italic",
+        fontWeight: 300,
         fontSize: 16,
     },
     image: {
         aspectRatio: 1,
         height: "100%",
     },
-    gradient: {
-        flex: 1,
-    },
     blocks: {
         padding: 20,
-        marginTop: 30
     },
     itemsContainer: {
-        justifyContent: "space-between",
+        justifyContent: "center",
+        gap: 20,
         width: "100%",
     },
+    popup: {
+        justifyContent: 'center',
+        alignItems: 'center',
+    }
 });
 
 export default styles

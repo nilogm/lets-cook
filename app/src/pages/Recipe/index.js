@@ -1,22 +1,20 @@
-import { Text, View, FlatList, Image } from "react-native";
-import React from "react";
+import { Text, View, FlatList, Image, Modal, ActivityIndicator } from "react-native";
+import React, { useState } from "react";
 import { LinearGradient } from 'expo-linear-gradient';
 import { recipe } from "../../types";
+import { Line } from "../../components/assets";
 import SimilarRecipes from "../../components/SimilarRecipes";
 import RecipeInformationButton from "../../components/RecipeInformationButton";
 import styles from "./style";
 
 
 export default function Recipe({ route, navigation }) {
-    const recipe : recipe = route.params.recipe;
-    const similarRecipes : Array<Object> = route.params.similarRecipes
-    const isUS_measure : boolean = route.params.isUS_measure
+    const recipe: recipe = route.params.recipe;
+    const similarRecipes: Array<Object> = route.params.similarRecipes
+
+    const [isLoading, setIsLoading] = useState(false);
 
     const blocks = [
-        {
-            title: "Information",
-            page: "Info"
-        },
         {
             title: "Ingredients",
             page: "Ingredients"
@@ -32,6 +30,7 @@ export default function Recipe({ route, navigation }) {
             <View>
                 <View style={styles.container}>
                     <Image source={{ uri: recipe.image }} style={styles.image}></Image>
+
                     <View style={styles.headerContainer}>
                         <Text style={styles.headerTitle} numberOfLines={2}>{recipe.title}</Text>
                         <View style={{ marginTop: 5 }}>
@@ -43,24 +42,32 @@ export default function Recipe({ route, navigation }) {
                         </View>
                     </View>
                 </View>
-            
-                <FlatList
-                    style={styles.blocks}
-                    data={blocks}
-                    horizontal={true}
-                    contentContainerStyle={styles.itemsContainer}
-                    renderItem={({ item }) => (
-                        <RecipeInformationButton isUS_measure={isUS_measure}
-                            navigation={navigation}
-                            title={item.title}
-                            data={recipe}
-                            page={item.page} />)}
-                />
+                <Line />
+            </View>
 
-            </View>
-            <View style = {{marginTop: 30}}>
-                <SimilarRecipes navigation={navigation} similarRecipes={similarRecipes} /> 
-            </View>
+            <FlatList
+                style={styles.blocks}
+                data={blocks}
+                horizontal={true}
+                contentContainerStyle={styles.itemsContainer}
+                renderItem={({ item }) => (
+                    <RecipeInformationButton
+                        navigation={navigation}
+                        title={item.title}
+                        data={recipe}
+                        page={item.page} />)}
+            />
+
+            <SimilarRecipes navigation={navigation} similarRecipes={similarRecipes} setIsLoading={setIsLoading} />
+
+            <Modal style={styles.popup}
+                transparent={true}
+                visible={isLoading}>
+                {
+                    isLoading &&
+                    <ActivityIndicator size="large" color="gray" />
+                }
+            </Modal>
         </View>
     );
 }

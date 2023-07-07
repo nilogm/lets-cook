@@ -7,15 +7,12 @@ export default function Popup({ content, setPopupMessage }: { setPopupMessage: f
 
     return (
         <View style={styles.container}>
-
             {content}
-
             <Pressable
                 style={[styles.button]}
                 onPress={() => setPopupMessage("")}>
                 <Text style={styles.text}>OK</Text>
             </Pressable>
-
         </View>
     );
 

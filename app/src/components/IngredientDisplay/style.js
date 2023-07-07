@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
         flexWrap: "wrap", 
     },
     image: {
-        height: 60,
+        height: 50,
         borderRadius: 50,
         aspectRatio: 1,
     },
