@@ -44,7 +44,6 @@ const styles = StyleSheet.create({
         paddingTop:33,
         paddingLeft: 5
     },
-
 });
 
 export default styles

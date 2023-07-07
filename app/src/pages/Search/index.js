@@ -1,4 +1,4 @@
-import { FlatList, Pressable, View, Text, ActivityIndicator } from "react-native";
+import { FlatList, Pressable, View, Text, ActivityIndicator, Modal } from "react-native";
 import { useState } from 'react';
 import { LinearGradient } from "expo-linear-gradient";
 import RecipeSearchButton from "../../components/RecipeSearchButton"
@@ -32,7 +32,7 @@ export default function RecipeSearch({ route, navigation }) {
             const json = await response.json();
             const moreResults = json.results
 
-            for (i = 0; i < moreResults.length; i++) {               
+            for (i = 0; i < moreResults.length; i++) {
                 results.push(moreResults[i])
             }
 
@@ -45,7 +45,7 @@ export default function RecipeSearch({ route, navigation }) {
 
     };
     return (
-        <View style={{ flex: 1 }}>
+        <View>
             <View style={styles.container}>
                 <FlatList
                     horizontal={true}
@@ -70,8 +70,7 @@ export default function RecipeSearch({ route, navigation }) {
                 contentContainerStyle={{ alignItems: "center" }}
                 renderItem={({ item, index }) => (
                     <RecipeSearchButton
-                        navigation={navigation} recipe={item}
-                        args={{ "isUS_measure": isUS_measure }}
+                        navigation={navigation} recipe={item} setIsLoading={setIsLoading}
                     />)}
                 ItemSeparatorComponent={<View style={{ height: 5, width: "100%" }} />}
 
@@ -79,14 +78,23 @@ export default function RecipeSearch({ route, navigation }) {
                     <Pressable style={styles.loadMorePressable} onPress={() => { getMoreRecipes(url, results) }}>
                         {
                             isLoading ?
-                            <ActivityIndicator size="large" color="#777777" />
-                            :                       
-                            <Text style={styles.loadMoreText}>More Recipes</Text>
+                                <ActivityIndicator size="large" color="#777777" />
+                                :
+                                <Text style={styles.loadMoreText}>More Recipes</Text>
                         }
 
                     </Pressable>
                 </View>}
             />
+
+            <Modal style={styles.popup}
+                transparent={true}
+                visible={isLoading}>
+                {
+                    isLoading &&
+                    <ActivityIndicator size="large" color="gray" />
+                }
+            </Modal>
         </View>
     )
 }

@@ -2,18 +2,13 @@ import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
     container: {
-        width: "100%"
+        width: "80%",
+        alignSelf: "center",
     },
     title: {
-        margin: 10,
         fontSize: 24,
         fontWeight: 300
     },
-    list: { 
-        width: "100%", 
-        paddingTop: 5 
-    }
-    
 })
 
 

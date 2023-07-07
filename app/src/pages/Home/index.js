@@ -1,12 +1,12 @@
 import { View, Button, Switch, ActivityIndicator, Text, Pressable, Modal } from 'react-native';
 import React, { useState, useEffect } from 'react';
-import { get_key } from '../../utils/index.js';
-import { tag, ModalStatus } from '../../types/index.js';
+import { get_recipes } from '../../api';
 import TagDiet from "../../components/tag_selection/TagDiet"
 import MacroInput from '../../components/tag_selection/MacroInput';
 import TagInput from '../../components/tag_selection/TagInput';
 import styles from './style.js';
 import Popup from '../../components/Popup/index.js';
+import KeyboardAvoid from '../../components/KeyboardAvoid/index.js';
 
 
 export default function Home({ navigation }) {
@@ -17,44 +17,14 @@ export default function Home({ navigation }) {
         setUnitUS(state);
     }
 
-    const getRecipes = async (ingredients_search, macros_search, diets_search) => {
-        try {
-
-            const numberofRecipes = 7;
-
-            const url = 'https://api.spoonacular.com/recipes/complexSearch' + get_key(2) + '&addRecipeInformation=true&includeIngredients='
-                + ingredients_search + '&' + macros_search + '&number=' + numberofRecipes + "&fillIngredients=true&diet=" + diets_search
-           
-
-            const response = await fetch(url);
-            const json = await response.json();
-
-            const send = {
-                results: json.results,
-                source: url,
-                ingredientsUsed: ingredients,
-                macrosUsed: macros,
-                isUS_measure: unitUS,
-            }
-
-            return navigation.navigate('Search', send);
-
-        } catch (error) {
-            console.error(error);
-        } finally {
-            setIsLoading(false);
-        }
-
-    };
-
     const [modalMessage, setModalMessage] = useState("");
 
     const [ingredients, setIngredients] = useState([]);
     const [macros, setMacros] = useState([]);
     const [diets, setDiets] = useState([]);
 
-    const makeSearch = () => {
-        setIsLoading(!isLoading);
+    const make_search = async () => {
+        setIsLoading(true);
 
         let diets_search = '';
 
@@ -72,50 +42,59 @@ export default function Home({ navigation }) {
             macro_search += element.name + '=' + element.amount + "&";
         });
 
-        getRecipes(ingredient_search, macro_search, diets_search)
+        var results = await get_recipes(ingredient_search, macro_search, diets_search)
+        results.ingredientsUsed = ingredients
+        results.macrosUsed = macros
+        results.dietsUsed = diets
+        
+        setIsLoading(false)
+
+        navigation.navigate('Search', results);
     }
 
     return (
-        <View style={styles.container}>
-            <View style={styles.titleBox}>
-                <Text style={styles.title}>Let's cook!</Text>
-            </View>
-
-            <TagInput list={ingredients} manager={setIngredients} style={styles.inputBox} setPopupMessage={setModalMessage} />
-
-            <MacroInput list={macros} manager={setMacros} style={styles.inputBox} setPopupMessage={setModalMessage} />
-
-            <View style={{ alignSelf: "center", width: "80%", height: 1, backgroundColor: "#AAAAAA", marginBottom: 20 }}></View>
-
-            <TagDiet list={diets} manager={setDiets} style={styles.inputBox}></TagDiet>
-
-            <View style={styles.searchPressableContainer}>
-                <Pressable style={styles.searchPressableLoad} onPress={makeSearch}>
-                    {isLoading && <ActivityIndicator size="large" color="yellow" />}
-                </Pressable>
-            </View>
-
-            <Modal
-                animationType='slide'
-                transparent={true}
-                visible={modalMessage != ""}
-                onRequestClose={() => { setModalMessage("") }}>
-
-                <View style={styles.popup}>
-                    <Popup content={(
-                        <View>
-                            {
-                                modalMessage != "" &&
-                                <View>
-                                    <Text style={styles.popupText}>Keyword "{modalMessage}" doesn't exist.</Text>
-                                    <Text style={styles.popupText}>Check for unnecessary spacing or incorrect writing.</Text>
-                                </View>
-                            }
-                        </View>
-                    )} setPopupMessage={setModalMessage}/>
+        <KeyboardAvoid>
+            <View style={styles.container}>
+                <View style={styles.titleBox}>
+                    <Text style={styles.title}>Let's cook!</Text>
                 </View>
-            </Modal>
-        </View>
+
+                <TagInput list={ingredients} manager={setIngredients} style={styles.inputBox} setPopupMessage={setModalMessage} />
+
+                <MacroInput list={macros} manager={setMacros} style={styles.inputBox} setPopupMessage={setModalMessage} />
+
+                <View style={{ alignSelf: "center", width: "80%", height: 1, backgroundColor: "#AAAAAA", marginBottom: 20 }}></View>
+
+                <TagDiet list={diets} manager={setDiets} style={styles.inputBox}></TagDiet>
+
+                <View style={styles.searchPressableContainer}>
+                    <Pressable style={styles.searchPressableLoad} onPress={make_search}>
+                        {isLoading && <ActivityIndicator size="large" color="yellow" />}
+                    </Pressable>
+                </View>
+
+                <Modal
+                    animationType='slide'
+                    transparent={true}
+                    visible={modalMessage != ""}
+                    onRequestClose={() => { setModalMessage("") }}>
+
+                    <View style={styles.popup}>
+                        <Popup content={(
+                            <View>
+                                {
+                                    modalMessage != "" &&
+                                    <View>
+                                        <Text style={styles.popupText}>Keyword "{modalMessage}" doesn't exist.</Text>
+                                        <Text style={styles.popupText}>Check for unnecessary spacing or incorrect writing.</Text>
+                                    </View>
+                                }
+                            </View>
+                        )} setPopupMessage={setModalMessage} />
+                    </View>
+                </Modal>
+            </View>
+        </KeyboardAvoid>
     )
 }
 

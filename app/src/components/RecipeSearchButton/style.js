@@ -2,49 +2,40 @@ import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
     container: {
+        width: "100%",
         paddingHorizontal: 10,
         alignContent: "center",
+        backgroundColor: "#FAFAFA",
     },
-    image_container: {
+    headerContainer: {
+        width: "80%",
         height: 100,
         flexDirection: "row",
-    },
-    info_container: {
-        height: "100%",
-        width: "70%",
-        backgroundColor: "white",
-    },
-    tag_container: {
-        width: "100%",
-        backgroundColor: "#DDDDDD88",
-    },
-    taglist_container: {
-        paddingTop: 2,
-        paddingBottom: 7,
+        alignItems: "center",
+        alignSelf: "center",
+        gap: 10,
     },
     image: {
-        height: "100%",
         width: "30%",
+        aspectRatio: 1,
+    },
+    infoContainer: {
+        width: "100%",
     },
     text: {
-        paddingLeft: 15,
-        paddingRight: 10,
         fontWeight: 300,
     },
     title: {
-        paddingTop: 10,
         fontSize: 20,
-        color: "black",
     },
     information_text: {
         fontSize: 16,
         color: "gray",
         fontStyle: "italic",
     },
-    tag_title:{
-        paddingLeft: 10,
-        fontSize: 16,
-        color: "black",
+    tagContainer: {
+        alignItems: "center",
+        paddingBottom: 20,
     },
     gradient: {
         height: 10

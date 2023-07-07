@@ -28,8 +28,12 @@ const styles = StyleSheet.create({
     loadMoreText: {
         color: "#777777",
         fontSize: 20,
+    },
+    popup: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
     }
-
 });
 
 export default styles

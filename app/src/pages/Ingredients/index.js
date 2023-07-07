@@ -1,32 +1,12 @@
 import React, { useState } from 'react';
-import { View, Pressable, FlatList, Modal } from "react-native";
-import { get_key, round_ml } from '../../utils';
+import { View, Pressable, FlatList, Modal, ActivityIndicator } from "react-native";
+import { round_ml } from '../../utils';
+import { make_search } from '../../api';
 import { substitute, ingredient } from '../../types';
 import IngredientDisplay from '../../components/IngredientDisplay';
 import IngredientPopup from '../../components/IngredientPopup';
 import styles from "./style";
 import Popup from '../../components/Popup';
-
-
-async function searchSubstitutes(id) {
-    try {
-        url = 'https://api.spoonacular.com/food/ingredients/' + id + '/substitutes' + get_key();
-
-        const response = await fetch(url);
-        const json = await response.json();
-
-        return json;
-    } catch (error) {
-        console.error(error);
-    }
-
-    return null;
-}
-
-const makeSearch = async (id) => {
-    const result = await searchSubstitutes(id);
-    return result;
-}
 
 
 export default function Ingredients({ route }) {
@@ -35,6 +15,7 @@ export default function Ingredients({ route }) {
     var ingredients_ = recipe.extendedIngredients;
 
     const [modalMessage, setModalMessage] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
 
     const [currentItem, setItem] = useState(null);
 
@@ -53,7 +34,8 @@ export default function Ingredients({ route }) {
 
     const loadPopup = (item) => {
         (async () => {
-            var subs = await makeSearch(item.id)
+            setIsLoading(true)
+            var subs = await make_search(item.id)
 
             setSubstitutes([]);
             if (subs.status == 'success') {
@@ -69,8 +51,10 @@ export default function Ingredients({ route }) {
             }
 
             setItem(item);
+            toggleUnit(item.usPreference);
 
             setMessage(subs.message);
+            setIsLoading(false)
             setModalMessage("visible");
         })()
     }
@@ -98,20 +82,24 @@ export default function Ingredients({ route }) {
             />
 
             <Modal
-                animationType='slide'
                 transparent={true}
-                visible={modalMessage != ""}
+                visible={modalMessage != "" || isLoading}
                 onRequestClose={() => { setModalMessage("") }}>
 
                 <View style={styles.popup}>
-                    <Popup content={(
-                        <IngredientPopup
-                            ingredient={currentItem}
-                            substitutes={substitutes}
-                            message={message}
-                            togglePreference={togglePreference} />
-                    )} setPopupMessage={setModalMessage} />
+                    {isLoading ?
+                        <ActivityIndicator size="large" color="gray" />
+                        :
+                        <Popup content={(
+                            <IngredientPopup
+                                ingredient={currentItem}
+                                substitutes={substitutes}
+                                message={message}
+                                togglePreference={togglePreference} />
+                        )} setPopupMessage={setModalMessage} />
+                    }
                 </View>
+
             </Modal>
         </View>
 
