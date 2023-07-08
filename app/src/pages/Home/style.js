@@ -1,8 +1,10 @@
 import { StyleSheet } from "react-native";
+import { highlight_color } from "../../design";
 
 const styles = StyleSheet.create({
     container: {
         paddingTop: 30,
+        height: "100%",
         backgroundColor: "#0000000A"
     },
     title: {
@@ -12,35 +14,18 @@ const styles = StyleSheet.create({
         fontWeight: 300,
         marginBottom: 20,
     },
-    inputBox: {
-        backgroundColor: "#FaFaFa",
-        flexDirection: 'row',
-        height: 50,
-        paddingLeft: 20,
-        fontSize: 16
-    },
-    popup: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    popupText : {
-        textAlign: "center",
-        fontWeight: 300
-    },
-    searchPressableContainer: {
-        alignItems: 'center', 
-        justifyContent: "center", 
-        flex: 1 
-    },
-    searchPressableLoad: {
-        aspectRatio: 1, 
-        backgroundColor: "#FFAA33CC", 
-        height: 100, 
+    button: {
+        aspectRatio: 1,
+        height: 100,
         borderRadius: 50,
-        paddingTop:33,
-        paddingLeft: 5
+        justifyContent: 'center',
+        backgroundColor: highlight_color,
+        alignSelf: "center",
     },
+    icons: {
+        alignSelf: "center",
+        color: "white",
+    }
 });
 
 export default styles

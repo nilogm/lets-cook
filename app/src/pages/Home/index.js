@@ -5,26 +5,31 @@ import { Line } from '../../components/assets'
 import TagDiet from "../../components/tag_selection/TagDiet"
 import MacroInput from '../../components/tag_selection/MacroInput';
 import TagInput from '../../components/tag_selection/TagInput';
-import Popup from '../../components/Popup';
 import KeyboardAvoid from '../../components/KeyboardAvoid';
 import styles from './style.js';
+import LoadingModal from '../../components/LoadingModal';
+import { text_style } from '../../design';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 
 
 export default function Home({ navigation }) {
     const [isLoading, setIsLoading] = useState(false);
+    const [modalVisible, toggleModal] = useState(false);
 
     const [unitUS, setUnitUS] = useState(false);
     const toggle = (state) => {
         setUnitUS(state);
     }
 
-    const [modalMessage, setModalMessage] = useState("");
-
     const [ingredients, setIngredients] = useState([]);
     const [macros, setMacros] = useState([]);
     const [diets, setDiets] = useState([]);
 
     const make_search = async () => {
+        toggleModal(true)
+        if (ingredients.length == 0 && diets.length == 0 && macros.length == 0)
+            return
+
         setIsLoading(true);
 
         let diets_search = '';
@@ -44,11 +49,16 @@ export default function Home({ navigation }) {
         });
 
         var results = await get_recipes(ingredient_search, macro_search, diets_search)
+        setIsLoading(false)
+
+        if (!results || results.results.length == 0)
+            return
+
+        toggleModal(false)
+
         results.ingredientsUsed = ingredients
         results.macrosUsed = macros
         results.dietsUsed = diets
-
-        setIsLoading(false)
 
         navigation.navigate('Search', results);
     }
@@ -58,40 +68,30 @@ export default function Home({ navigation }) {
             <View style={styles.container}>
                 <Text style={styles.title}>Let's cook!</Text>
 
-                <TagInput list={ingredients} manager={setIngredients} style={styles.inputBox} setPopupMessage={setModalMessage} />
+                <TagInput list={ingredients} manager={setIngredients} />
 
-                <MacroInput list={macros} manager={setMacros} style={styles.inputBox} setPopupMessage={setModalMessage} />
+                <MacroInput list={macros} manager={setMacros} />
 
                 <Line />
 
-                <TagDiet list={diets} manager={setDiets} style={styles.inputBox}></TagDiet>
+                <TagDiet list={diets} manager={setDiets} />
 
-                <View style={styles.searchPressableContainer}>
-                    <Pressable style={styles.searchPressableLoad} onPress={make_search}>
-                        {isLoading && <ActivityIndicator size="large" color="yellow" />}
+                <View style={{ justifyContent: "center", flex: 1 }}>
+                    <Pressable style={styles.button} onPress={make_search}>
+                        <Icon name="utensils" size={40} style={styles.icons} />
                     </Pressable>
                 </View>
 
-                <Modal
-                    animationType='slide'
-                    transparent={true}
-                    visible={modalMessage != ""}
-                    onRequestClose={() => { setModalMessage("") }}>
-
-                    <View style={styles.popup}>
-                        <Popup content={(
-                            <View>
-                                {
-                                    modalMessage != "" &&
-                                    <View>
-                                        <Text style={styles.popupText}>Keyword "{modalMessage}" doesn't exist.</Text>
-                                        <Text style={styles.popupText}>Check for unnecessary spacing or incorrect writing.</Text>
-                                    </View>
-                                }
-                            </View>
-                        )} setPopupMessage={setModalMessage} />
-                    </View>
-                </Modal>
+                <LoadingModal
+                    isVisible={modalVisible}
+                    toggleVisibility={toggleModal}
+                    isLoading={isLoading}
+                    content={
+                        (ingredients.length > 0 || macros.length > 0 || diets.length > 0) ?
+                            (<Text style={text_style}>No recipes found.</Text>)
+                            :
+                            (<Text style={text_style}>No filters applied to search.</Text>)
+                    } />
             </View>
         </KeyboardAvoid>
     )

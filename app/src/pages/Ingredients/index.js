@@ -7,6 +7,7 @@ import IngredientDisplay from '../../components/IngredientDisplay';
 import IngredientPopup from '../../components/IngredientPopup';
 import styles from "./style";
 import Popup from '../../components/Popup';
+import LoadingModal from '../../components/LoadingModal';
 
 
 export default function Ingredients({ route }) {
@@ -14,7 +15,7 @@ export default function Ingredients({ route }) {
     const usPreference = route.params.isUS_measure
     var ingredients_ = recipe.extendedIngredients;
 
-    const [modalMessage, setModalMessage] = useState("");
+    const [showModal, toggleModal] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
 
     const [currentItem, setItem] = useState(null);
@@ -34,6 +35,7 @@ export default function Ingredients({ route }) {
 
     const loadPopup = (item) => {
         (async () => {
+            toggleModal(true)
             setIsLoading(true)
             var subs = await make_search(item.id)
 
@@ -55,7 +57,6 @@ export default function Ingredients({ route }) {
 
             setMessage(subs.message);
             setIsLoading(false)
-            setModalMessage("visible");
         })()
     }
 
@@ -81,26 +82,19 @@ export default function Ingredients({ route }) {
                 ItemSeparatorComponent={<View style={{ height: 1, margin: 10, width: "100%", backgroundColor: "#CCCCCC" }} />}
             />
 
-            <Modal
-                transparent={true}
-                visible={modalMessage != "" || isLoading}
-                onRequestClose={() => { setModalMessage("") }}>
-
-                <View style={styles.popup}>
-                    {isLoading ?
-                        <ActivityIndicator size="large" color="gray" />
-                        :
-                        <Popup content={(
-                            <IngredientPopup
-                                ingredient={currentItem}
-                                substitutes={substitutes}
-                                message={message}
-                                togglePreference={togglePreference} />
-                        )} setPopupMessage={setModalMessage} />
-                    }
-                </View>
-
-            </Modal>
+            <LoadingModal
+                isVisible={showModal}
+                toggleVisibility={toggleModal}
+                isLoading={isLoading}
+                content={(
+                    <IngredientPopup
+                        ingredient={currentItem}
+                        substitutes={substitutes}
+                        message={message}
+                        togglePreference={togglePreference} />
+                )}
+                style={{width: "100%", alignSelf: "center"}}
+            />
         </View>
 
     );

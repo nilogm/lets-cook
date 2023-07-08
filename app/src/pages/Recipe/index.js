@@ -61,7 +61,7 @@ export default function Recipe({ route, navigation }) {
 
             <SimilarRecipes navigation={navigation} similarRecipes={similarRecipes} setIsLoading={setIsLoading} />
 
-            <LoadingModal isVisible={isLoading}/>
+            <LoadingModal isVisible={isLoading} isLoading={isLoading} />
         </View>
     );
 }

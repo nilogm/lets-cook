@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { error_color } from "../../../design";
 
 const styles = StyleSheet.create({
     mainContainer: {
@@ -8,31 +9,26 @@ const styles = StyleSheet.create({
     tagBox: {
         flexDirection: 'column',
         width: '80%',
-        gap: 10,
-        marginBottom: 10,
     },
     autocompleteBox: {
-        width: "100%", 
-        backgroundColor: "#FFFFFF", 
-        padding: 10 
-    },
-    autocompleteText: { 
-        fontWeight: 300
+        width: "100%",
+        backgroundColor: "#FFFFFF",
+        padding: 10
     },
     secondContainer: {
+        width: "90%",
         alignSelf: "center",
         flexDirection: "row",
-        width: "90%",
-        justifyContent: "space-between"
+        justifyContent: "space-between",
     },
     valueContainer: {
         justifyContent: "center",
         flexDirection: "row",
         alignItems: "center",
-        gap: 6
+        gap: 6,
     },
     valueBox: {
-        height: 40,
+        height: 30,
         width: 50,
         paddingLeft: 0,
         textAlign: "center",
@@ -40,14 +36,13 @@ const styles = StyleSheet.create({
     },
     valuesText: {
         fontSize: 16,
-        fontWeight: 300
     },
-    sendButton: {
-        aspectRatio: 1,
+    button: {
         height: 40,
+    },
+    icons: {
         alignSelf: "center",
-        borderRadius: 50,
-        backgroundColor: "orange"
+        color: "white",
     }
 });
 

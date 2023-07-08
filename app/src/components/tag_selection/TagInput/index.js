@@ -4,25 +4,24 @@ import { tag } from "../../../types";
 import { search_item } from "../../../api";
 import TagContainer from "../TagContainer";
 import styles from "./style";
+import { error_text_style, inputbox_error, inputbox_style } from "../../../design";
 
 /**
  * Input for ingredients.
  * @param {Array<list>} list current list of ingredients, changeable.
  * @param {function} manager function handler to execute list updates.
- * @param {Object} style textbox style.
- * @param {function} setPopupMessage function handler to change message displayed in error popup.
  * @returns 
  */
-export default function TagInput({ list, manager, style, setPopupMessage }: {
+export default function TagInput({ list, manager }: {
     list: Array<tag>,
     manager: function,
-    style: Object,
-    setPopupMessage: function
 }) {
 
     const mainInput = useRef();
 
     const [isLoading, setIsLoading] = useState(false);
+
+    const [inputError, setInputError] = useState(false);
 
     const [input, setInput] = useState('')
     const [matches, setMatches] = useState([]);
@@ -37,6 +36,10 @@ export default function TagInput({ list, manager, style, setPopupMessage }: {
         setMatches([{ state: isLoading }])
         const res = await search_item(search)
         setIsLoading(false)
+
+        if (res.length == 0)
+            setInputError(true)
+
         setMatches(res)
     }
 
@@ -64,6 +67,7 @@ export default function TagInput({ list, manager, style, setPopupMessage }: {
 
     const setTag = (item) => {
         addTag(item.name)
+        setInputError(false)
         setMatches([])
     }
 
@@ -71,34 +75,42 @@ export default function TagInput({ list, manager, style, setPopupMessage }: {
         <View style={styles.mainContainer}>
             <TextInput
                 placeholder={"Ingredient"}
-                style={style}
+                style={[inputbox_style, inputError && inputbox_error]}
                 value={input}
                 onChangeText={(search) => {
                     setInput(search);
+                    setInputError(false);
                     updateAutocomplete(search);
                 }}
                 selectTextOnFocus={true}
                 ref={mainInput}
             />
-            <FlatList
-                data={matches}
-                renderItem={({ item }) => {
-                    return (
-                        <View>
-                            {isLoading ?
-                                <View style={styles.autocompleteBox}>
-                                    <ActivityIndicator size="large" color="gray" />
-                                </View>
-                                :
-                                <Pressable style={styles.autocompleteBox} onPress={() => setTag(item)}>
-                                    <Text style={styles.autocompleteText}>{item.name}</Text>
-                                </Pressable>
-                            }
-                        </View>
-                    )
-                }}
-                ItemSeparatorComponent={< View style={{ width: "100%", height: 2, backgroundColor: "#CCCCCC" }} />}
-            />
+            {
+                inputError &&
+                <Text style={error_text_style}>Unknown ingredient.</Text>
+            }
+            {
+                input && input.length > 0 &&
+                <FlatList
+                    data={matches}
+                    renderItem={({ item }) => {
+                        return (
+                            <View>
+                                {isLoading ?
+                                    <View style={styles.autocompleteBox}>
+                                        <ActivityIndicator size="large" color="gray" />
+                                    </View>
+                                    :
+                                    <Pressable style={styles.autocompleteBox} onPress={() => setTag(item)}>
+                                        <Text style={styles.autocompleteText}>{item.name}</Text>
+                                    </Pressable>
+                                }
+                            </View>
+                        )
+                    }}
+                    ItemSeparatorComponent={< View style={{ width: "100%", height: 2, backgroundColor: "#CCCCCC" }} />}
+                />
+            }
             <TagContainer tagList={list} args={{ style: { alignSelf: "center", marginTop: 10 }, iconArgs: { onClick: deleteTag } }} />
         </View>
     );

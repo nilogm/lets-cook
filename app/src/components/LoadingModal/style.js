@@ -1,9 +1,6 @@
 import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
-    text: {
-        fontWeight: 300
-    },
     popup: {
         flex: 1,
         justifyContent: 'center',
@@ -15,7 +12,21 @@ const styles = StyleSheet.create({
         padding: 20,
         gap: 10,
         backgroundColor: "white",
-    }
+    },
+    container: {
+        backgroundColor: "white",
+        alignItems: 'center',
+        elevation: 3,
+        padding: 20,
+    },
+    button: {
+        padding: 10,
+        marginTop: 20,
+    },
+    text: {
+        textAlign: 'center',
+        fontWeight: 300,
+    },
 });
 
 export default styles

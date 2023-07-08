@@ -15,7 +15,6 @@ const styles = StyleSheet.create({
     autocompleteText: { 
         fontWeight: 300
     },
-    
 });
 
 export default styles

@@ -1,23 +1,21 @@
 import React, { useRef, useState } from "react";
 import { Pressable, TextInput, View, Text, FlatList } from "react-native";
+import Icon from "react-native-vector-icons/FontAwesome5";
 import { tag } from "../../../types";
 import { allMacros } from "../../../data";
 import TagContainer from "../TagContainer";
+import { error_text_style, iconbutton_style, inputbox_error, inputbox_style, text_style } from "../../../design";
 import styles from "./style";
 
 /**
  * Input for macros.
  * @param {Array<tag>} list current list of macros, changeable.
  * @param {function} manager function handler to execute list updates.
- * @param {Object} style textbox style.
- * @param {function} setPopupMessage function handler to change message displayed in error popup.
  * @returns 
  */
-export default function MacroInput({ list, manager, style, setPopupMessage }: {
+export default function MacroInput({ list, manager }: {
     list: Array<tag>,
-    manager: function,
-    style: Object,
-    setPopupMessage: function
+    manager: function
 }) {
 
     const [input, setInput] = useState('')
@@ -25,18 +23,26 @@ export default function MacroInput({ list, manager, style, setPopupMessage }: {
     const [minValue, setMinValue] = useState("")
     const [maxValue, setMaxValue] = useState("")
 
+    const [inputError, setInputError] = useState(false)
+    const [valueError, setValueError] = useState("")
+
     const [unit, setUnit] = useState("");
 
     const [matches, setMatches] = useState([]);
 
     const addTag = () => {
-        if (input == "") return
-        if (allMacros.filter(item => item.name === input).length == 0){
-            setPopupMessage(input)
+        if (input == "")
+            return
+        if (minValue == "" && maxValue == "") {
+            setValueError("Amount values have not been set.")
             return
         }
-
-        setPopupMessage("")
+        if (minValue != "" && maxValue != "" && Number(minValue) >= Number(maxValue)) {
+            setValueError("MIN can't be greater than MAX.")
+            return
+        }
+        if (matches.length == 0 && input.length == 0)
+            return
 
         var newArray = list;
         if (minValue != "") {
@@ -71,6 +77,10 @@ export default function MacroInput({ list, manager, style, setPopupMessage }: {
 
             return searchTerm && fullName.startsWith(searchTerm);
         })
+
+        if (filteredData.length == 0 && search != "")
+            setInputError(true)
+
         setMatches(filteredData);
     }
 
@@ -82,24 +92,29 @@ export default function MacroInput({ list, manager, style, setPopupMessage }: {
 
     return (
         <View style={styles.mainContainer}>
-            <View style={styles.tagBox}>
-                <View>
+            <View style={[styles.tagBox, list.length > 0 && { marginBottom: 10 }]}>
+                <View style={{ marginBottom: 10 }}>
                     <TextInput
                         placeholder={"Macro"}
-                        style={style}
+                        style={[inputbox_style, inputError && inputbox_error]}
                         value={input}
                         onChangeText={(search) => {
                             setInput(search)
+                            setInputError(false)
                             searchItem(search)
                         }}
                         selectTextOnFocus={true}
                         blurOnSubmit={false}
                     />
+                    {
+                        inputError &&
+                        <Text style={error_text_style}>Unknown macro.</Text>
+                    }
                     <FlatList
                         data={matches}
                         renderItem={({ item }) => (
                             <Pressable style={styles.autocompleteBox} onPress={() => setTag(item)}>
-                                <Text style={styles.autocompleteText}>{item.name}</Text>
+                                <Text style={text_style}>{item.name}</Text>
                             </Pressable>
                         )}
                         ItemSeparatorComponent={<View style={{ width: "100%", height: 2, backgroundColor: "#CCCCCC" }} />}
@@ -107,32 +122,44 @@ export default function MacroInput({ list, manager, style, setPopupMessage }: {
                 </View>
                 <View style={styles.secondContainer}>
                     <View style={styles.valueContainer}>
-                        <Text style={styles.valuesText}>MIN</Text>
+                        <Text style={[text_style, styles.valuesText]}>MIN</Text>
                         <TextInput
                             placeholder={"0" + unit}
-                            style={[style, styles.valueBox]}
+                            style={[inputbox_style, styles.valueBox, valueError != "" && inputbox_error]}
                             maxLength={2}
                             value={minValue}
-                            onChangeText={setMinValue}
+                            onChangeText={(value) => {
+                                setValueError("")
+                                setMinValue(value)
+                            }}
                             returnKeyType="search"
                             keyboardType="numeric"
                             selectTextOnFocus={true}
                         />
-                        <Text style={styles.valuesText}>to</Text>
+                        <Text style={[text_style, styles.valuesText]}>to</Text>
                         <TextInput
                             placeholder={"100" + unit}
                             maxLength={2}
-                            style={[style, styles.valueBox]}
+                            style={[inputbox_style, styles.valueBox, valueError != "" && inputbox_error]}
                             value={maxValue}
-                            onChangeText={setMaxValue}
+                            onChangeText={(value) => {
+                                setValueError("")
+                                setMaxValue(value)
+                            }}
                             returnKeyType="search"
                             keyboardType="numeric"
                             selectTextOnFocus={true}
                         />
-                        <Text style={styles.valuesText}>MAX</Text>
+                        <Text style={[text_style, styles.valuesText]}>MAX</Text>
                     </View>
-                    <Pressable style={styles.sendButton} onPress={addTag} />
+                    <Pressable style={[iconbutton_style, styles.button]} onPress={addTag}>
+                        <Icon name={"search"} size={16} style={styles.icons} />
+                    </Pressable>
                 </View>
+                {
+                    valueError != "" &&
+                    <Text style={error_text_style}>{valueError}</Text>
+                }
             </View>
             <TagContainer tagList={list} args={{ iconArgs: { onClick: deleteTag } }} />
         </View>

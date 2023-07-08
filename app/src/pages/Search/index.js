@@ -53,7 +53,7 @@ export default function RecipeSearch({ route, navigation }) {
                 scrollEnabled={true}
                 showsVerticalScrollIndicator={false}
                 data={results}
-                contentContainerStyle={{ alignItems: "center" }}
+                contentContainerStyle={{ width: "90%", alignSelf: "center" }}
                 renderItem={({ item, index }) => (
                     <RecipeSearchButton
                         navigation={navigation} recipe={item} setIsLoading={setIsLoading}
@@ -73,7 +73,7 @@ export default function RecipeSearch({ route, navigation }) {
                 </View>}
             />
 
-            <LoadingModal isVisible={isLoading} />
+            <LoadingModal isVisible={isLoading} isLoading={true}/>
         </View>
     )
 }

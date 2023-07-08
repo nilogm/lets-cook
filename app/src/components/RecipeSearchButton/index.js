@@ -7,6 +7,7 @@ import { recipe, ingredient, nutrients } from "../../types";
 import { Line } from "../assets";
 import TagContainer from "../tag_selection/TagContainer";
 import styles from "./style";
+import { text_style } from "../../design";
 
 type args = {
     enableTagContainer: boolean,
@@ -47,7 +48,7 @@ export default function RecipeSearchButton({ navigation, recipe, setIsLoading, a
     }
 
     return (
-        <View style={{ width: "90%" }}>
+        <View style={{ width: "100%" }}>
             <Pressable style={styles.container} onPress={() => load_recipe()}>
 
                 <View style={styles.headerContainer}>
@@ -55,8 +56,8 @@ export default function RecipeSearchButton({ navigation, recipe, setIsLoading, a
                     <Image source={{ uri: recipe.image }} style={styles.image} />
 
                     <View style={styles.infoContainer}>
-                        <Text style={[styles.text, styles.title]} numberOfLines={2}>{recipe.title}</Text>
-                        <Text style={[styles.text, styles.information_text]}>
+                        <Text style={[text_style, styles.title]} numberOfLines={2}>{recipe.title}</Text>
+                        <Text style={[text_style, styles.information_text]}>
                             <Text>{recipe.readyInMinutes}' • </Text>
                             <Text>
                                 <Text>{recipe.servings} serving</Text>
@@ -70,7 +71,7 @@ export default function RecipeSearchButton({ navigation, recipe, setIsLoading, a
                 {
                     args.enableTagContainer &&
                     <View style={styles.tagContainer}>
-                        <Line />
+                        <Line width="90%"/>
                         <TagContainer tagList={[...ingredients, ...nutrients]} args={{ "small": true }}></TagContainer>
                     </View>
                 }

@@ -3,27 +3,27 @@ import { StyleSheet } from "react-native";
 const styles = StyleSheet.create({
     container: {
         width: "100%",
-        paddingHorizontal: 10,
+        padding: 10,
+        paddingBottom: 0,
         alignContent: "center",
         backgroundColor: "#FAFAFA",
     },
     headerContainer: {
-        width: "80%",
-        height: 100,
+        width: "100%",
+        paddingBottom: 10,
+        flex: 1,
         flexDirection: "row",
         alignItems: "center",
-        alignSelf: "center",
         gap: 10,
     },
     image: {
-        width: "30%",
+        width: "25%",
         aspectRatio: 1,
     },
     infoContainer: {
-        width: "100%",
-    },
-    text: {
-        fontWeight: 300,
+        flex: 1,
+        height: "100%",
+        justifyContent: "center",
     },
     title: {
         fontSize: 20,
