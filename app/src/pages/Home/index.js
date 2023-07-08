@@ -23,6 +23,7 @@ export default function Home({ navigation }) {
     const [ingredients, setIngredients] = useState([]);
     const [macros, setMacros] = useState([]);
     const [diets, setDiets] = useState([]);
+    const [noResults, setnoResults] = useState(false)
 
     const make_search = async () => {
         setIsLoading(true);
@@ -47,11 +48,16 @@ export default function Home({ navigation }) {
         results.ingredientsUsed = ingredients
         results.macrosUsed = macros
         results.dietsUsed = diets
-
+        
         setIsLoading(false)
-
-        navigation.navigate('Search', results);
+        if (results.results.length == 0) {
+            setnoResults(true)            
+        } 
+        else
+            navigation.navigate('Search', results);
     }
+
+    console.log(noResults)
 
     return (
         <KeyboardAvoid>
@@ -71,7 +77,8 @@ export default function Home({ navigation }) {
                         {isLoading && <ActivityIndicator size="large" color="yellow" />}
                     </Pressable>
                 </View>
-
+                {
+                noResults && (
                 <Modal
                     animationType='slide'
                     transparent={true}
@@ -82,16 +89,18 @@ export default function Home({ navigation }) {
                         <Popup content={(
                             <View>
                                 {
-                                    modalMessage != "" &&
+                                    // modalMessage != "" &&
                                     <View>
                                         <Text style={styles.popupText}>Keyword "{modalMessage}" doesn't exist.</Text>
                                         <Text style={styles.popupText}>Check for unnecessary spacing or incorrect writing.</Text>
                                     </View>
+                                    
                                 }
                             </View>
                         )} setPopupMessage={setModalMessage} />
                     </View>
                 </Modal>
+                )}
             </View>
         </KeyboardAvoid>
     )

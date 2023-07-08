@@ -83,7 +83,7 @@ export const get_similar = async (data) => {
 export const get_recipes = async (ingredients_search, macros_search, diets_search) => {
     try {
         const numberofRecipes = 7;
-        const url = 'https://api.spoonacular.com/recipes/complexSearch' + get_key() + '&addRecipeInformation=true&includeIngredients='
+        const url = 'https://api.spoonacular.com/recipes/complexSearch' + get_key(2) + '&addRecipeInformation=true&includeIngredients='
             + ingredients_search + '&' + macros_search + '&number=' + numberofRecipes + "&fillIngredients=true&diet=" + diets_search
 
         const response = await fetch(url);
@@ -96,6 +96,7 @@ export const get_recipes = async (ingredients_search, macros_search, diets_searc
 
     } catch (error) {
         console.error(error);
+       
     }
 
 };
@@ -106,7 +107,7 @@ export const get_recipes = async (ingredients_search, macros_search, diets_searc
  */
 export const search_item = async (search: string) => {
     try {
-        const url = 'https://api.spoonacular.com/food/ingredients/autocomplete' + get_key() + '&query=' + search + '&number=5'
+        const url = 'https://api.spoonacular.com/food/ingredients/autocomplete' + get_key(2) + '&query=' + search + '&number=5'
         const response = await fetch(url);
         const json = await response.json();
 
@@ -138,6 +139,7 @@ export const get_more_recipes = async (url: string, results: Array<Object>, offs
 
     } catch (error) {
         console.error(error);
+        
     }
     return null
 };
