@@ -30,3 +30,10 @@ export const iconbutton_style = {
     justifyContent: 'center',
     backgroundColor: highlight_color,
 };
+
+export const popup_style = {
+    maxHeight: 300,
+    flexGrow: 0,
+    minWidth: "80%",
+    maxWidth: "80%"
+}

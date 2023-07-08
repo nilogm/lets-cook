@@ -1,13 +1,11 @@
 import { StyleSheet } from "react-native";
+import { highlight_color } from "../../design";
 
 const styles = StyleSheet.create({
-    container: {
-        alignItems: 'center',
-        width: "80%",
-    },
     headerContainer: {
         alignItems: "center",
         flexDirection: "row",
+        alignSelf: "center",
         gap: 10
     },
     image: {
@@ -18,7 +16,7 @@ const styles = StyleSheet.create({
     },
     unitContainer: {
         flexDirection: "row",
-        justifyContent: "space-between",
+        alignSelf: "center",
         gap: 10,
     },
     button: {
@@ -32,17 +30,8 @@ const styles = StyleSheet.create({
         marginBottom: 10,
     },
     selectedText: {
-        color: 'orange',
-        fontWeight: 'bold',
-    },
-    titleText: {
-        fontWeight: 'bold',
-    },
-    line: {
-        height: 1,
-        margin: 10,
-        width: "80%",
-        backgroundColor: "#CCCCCC"
+        color: highlight_color,
+        fontWeight: "bold"
     }
 });
 

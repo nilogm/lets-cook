@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { View, Text, FlatList, Modal, Pressable, Image } from "react-native";
 import { makeSearch, get_name, get_image } from "../../utils";
-import Popup from "../../components/Popup";
 import IngredientPopup from "../../components/IngredientPopup";
-import styles from "./style";
 import LoadingModal from "../../components/LoadingModal";
+import styles from "./style";
+import { popup_style } from "../../design";
 
 
 export default function Instructions({ route }) {
@@ -48,7 +48,7 @@ export default function Instructions({ route }) {
 				content={(
 					<FlatList
 						data={stepIngredients}
-						style={{ maxHeight: 300, width: "80%" }}
+						style={popup_style}
 						scrollEnabled={true}
 						renderItem={({ item }) => (
 							<View style={styles.headerContainer}>

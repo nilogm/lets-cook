@@ -8,7 +8,6 @@ const styles = StyleSheet.create({
         padding: 10,
         paddingVertical: 5,
         paddingRight: 5,
-        backgroundColor: "#FFFFFFAA",
         borderRadius: 20,
         flexDirection: "row",
         margin: 3,
@@ -31,7 +30,7 @@ const styles = StyleSheet.create({
     },
     enabledText : {
         fontSize: 12,
-        color: "white",
+        color: "black",
         fontWeight: "bold"
     }
 });

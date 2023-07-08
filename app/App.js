@@ -7,7 +7,6 @@ import { Switch } from 'react-native';
 import Home from "./src/pages/Home"
 import Search from "./src/pages/Search"
 import Recipe from "./src/pages/Recipe"
-import Info from './src/pages/Info'
 import Ingredients from './src/pages/Ingredients'
 import Instructions from './src/pages/Instructions';
 
@@ -22,7 +21,6 @@ function App() {
 				<Stack.Screen name="Home" component={Home} />
 				<Stack.Screen name="Search" component={Search} />
 				<Stack.Screen name="Recipe" component={Recipe} />
-				<Stack.Screen name="Info" component={Info} />
 				<Stack.Screen name="Ingredients" component={Ingredients} />
 				<Stack.Screen name="Instructions" component={Instructions} />
 			</Stack.Navigator>

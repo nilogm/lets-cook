@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { highlight_color } from "../../design";
 
 const styles = StyleSheet.create({
     container: {
@@ -25,13 +26,35 @@ const styles = StyleSheet.create({
         aspectRatio: 1,
         height: "100%",
     },
-    blocks: {
-        padding: 20,
+    infoText: {
+        fontSize: 20,
+        fontWeight: 300,
     },
-    itemsContainer: {
-        justifyContent: "center",
-        gap: 20,
+    summaryContainer: {
+        marginBottom: 20,
+        marginTop: 0,
+    },
+    buttonsContainer: {
         width: "100%",
+        flexDirection: "row",
+        justifyContent: "space-around",
+        alignItems: "center",
+        marginBottom: 10,
+    },
+    buttonContainer: {
+        gap: 6,
+        alignItems: "center",
+    },
+    button: {
+        aspectRatio: 1,
+        height: 60,
+        borderRadius: 50,
+        justifyContent: 'center',
+        alignSelf: "center",
+    },
+    icons: {
+        alignSelf: "center",
+        color: "white",
     },
 });
 

@@ -1,11 +1,12 @@
 import { StyleSheet } from "react-native";
+import { highlight_color } from "../../design";
 
 const styles = StyleSheet.create({
     container: {
         paddingHorizontal: 10,
         paddingVertical: 10,
         paddingBottom: 10,
-        backgroundColor: "white",
+        backgroundColor: highlight_color,
         alignContent: "center",
     },
     gradient: {
@@ -15,7 +16,7 @@ const styles = StyleSheet.create({
     list: {
         height: "92%",
         paddingTop: 20,
-        marginTop: -10
+        marginVertical: -10
     },
     loadMorePressable: {
         alignContent: "center",
@@ -25,10 +26,12 @@ const styles = StyleSheet.create({
         borderRadius: 50,
         paddingHorizontal: 20,
     },
-    loadMoreText: {
-        color: "#777777",
+    text: {
         fontSize: 20,
-    },
+        color: "gray",
+        alignSelf: "center"
+
+    }
 });
 
 export default styles

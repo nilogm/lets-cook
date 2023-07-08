@@ -17,8 +17,6 @@ export default function TagInput({ list, manager }: {
     manager: function,
 }) {
 
-    const mainInput = useRef();
-
     const [isLoading, setIsLoading] = useState(false);
 
     const [inputError, setInputError] = useState(false);
@@ -55,8 +53,6 @@ export default function TagInput({ list, manager }: {
         var newArray = [...list, { name: tagName }]
         setInput(null)
         manager(newArray)
-
-        mainInput.current.focus()
     }
 
     const deleteTag = (tag) => {
@@ -83,7 +79,6 @@ export default function TagInput({ list, manager }: {
                     updateAutocomplete(search);
                 }}
                 selectTextOnFocus={true}
-                ref={mainInput}
             />
             {
                 inputError &&

@@ -8,6 +8,7 @@ export type tag_args = {
     focus: boolean,
     onClick: function,
     changeColor: boolean,
+    color: string,
 }
 
 /**
@@ -17,7 +18,7 @@ export type tag_args = {
  * @returns 
  */
 export default function TagIcon({ tag, args }: {
-    tag: tag,
+    tag: tag | string,
     args: tag_args
 }) {
 
@@ -25,6 +26,7 @@ export default function TagIcon({ tag, args }: {
         "focus": false,
         "onClick": null,
         "changeColor": false,
+        "color": "#FFFFFF",
     };
     args = set_params(default_args, args);
 
@@ -44,10 +46,15 @@ export default function TagIcon({ tag, args }: {
     }
 
     return (
-        <Pressable style={[styles.boxContainer, enabled && styles.enabled]}
+        <Pressable style={[styles.boxContainer, { backgroundColor: args.color, opacity: 0.6 }, enabled && styles.enabled]}
             onPress={onPressed}>
             <Text style={[styles.text, args.focus ? styles.textFocus : enabled ? styles.enabledText : styles.textLesser]}>
-                <Text>{tag.name}</Text>
+                {
+                    tag.name == undefined ?
+                        <Text>{tag}</Text>
+                        :
+                        <Text>{tag.name}</Text>
+                }
                 {
                     (tag.amount != null) &&
                     <Text style={styles.textLesserContent}>: {tag.amount} {unit}</Text>

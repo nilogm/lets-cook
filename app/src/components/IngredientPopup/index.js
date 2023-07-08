@@ -2,6 +2,9 @@ import { View, Text, Pressable, FlatList, Image } from "react-native";
 import { get_name, get_image } from "../../utils";
 import { ingredient, substitute } from "../../types";
 import styles from "./style";
+import { Line } from "../assets";
+import { highlight_color, popup_style } from "../../design";
+import { useState } from "react";
 
 /**
  * Popup that displays the ingredient name, image, possible units and substitutes. Toggles preference unit when "togglePreference" is given.
@@ -11,20 +14,26 @@ import styles from "./style";
  * @param {function} togglePreference function handler that toggles the unit/metric preference.
  * @returns 
  */
-export default function IngredientPopup({ ingredient, substitutes, message, togglePreference = null}: {
+export default function IngredientPopup({ ingredient, substitutes, message, togglePreference = null }: {
     togglePreference: function,
-    ingredient : ingredient,
+    ingredient: ingredient,
     message: string,
-    substitutes : Array<substitute>
+    substitutes: Array<substitute>
 }) {
 
+    const [usPreference, toggleUsPreference] = useState(ingredient.usPreference)
+    const changePreference = (state) => {
+        togglePreference(state)
+        toggleUsPreference(state)
+    }
+
     return (
-        <View style={styles.container}>
+        <View style={popup_style}>
             {
                 ingredient &&
                 <View style={styles.headerContainer}>
                     <Image source={{ uri: get_image(ingredient.image) }} style={styles.image} />
-                    <Text style={[styles.text, styles.titleText]}>{get_name(ingredient.name)}</Text>
+                    <Text style={{ fontWeight: 'bold' }}>{get_name(ingredient.name)}</Text>
                 </View>
             }
 
@@ -33,9 +42,9 @@ export default function IngredientPopup({ ingredient, substitutes, message, togg
                 (ingredient.measures.metric.amount != ingredient.measures.us.amount) &&
                 <View style={styles.unitContainer}>
                     <Pressable style={styles.button}
-                        onPress={() => { 
+                        onPress={() => {
                             if (togglePreference)
-                                togglePreference(true) 
+                                changePreference(true)
                         }}>
                         <Text style={[styles.text, ingredient.usPreference ? styles.selectedText : null]}>
                             {ingredient.measures.us.amount} {ingredient.unit}
@@ -43,9 +52,9 @@ export default function IngredientPopup({ ingredient, substitutes, message, togg
                     </Pressable>
 
                     <Pressable style={styles.button}
-                        onPress={() => { 
+                        onPress={() => {
                             if (togglePreference)
-                                togglePreference(false) 
+                                changePreference(false)
                         }}>
                         <Text style={[styles.text, !ingredient.usPreference ? styles.selectedText : null]}>
                             {ingredient.measures.metric.amount} {ingredient.measures.metric.unitShort}
@@ -54,7 +63,7 @@ export default function IngredientPopup({ ingredient, substitutes, message, togg
                 </View>
             }
 
-            <View style={styles.line} />
+            <Line width={200} />
 
             <Text style={[styles.text, styles.messageText]}>{message}</Text>
 

@@ -1,13 +1,14 @@
-import { Text, View, FlatList, Image, Modal, ActivityIndicator } from "react-native";
+import { Text, View, FlatList, Image, Modal, ActivityIndicator, ScrollView, Pressable } from "react-native";
 import React, { useState } from "react";
 import { LinearGradient } from 'expo-linear-gradient';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 import { recipe } from "../../types";
+import { text_style } from "../../design";
+import { format_summary } from "../../utils";
 import { Line } from "../../components/assets";
-import SimilarRecipes from "../../components/SimilarRecipes";
-import RecipeInformationButton from "../../components/RecipeInformationButton";
-import styles from "./style";
 import LoadingModal from "../../components/LoadingModal";
-import Info from "../Info";
+import RecipeSearchButton from "../../components/RecipeSearchButton";
+import styles from "./style";
 
 
 export default function Recipe({ route, navigation }) {
@@ -16,19 +17,10 @@ export default function Recipe({ route, navigation }) {
 
     const [isLoading, setIsLoading] = useState(false);
 
-    const blocks = [
-        {
-            title: "Ingredients",
-            page: "Ingredients"
-        },
-        {
-            title: "Instructions",
-            page: "Instructions"
-        },
-    ]
+    const summary = format_summary(recipe.summary)
 
     return (
-        <View>
+        <View style={{ height: "100%" }}>
             <View>
                 <View style={styles.container}>
                     <Image source={{ uri: recipe.image }} style={styles.image}></Image>
@@ -47,23 +39,52 @@ export default function Recipe({ route, navigation }) {
                 <Line />
             </View>
 
-            <Info summary={recipe.summary}>  </Info>
-
             <FlatList
-                style={styles.blocks}
-                data={blocks}
-                horizontal={true}
-                scrollEnabled={false}
-                contentContainerStyle={styles.itemsContainer}
-                renderItem={({ item }) => (
-                    <RecipeInformationButton
-                        navigation={navigation}
-                        title={item.title}
-                        data={recipe}
-                        page={item.page} />)}
-            />
+                ListHeaderComponent={(
+                    <View style={{ width: "100%" }}>
+                        <View style={styles.summaryContainer}>
+                            <Text style={[text_style, { fontSize: 16 }]}>{summary}</Text>
+                        </View>
 
-            <SimilarRecipes navigation={navigation} similarRecipes={similarRecipes} setIsLoading={setIsLoading} />
+                        <View style={styles.buttonsContainer}>
+                            <View style={styles.buttonContainer}>
+                                <Pressable
+                                    onPress={() => { navigation.navigate("Ingredients", { recipe: recipe }) }}
+                                    style={[styles.button, { backgroundColor: "#99FF55" }]}>
+                                    <Icon name="carrot" size={32} style={styles.icons} />
+                                </Pressable>
+                                <Text>Ingredients</Text>
+                            </View>
+
+                            <View style={styles.buttonContainer}>
+                                <Pressable
+                                    onPress={() => { navigation.navigate("Instructions", { recipe: recipe }) }}
+                                    style={[styles.button, { backgroundColor: "#FFDD00" }]}>
+                                    <Icon name="utensil-spoon" size={32} style={styles.icons} />
+                                </Pressable>
+                                <Text>Instructions</Text>
+                            </View>
+                        </View>
+
+                        <Text style={[text_style, { fontSize: 24 }]}>Similar Recipes</Text>
+                    </View>
+                )}
+                style={{ marginTop: 10, width: "90%", alignSelf: "center" }}
+                data={similarRecipes}
+                scrollEnabled={true}
+                showsVerticalScrollIndicator={false}
+                horizontal={false}
+                contentContainerStyle={{ alignContent: "center" }}
+                renderItem={({ item }) => (
+                    <RecipeSearchButton
+                        navigation={navigation} recipe={item} setIsLoading={setIsLoading} args={{ enableTagContainer: false }}
+                    />
+                )}
+                ItemSeparatorComponent={
+                    <View style={{ height: 5, width: "100%" }} />
+                }
+                ListFooterComponent={(<View style={{ paddingBottom: 10, height: 10 }}></View>)}
+            />
 
             <LoadingModal isVisible={isLoading} isLoading={isLoading} />
         </View>

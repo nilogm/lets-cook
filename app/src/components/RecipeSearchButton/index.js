@@ -7,7 +7,7 @@ import { recipe, ingredient, nutrients } from "../../types";
 import { Line } from "../assets";
 import TagContainer from "../tag_selection/TagContainer";
 import styles from "./style";
-import { text_style } from "../../design";
+import { highlight_color, text_style } from "../../design";
 
 type args = {
     enableTagContainer: boolean,
@@ -71,8 +71,8 @@ export default function RecipeSearchButton({ navigation, recipe, setIsLoading, a
                 {
                     args.enableTagContainer &&
                     <View style={styles.tagContainer}>
-                        <Line width="90%"/>
-                        <TagContainer tagList={[...ingredients, ...nutrients]} args={{ "small": true }}></TagContainer>
+                        <Line width="90%" />
+                        <TagContainer tagList={[...ingredients, ...nutrients]} args={{ small: true, iconArgs: { color: highlight_color } }}></TagContainer>
                     </View>
                 }
 
