@@ -96,6 +96,7 @@ export const get_recipes = async (ingredients_search, macros_search, diets_searc
 
     } catch (error) {
         console.error(error);
+       
     }
 
 };
@@ -138,6 +139,7 @@ export const get_more_recipes = async (url: string, results: Array<Object>, offs
 
     } catch (error) {
         console.error(error);
+        
     }
     return null
 };

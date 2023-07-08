@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
         zIndex: 10
     },
     list: {
-        height: "100%",
+        height: "92%",
         paddingTop: 20,
         marginTop: -10
     },

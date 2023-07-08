@@ -14,21 +14,32 @@ export default function RecipeSearch({ route, navigation }) {
     const [isLoadingMore, setIsLoadingMore] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [offset, setOffset] = useState(7);
+    const [haveMoreSimilar, setHaveMoreSimilar] = useState(false)
+    var haveMoreRecipes = true
 
     const data = route.params;
 
     var results = data.results;
+    if (results.length < 7 ) 
+        haveMoreRecipes = false
+    
     const url = data.source;
     const ingredients = data.ingredientsUsed
     const macros = data.macrosUsed
-    const diets = data.dietsUsed
+    const diets = data.dietsUsed  
+
+   
 
     const loadMore = async () => {
         setIsLoadingMore(true)
         setOffset(offset + 7)
         results = await get_more_recipes(url, results, offset)
         setIsLoadingMore(false)
+        if (results.length < 7)   
+            haveMoreRecipes = false
     }
+        
+       
 
     return (
         <View >
@@ -47,6 +58,7 @@ export default function RecipeSearch({ route, navigation }) {
                 style={styles.gradient}
             />
 
+
             <FlatList
                 style={styles.list}
                 vertical={true}
@@ -60,7 +72,7 @@ export default function RecipeSearch({ route, navigation }) {
                     />)}
                 ItemSeparatorComponent={<View style={{ height: 5, width: "100%" }} />}
 
-                ListFooterComponent={() => <View style={styles.loadMoreView}>
+                ListFooterComponent={() =>haveMoreRecipes && (<View style={styles.loadMoreView}>
                     <Pressable style={styles.loadMorePressable} onPress={loadMore}>
                         {
                             isLoadingMore ?
@@ -70,7 +82,7 @@ export default function RecipeSearch({ route, navigation }) {
                         }
 
                     </Pressable>
-                </View>}
+                </View>)}
             />
 
             <LoadingModal isVisible={isLoading} isLoading={true}/>

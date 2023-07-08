@@ -7,6 +7,7 @@ import SimilarRecipes from "../../components/SimilarRecipes";
 import RecipeInformationButton from "../../components/RecipeInformationButton";
 import styles from "./style";
 import LoadingModal from "../../components/LoadingModal";
+import Info from "../Info";
 
 
 export default function Recipe({ route, navigation }) {
@@ -46,10 +47,13 @@ export default function Recipe({ route, navigation }) {
                 <Line />
             </View>
 
+            <Info summary={recipe.summary}>  </Info>
+
             <FlatList
                 style={styles.blocks}
                 data={blocks}
                 horizontal={true}
+                scrollEnabled={false}
                 contentContainerStyle={styles.itemsContainer}
                 renderItem={({ item }) => (
                     <RecipeInformationButton

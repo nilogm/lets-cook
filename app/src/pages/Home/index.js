@@ -1,15 +1,15 @@
 import { View, Button, Switch, ActivityIndicator, Text, Pressable, Modal } from 'react-native';
 import React, { useState, useEffect } from 'react';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 import { get_recipes } from '../../api';
 import { Line } from '../../components/assets'
+import { text_style } from '../../design';
 import TagDiet from "../../components/tag_selection/TagDiet"
 import MacroInput from '../../components/tag_selection/MacroInput';
 import TagInput from '../../components/tag_selection/TagInput';
 import KeyboardAvoid from '../../components/KeyboardAvoid';
-import styles from './style.js';
 import LoadingModal from '../../components/LoadingModal';
-import { text_style } from '../../design';
-import Icon from 'react-native-vector-icons/FontAwesome5';
+import styles from './style.js';
 
 
 export default function Home({ navigation }) {
@@ -62,6 +62,8 @@ export default function Home({ navigation }) {
 
         navigation.navigate('Search', results);
     }
+
+
 
     return (
         <KeyboardAvoid>
