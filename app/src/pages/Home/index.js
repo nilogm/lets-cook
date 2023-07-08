@@ -57,7 +57,7 @@ export default function Home({ navigation }) {
             navigation.navigate('Search', results);
     }
 
-    console.log(noResults)
+   
 
     return (
         <KeyboardAvoid>
@@ -77,8 +77,8 @@ export default function Home({ navigation }) {
                         {isLoading && <ActivityIndicator size="large" color="yellow" />}
                     </Pressable>
                 </View>
-                {
-                noResults && (
+                
+        
                 <Modal
                     animationType='slide'
                     transparent={true}
@@ -100,7 +100,7 @@ export default function Home({ navigation }) {
                         )} setPopupMessage={setModalMessage} />
                     </View>
                 </Modal>
-                )}
+                
             </View>
         </KeyboardAvoid>
     )
