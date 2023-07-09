@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { Pressable, TextInput, View, Text, FlatList } from "react-native";
+import { Pressable, TextInput, View, Text, FlatList, Keyboard } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import { tag } from "../../../types";
 import { allMacros } from "../../../data";
@@ -37,9 +37,15 @@ export default function MacroInput({ list, manager }: {
             setValueError("Amount values have not been set.")
             return
         }
-        if (minValue != "" && maxValue != "" && Number(minValue) >= Number(maxValue)) {
-            setValueError("MIN can't be greater than MAX.")
-            return
+        if (minValue != "" && maxValue != ""){
+            if (Number(minValue) > Number(maxValue)){
+                setValueError("MIN can't be greater than MAX.")
+                return
+            }
+            else if (Number(minValue) == Number(maxValue)){
+                setValueError("MIN can't be the same as MAX.")
+                return
+            }    
         }
         if (matches.length == 0 && input.length == 0)
             return
@@ -59,6 +65,8 @@ export default function MacroInput({ list, manager }: {
         setUnit("")
         setMinValue("")
         setMaxValue("")
+
+        Keyboard.dismiss()
 
         manager(newArray)
     }
@@ -81,11 +89,11 @@ export default function MacroInput({ list, manager }: {
         if (filteredData.length == 0 && search != "")
             setInputError(true)
 
-        setMatches(filteredData);
+        setMatches(filteredData.slice(0, 3));
     }
 
     const setTag = (item) => {
-        searchItem("");
+        setMatches([]);
         setInput(item.name);
         setUnit(item.unit);
     }
@@ -104,7 +112,6 @@ export default function MacroInput({ list, manager }: {
                             searchItem(search)
                         }}
                         selectTextOnFocus={true}
-                        blurOnSubmit={false}
                     />
                     {
                         inputError &&
@@ -132,7 +139,6 @@ export default function MacroInput({ list, manager }: {
                                 setValueError("")
                                 setMinValue(value)
                             }}
-                            returnKeyType="search"
                             keyboardType="numeric"
                             selectTextOnFocus={true}
                         />
@@ -146,7 +152,6 @@ export default function MacroInput({ list, manager }: {
                                 setValueError("")
                                 setMaxValue(value)
                             }}
-                            returnKeyType="search"
                             keyboardType="numeric"
                             selectTextOnFocus={true}
                         />

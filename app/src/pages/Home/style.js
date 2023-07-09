@@ -1,6 +1,7 @@
 import { StyleSheet } from "react-native";
 import { highlight_color } from "../../design";
 
+
 const styles = StyleSheet.create({
     container: {
         paddingTop: 30,

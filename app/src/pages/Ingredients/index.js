@@ -25,7 +25,9 @@ export default function Ingredients({ route }) {
         var found_usPreference = Object.keys(element).filter(item => item === "usPreference").length == 1;
         if (!found_usPreference)
             element.usPreference = false
-        element.measures.metric.amount = round_ml(element);
+        element.measures.metric.amount = round_ml(element.measures.metric.amount);
+        element.measures.us.amount = round_ml(element.measures.us.amount);
+        console.log(element.measures.us)
     })
     const [ingredients, setIngredients] = useState(ingredients_);
 

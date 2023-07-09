@@ -8,10 +8,6 @@ export type ingredient = {
     usPreference: boolean | undefined,
 }
 
-export type nutrients = {
-
-}
-
 export type substitute = {
     comparison: string,
     substitute: string,

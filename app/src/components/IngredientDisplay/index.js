@@ -17,7 +17,7 @@ export default function IngredientDisplay({ item }: { item: ingredient }) {
             <View style={styles.textBox}>
                 {
                     item.usPreference ?
-                        <Text style={styles.unit}>{item.measures.us.amount} {item.unit}  </Text>
+                        <Text style={styles.unit}>{item.measures.us.amount} {item.measures.us.unitShort}  </Text>
                         :
                         <Text style={styles.unit}>{item.measures.metric.amount} {item.measures.metric.unitShort}  </Text>
                 }

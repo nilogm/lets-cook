@@ -19,20 +19,18 @@ export const set_params = (default_args, args) => {
 
 /**
  * Rounds up milliliters.
- * @param {ingredient} item
+ * @param {Number} value
  * @returns rounded ml.
  */
-export const round_ml = (item: ingredient) => {
-    var amount = item.measures.metric.amount;
-    if (amount >= 10) {
-        amount /= 10;
-        amount = Math.ceil(amount) * 10;
+export const round_ml = (value : Number) => {
+    if (value >= 10) {
+        value /= 10;
+        value = Math.ceil(value) * 10;
     }
-    else if (amount < 1) {
-        amount /= 100;
-        amount = Math.ceil(amount) * 100;
-    }
-    return amount
+    else if (value % 1 != 0)
+        value.toFixed(2);
+
+    return value
 }
 
 /**

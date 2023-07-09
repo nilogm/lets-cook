@@ -11,6 +11,8 @@ import KeyboardAvoid from '../../components/KeyboardAvoid';
 import LoadingModal from '../../components/LoadingModal';
 import styles from './style.js';
 
+import { Dimensions } from 'react-native';
+const { height } = Dimensions.get('window');
 
 export default function Home({ navigation }) {
     const [isLoading, setIsLoading] = useState(false);
@@ -67,7 +69,7 @@ export default function Home({ navigation }) {
 
     return (
         <KeyboardAvoid>
-            <View style={styles.container}>
+            <View style={[styles.container, { height: height }]}>
                 <Text style={styles.title}>Let's cook!</Text>
 
                 <TagInput list={ingredients} manager={setIngredients} />

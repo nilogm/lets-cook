@@ -47,7 +47,7 @@ export default function IngredientPopup({ ingredient, substitutes, message, togg
                                 changePreference(true)
                         }}>
                         <Text style={[styles.text, ingredient.usPreference ? styles.selectedText : null]}>
-                            {ingredient.measures.us.amount} {ingredient.unit}
+                            {ingredient.measures.us.amount} {ingredient.measures.us.unitShort}
                         </Text>
                     </Pressable>
 
