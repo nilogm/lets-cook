@@ -1,7 +1,7 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 
 import Home from "./src/pages/Home"
@@ -20,7 +20,7 @@ function App() {
 			<Stack.Navigator>
 				<Stack.Screen name="Home" component={Home} />
 				<Stack.Screen name="Search" component={Search} />
-				<Stack.Screen name="Recipe" component={Recipe} />
+				<Stack.Screen name="Recipe" component={Recipe}  />
 				<Stack.Screen name="Ingredients" component={Ingredients} />
 				<Stack.Screen name="Instructions" component={Instructions} />
 			</Stack.Navigator>

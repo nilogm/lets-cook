@@ -28,7 +28,8 @@ export default function RecipeSearchButton({ navigation, recipe, setIsLoading, a
         setIsLoading(true)
         const page_data = await get_similar(recipe)
         setIsLoading(false)
-        navigation.navigate('Recipe', page_data)
+        // navigation.navigate('Recipe', page_data)
+        navigation.push('Recipe', page_data)
     }
 
     var default_args = {

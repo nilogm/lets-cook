@@ -1,4 +1,4 @@
-import { Text, View, FlatList, Image, Pressable } from "react-native";
+import { Text, View, FlatList, Image, Pressable, Button } from "react-native";
 import React, { useState } from "react";
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { recipe } from "../../types";
@@ -67,6 +67,8 @@ function scrollHeader(navigation, summary: React.JSX.Element, recipe: recipe) {
 
 
 export default function Recipe({ route, navigation }) {
+
+    
     const recipe: recipe = route.params.recipe;
     const similarRecipes: Array<Object> = route.params.similarRecipes
 
