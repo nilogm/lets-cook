@@ -3,7 +3,6 @@ import { View } from "react-native";
 import { tag } from "../../../types";
 import { allDiets } from "../../../data";
 import TagContainer from "../TagContainer";
-import styles from "./style";
 
 /**
  * Tag container display with selectable tags.

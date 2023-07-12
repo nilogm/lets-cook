@@ -7,7 +7,6 @@ const styles = StyleSheet.create({
     },
     text: {
         fontSize: 16,
-        fontWeight: 300,
         textAlign: 'center',
     },
     textNumber: {
@@ -17,11 +16,6 @@ const styles = StyleSheet.create({
     textContainer: {
         width: "100%",
         flexDirection: "row",
-    },
-    popup: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
     },
     headerContainer: {
         alignItems: "center",
@@ -35,13 +29,6 @@ const styles = StyleSheet.create({
         aspectRatio: 1,
         marginBottom: 10,
     },
-    line: {
-        height: 1,
-        margin: 10,
-        width: "80%",
-        backgroundColor: "#CCCCCC",
-        alignSelf: "center",
-    }
 });
 
 export default styles

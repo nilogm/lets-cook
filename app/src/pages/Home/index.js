@@ -18,11 +18,6 @@ export default function Home({ navigation }) {
     const [isLoading, setIsLoading] = useState(false);
     const [modalVisible, toggleModal] = useState(false);
 
-    const [unitUS, setUnitUS] = useState(false);
-    const toggle = (state) => {
-        setUnitUS(state);
-    }
-
     const [ingredients, setIngredients] = useState([]);
     const [macros, setMacros] = useState([]);
     const [diets, setDiets] = useState([]);
@@ -64,8 +59,6 @@ export default function Home({ navigation }) {
 
         navigation.navigate('Search', results);
     }
-
-
 
     return (
         <KeyboardAvoid>

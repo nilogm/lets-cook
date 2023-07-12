@@ -24,7 +24,6 @@ const styles = StyleSheet.create({
     },
     text: {
         textAlign: 'center',
-        fontWeight: 300,
     },
     messageText: {
         marginBottom: 10,

@@ -1,4 +1,6 @@
 
+var key_available = 0;
+
 /**
  * Returns the apiKey argument for API searches.
  * @param {int} index index of the API key to use.
@@ -43,8 +45,8 @@ export const make_search = async (id: int) => {
 
 
 /**
- * 
- * @param {*} data 
+ * Searches for similar recipes based on the recipe's id.
+ * @param {recipe} data 
  * @returns 
  */
 export const get_similar = async (data) => {
@@ -88,6 +90,7 @@ export const get_recipes = async (ingredients_search, macros_search, diets_searc
 
         const response = await fetch(url);
         const json = await response.json();
+        console.log(json);
 
         return {
             results: json.results,

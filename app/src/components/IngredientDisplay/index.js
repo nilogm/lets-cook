@@ -3,6 +3,7 @@ import { View, Text, Image, } from "react-native";
 import styles from "./style";
 import { ingredient } from '../../types';
 import { get_image } from '../../utils';
+import { text_style } from '../../design';
 
 /**
  * Ingredient display used in the ingredient list page.
@@ -21,7 +22,7 @@ export default function IngredientDisplay({ item }: { item: ingredient }) {
                         :
                         <Text style={styles.unit}>{item.measures.metric.amount} {item.measures.metric.unitShort}  </Text>
                 }
-                <Text style={styles.text}>{item.name}</Text>
+                <Text style={[text_style, styles.text]}>{item.name}</Text>
             </View>
         </View>
 

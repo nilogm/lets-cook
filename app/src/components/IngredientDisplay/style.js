@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { highlight_color } from "../../design";
 
 const styles = StyleSheet.create({
     container: {
@@ -14,11 +15,10 @@ const styles = StyleSheet.create({
     unit: {
         fontSize: 20,
         fontWeight: 500,
-        color: "orange",
+        color: highlight_color,
     },
     text: {
         fontSize: 20,
-        fontWeight: 300,
         flex: 1,
         flexWrap: "wrap", 
     },

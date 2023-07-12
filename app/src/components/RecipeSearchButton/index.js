@@ -11,11 +11,10 @@ import { highlight_color, text_style } from "../../design";
 
 type args = {
     enableTagContainer: boolean,
-    isUS_measure: boolean,
 };
 
 /**
- * Button that displays basic recipe information. Optionally, more data can be displayed.
+ * Pressable display with basic recipe information. Optionally, more data can be displayed.
  * @param {recipe} recipe data from recipe to be displayed.
  * @param {function} setIsLoading function handler to update loading state.
  * @param {args} args arguments related to the style of the component.
@@ -35,7 +34,6 @@ export default function RecipeSearchButton({ navigation, recipe, setIsLoading, a
 
     var default_args = {
         "enableTagContainer": true,
-        "isUS_measure": false,
     };
     args = set_params(default_args, args);
 

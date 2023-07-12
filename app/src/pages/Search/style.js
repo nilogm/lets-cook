@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
         zIndex: 10
     },
     list: {
-        height: "92%",
+        height: "90%",
         paddingTop: 20,
         marginVertical: -10
     },
@@ -30,7 +30,6 @@ const styles = StyleSheet.create({
         fontSize: 20,
         color: "gray",
         alignSelf: "center"
-
     }
 });
 

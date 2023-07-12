@@ -3,11 +3,11 @@ import { get_name, get_image } from "../../utils";
 import { ingredient, substitute } from "../../types";
 import styles from "./style";
 import { Line } from "../assets";
-import { highlight_color, popup_style } from "../../design";
+import { highlight_color, popup_style, text_style } from "../../design";
 import { useState } from "react";
 
 /**
- * Popup that displays the ingredient name, image, possible units and substitutes. Toggles preference unit when "togglePreference" is given.
+ * Popup that displays the ingredient's name and image, possible units and substitutes. Toggles preference unit when "togglePreference" is given.
  * @param {ingredient} ingredient ingredient object the popup is being referered to.
  * @param {substitutes} substitutes substitutes to the ingredient.
  * @param {message} message message to be displayed in popup.
@@ -23,6 +23,8 @@ export default function IngredientPopup({ ingredient, substitutes, message, togg
 
     const [usPreference, toggleUsPreference] = useState(ingredient.usPreference)
     const changePreference = (state) => {
+        if (!togglePreference) return
+
         togglePreference(state)
         toggleUsPreference(state)
     }
@@ -42,21 +44,15 @@ export default function IngredientPopup({ ingredient, substitutes, message, togg
                 (ingredient.measures.metric.amount != ingredient.measures.us.amount) &&
                 <View style={styles.unitContainer}>
                     <Pressable style={styles.button}
-                        onPress={() => {
-                            if (togglePreference)
-                                changePreference(true)
-                        }}>
-                        <Text style={[styles.text, ingredient.usPreference ? styles.selectedText : null]}>
+                        onPress={() => { changePreference(true) }}>
+                        <Text style={[text_style, styles.text, ingredient.usPreference ? styles.selectedText : null]}>
                             {ingredient.measures.us.amount} {ingredient.measures.us.unitShort}
                         </Text>
                     </Pressable>
 
                     <Pressable style={styles.button}
-                        onPress={() => {
-                            if (togglePreference)
-                                changePreference(false)
-                        }}>
-                        <Text style={[styles.text, !ingredient.usPreference ? styles.selectedText : null]}>
+                        onPress={() => { changePreference(false) }}>
+                        <Text style={[text_style, styles.text, !ingredient.usPreference ? styles.selectedText : null]}>
                             {ingredient.measures.metric.amount} {ingredient.measures.metric.unitShort}
                         </Text>
                     </Pressable>
@@ -65,13 +61,13 @@ export default function IngredientPopup({ ingredient, substitutes, message, togg
 
             <Line width={200} />
 
-            <Text style={[styles.text, styles.messageText]}>{message}</Text>
+            <Text style={[text_style, styles.text, styles.messageText]}>{message}</Text>
 
             <FlatList
                 data={substitutes}
                 contentContainerStyle={{ alignItems: "center" }}
                 renderItem={({ item }) => (
-                    <Text style={styles.text}>
+                    <Text style={text_style, styles.text}>
                         <Text>{item.comparison} = </Text>
                         <Text style={styles.selectedText}>{item.substitute}</Text>
                     </Text>

@@ -8,7 +8,7 @@ import { error_text_style, iconbutton_style, inputbox_error, inputbox_style, tex
 import styles from "./style";
 
 /**
- * Input for macros.
+ * Input for macros with autocomplete.
  * @param {Array<tag>} list current list of macros, changeable.
  * @param {function} manager function handler to execute list updates.
  * @returns 

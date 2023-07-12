@@ -26,10 +26,6 @@ const styles = StyleSheet.create({
         aspectRatio: 1,
         height: "100%",
     },
-    infoText: {
-        fontSize: 20,
-        fontWeight: 300,
-    },
     summaryContainer: {
         marginBottom: 20,
         marginTop: 0,

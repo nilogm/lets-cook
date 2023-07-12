@@ -11,6 +11,62 @@ import RecipeSearchButton from "../../components/RecipeSearchButton";
 import styles from "./style";
 
 
+function header(recipe: recipe) {
+    return (
+        <View>
+            <View style={styles.container}>
+                <Image source={{ uri: recipe.image }} style={styles.image}></Image>
+
+                <View style={styles.headerContainer}>
+                    <Text style={styles.headerTitle} numberOfLines={2}>{recipe.title}</Text>
+                    <View style={{ marginTop: 5 }}>
+                        <Text style={styles.headerInformation}>{recipe.readyInMinutes} minutes</Text>
+                        <Text style={styles.headerInformation}>
+                            <Text>{recipe.servings} serving</Text>
+                            {recipe.servings > 1 && <Text>s</Text>}
+                        </Text>
+                    </View>
+                </View>
+            </View>
+            <Line />
+        </View>
+    );
+}
+
+
+function scrollHeader(navigation, summary) {
+    return (
+        <View style={{ width: "100%" }}>
+            <View style={styles.summaryContainer}>
+                <Text style={[text_style, { fontSize: 16 }]}>{summary}</Text>
+            </View>
+
+            <View style={styles.buttonsContainer}>
+                <View style={styles.buttonContainer}>
+                    <Pressable
+                        onPress={() => { navigation.navigate("Ingredients", { recipe: recipe }) }}
+                        style={[styles.button, { backgroundColor: "#99FF55" }]}>
+                        <Icon name="carrot" size={32} style={styles.icons} />
+                    </Pressable>
+                    <Text>Ingredients</Text>
+                </View>
+
+                <View style={styles.buttonContainer}>
+                    <Pressable
+                        onPress={() => { navigation.navigate("Instructions", { recipe: recipe }) }}
+                        style={[styles.button, { backgroundColor: "#FFDD00" }]}>
+                        <Icon name="utensil-spoon" size={32} style={styles.icons} />
+                    </Pressable>
+                    <Text>Instructions</Text>
+                </View>
+            </View>
+
+            <Text style={[text_style, { fontSize: 24 }]}>Similar Recipes</Text>
+        </View>
+    )
+}
+
+
 export default function Recipe({ route, navigation }) {
     const recipe: recipe = route.params.recipe;
     const similarRecipes: Array<Object> = route.params.similarRecipes
@@ -21,59 +77,14 @@ export default function Recipe({ route, navigation }) {
 
     return (
         <View style={{ height: "100%" }}>
-            <View>
-                <View style={styles.container}>
-                    <Image source={{ uri: recipe.image }} style={styles.image}></Image>
-
-                    <View style={styles.headerContainer}>
-                        <Text style={styles.headerTitle} numberOfLines={2}>{recipe.title}</Text>
-                        <View style={{ marginTop: 5 }}>
-                            <Text style={styles.headerInformation}>{recipe.readyInMinutes} minutes</Text>
-                            <Text style={styles.headerInformation}>
-                                <Text>{recipe.servings} serving</Text>
-                                {recipe.servings > 1 && <Text>s</Text>}
-                            </Text>
-                        </View>
-                    </View>
-                </View>
-                <Line />
-            </View>
+            {header(recipe)}
 
             <FlatList
-                ListHeaderComponent={(
-                    <View style={{ width: "100%" }}>
-                        <View style={styles.summaryContainer}>
-                            <Text style={[text_style, { fontSize: 16 }]}>{summary}</Text>
-                        </View>
-
-                        <View style={styles.buttonsContainer}>
-                            <View style={styles.buttonContainer}>
-                                <Pressable
-                                    onPress={() => { navigation.navigate("Ingredients", { recipe: recipe }) }}
-                                    style={[styles.button, { backgroundColor: "#99FF55" }]}>
-                                    <Icon name="carrot" size={32} style={styles.icons} />
-                                </Pressable>
-                                <Text>Ingredients</Text>
-                            </View>
-
-                            <View style={styles.buttonContainer}>
-                                <Pressable
-                                    onPress={() => { navigation.navigate("Instructions", { recipe: recipe }) }}
-                                    style={[styles.button, { backgroundColor: "#FFDD00" }]}>
-                                    <Icon name="utensil-spoon" size={32} style={styles.icons} />
-                                </Pressable>
-                                <Text>Instructions</Text>
-                            </View>
-                        </View>
-
-                        <Text style={[text_style, { fontSize: 24 }]}>Similar Recipes</Text>
-                    </View>
-                )}
+                ListHeaderComponent={scrollHeader(navigation, summary)}
                 style={{ marginTop: 10, width: "90%", alignSelf: "center" }}
                 data={similarRecipes}
                 scrollEnabled={true}
                 showsVerticalScrollIndicator={false}
-                horizontal={false}
                 contentContainerStyle={{ alignContent: "center" }}
                 renderItem={({ item }) => (
                     <RecipeSearchButton
