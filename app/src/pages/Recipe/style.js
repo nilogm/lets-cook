@@ -19,39 +19,37 @@ const styles = StyleSheet.create({
     },
     headerInformation: {
         fontStyle: "italic",
-        fontWeight: 300,
         fontSize: 16,
     },
     image: {
         aspectRatio: 1,
         height: "100%",
     },
-    summaryContainer: {
-        marginBottom: 20,
-        marginTop: 0,
-    },
     buttonsContainer: {
         width: "100%",
         flexDirection: "row",
         justifyContent: "space-around",
-        alignItems: "center",
-        marginBottom: 10,
+        marginVertical: 30,
     },
     buttonContainer: {
         gap: 6,
         alignItems: "center",
     },
     button: {
+        justifyContent: 'center',
         aspectRatio: 1,
         height: 60,
         borderRadius: 50,
-        justifyContent: 'center',
-        alignSelf: "center",
+        backgroundColor: highlight_color,
     },
     icons: {
         alignSelf: "center",
         color: "white",
     },
+    similarHeader: {
+        fontSize: 24,
+        marginBottom: 10,
+    }
 });
 
 export default styles

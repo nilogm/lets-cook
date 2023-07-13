@@ -7,13 +7,16 @@ import TagIcon from '../TagIcon';
 import styles from './style.js'
 
 type container_args = {
-    small: boolean,
+    small: int,
     iconArgs: tag_args,
     style: Object
 }
 
 /**
  * Container for tag display. Different displays available by changing "args" parameter.
+ *  - "small" (int) sets maximum amount of tags by the number specified.
+ *  - "iconArgs" (tag_args) object of arguments for the tag display.
+ *  - "style" (Object) custom style for the container.
  * @param {Array<tag>} tagList list of tags to be displayed.
  * @param {container_args} args arguments that change component behaviour or style.
  * @returns 
@@ -24,14 +27,14 @@ export default function TagContainer({ tagList, args }: {
 }) {
 
     var default_args = {
-        "small": false,
+        "small": 0,
         "iconArgs": null,
         "style": null,
     };
     args = set_params(default_args, args);
 
-    if (args.small && tagList.length > 4) {
-        tagList.splice(4);
+    if (args.small != 0 && tagList.length > args.small) {
+        tagList.splice(args.small);
         tagList.push({ name: "..." });
     }
 

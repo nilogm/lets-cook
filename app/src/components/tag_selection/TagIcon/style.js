@@ -17,13 +17,11 @@ const styles = StyleSheet.create({
     },
     text: {
         color: "black",
-        marginEnd: 5,
+        fontSize: 12,
     },
     textFocus: {
         fontSize: 16,
-    },
-    textLesser: {
-        fontSize: 12,
+        fontWeight: "bold"
     },
     enabledText : {
         fontSize: 12,

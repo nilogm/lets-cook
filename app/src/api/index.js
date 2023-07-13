@@ -1,14 +1,33 @@
 
-var key_available = 0;
+var current_key = 0;
+const keys = ["60e0914780694a9789b017e7519fd30e", "ed5efa73e002400393a5034f3327b3c4", "8b93086b35874e698fc2efb972938a5f", "66228dc61713457e87b43cca2818f18e"]
+const amount_keys = keys.length
+
+
+/**
+ * Fetches data from tha API. Changes key if remaining tokens are low.
+ * @param {string} url 
+ * @returns json with results.
+ */
+const getResponse = async (url) => {
+    const response = await fetch(url);
+    
+    if (response.headers.map["x-api-quota-left"] < 3){
+        current_key += 1;
+        current_key %= amount_keys;
+    }
+
+    const json = await response.json();
+    return json;
+}
+
 
 /**
  * Returns the apiKey argument for API searches.
- * @param {int} index index of the API key to use.
  * @returns string with "?apiKey=[API key]".
  */
-export const get_key = (index = 3) => {
-    const keys = ["60e0914780694a9789b017e7519fd30e", "ed5efa73e002400393a5034f3327b3c4", "8b93086b35874e698fc2efb972938a5f", "66228dc61713457e87b43cca2818f18e"]
-    return "?apiKey=" + keys[index];
+export const get_key = () => {
+    return "?apiKey=" + keys[current_key];
 }
 
 
@@ -20,11 +39,9 @@ export const get_key = (index = 3) => {
 async function search_substitutes(id: int): Array<Object> {
     try {
         url = 'https://api.spoonacular.com/food/ingredients/' + id + '/substitutes' + get_key();
-
-        const response = await fetch(url);
-        const json = await response.json();
-
+        const json = await getResponse(url);
         return json;
+
     } catch (error) {
         console.error(error);
     }
@@ -54,13 +71,11 @@ export const get_similar = async (data) => {
 
     try {
         url = 'https://api.spoonacular.com/recipes/' + data.id + '/similar' + get_key() + '&number=3'
-
-        const response = await fetch(url);
-        const json = await response.json();
+        const json = await getResponse(url);
 
         for (i = 0; i < json.length; i++) {
-            const response2 = await fetch("https://api.spoonacular.com/recipes/" + json[i].id + "/information" + get_key())
-            const json2 = await response2.json()
+            var similarUrl = "https://api.spoonacular.com/recipes/" + json[i].id + "/information" + get_key();
+            var json2 = await getResponse(similarUrl);
             similar.push(json2)
         }
 
@@ -87,10 +102,7 @@ export const get_recipes = async (ingredients_search, macros_search, diets_searc
         const numberofRecipes = 7;
         const url = 'https://api.spoonacular.com/recipes/complexSearch' + get_key() + '&addRecipeInformation=true&includeIngredients='
             + ingredients_search + '&' + macros_search + '&number=' + numberofRecipes + "&fillIngredients=true&diet=" + diets_search
-
-        const response = await fetch(url);
-        const json = await response.json();
-        console.log(json);
+        const json = await getResponse(url);
 
         return {
             results: json.results,
@@ -99,22 +111,19 @@ export const get_recipes = async (ingredients_search, macros_search, diets_searc
 
     } catch (error) {
         console.error(error);
-       
     }
-
 };
 
 /**
- * Busca e retorna ingredientes em autocomplete.
+ * Returns matches for ingredient autocomplete search.
  * @param {string} search search string.
  */
 export const search_item = async (search: string) => {
     try {
         const url = 'https://api.spoonacular.com/food/ingredients/autocomplete' + get_key() + '&query=' + search + '&number=5'
-        const response = await fetch(url);
-        const json = await response.json();
-
+        const json = await getResponse(url);
         return json
+
     } catch (error) {
         console.error(error);
     }
@@ -129,15 +138,13 @@ export const search_item = async (search: string) => {
  */
 export const get_more_recipes = async (url: string, results: Array<Object>, offset : int) => {
     try {
-        url = url + "&offset=" + offset;
+        url += "&offset=" + offset;
+        const json = await getResponse(url);
 
-        const response = await fetch(url);
-
-        const json = await response.json();
         const moreResults = json.results
-
         for (i = 0; i < moreResults.length; i++)
             results.push(moreResults[i])
+
         return results
 
     } catch (error) {

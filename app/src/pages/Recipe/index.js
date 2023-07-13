@@ -1,11 +1,10 @@
-import { Text, View, FlatList, Image, Modal, ActivityIndicator, ScrollView, Pressable } from "react-native";
+import { Text, View, FlatList, Image, Pressable } from "react-native";
 import React, { useState } from "react";
-import { LinearGradient } from 'expo-linear-gradient';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { recipe } from "../../types";
 import { text_style } from "../../design";
 import { format_summary } from "../../utils";
-import { Line } from "../../components/assets";
+import { Line, Spacing } from "../../components/assets";
 import LoadingModal from "../../components/LoadingModal";
 import RecipeSearchButton from "../../components/RecipeSearchButton";
 import styles from "./style";
@@ -13,12 +12,12 @@ import styles from "./style";
 
 function header(recipe: recipe) {
     return (
-        <View>
+        <View >
             <View style={styles.container}>
                 <Image source={{ uri: recipe.image }} style={styles.image}></Image>
 
                 <View style={styles.headerContainer}>
-                    <Text style={styles.headerTitle} numberOfLines={2}>{recipe.title}</Text>
+                    <Text style={[text_style, styles.headerTitle]} numberOfLines={2}>{recipe.title}</Text>
                     <View style={{ marginTop: 5 }}>
                         <Text style={styles.headerInformation}>{recipe.readyInMinutes} minutes</Text>
                         <Text style={styles.headerInformation}>
@@ -33,8 +32,21 @@ function header(recipe: recipe) {
     );
 }
 
+function button(navigation, name: string, icon: string, recipe: recipe) {
+    return (
+        <View style={styles.buttonContainer}>
+            <Pressable
+                onPress={() => { navigation.navigate(name, { recipe: recipe }) }}
+                style={styles.button}>
+                <Icon name={icon} size={32} style={styles.icons} />
+            </Pressable>
+            <Text>{name}</Text>
+        </View>
+    )
+}
 
-function scrollHeader(navigation, summary) {
+
+function scrollHeader(navigation, summary: React.JSX.Element, recipe: recipe) {
     return (
         <View style={{ width: "100%" }}>
             <View style={styles.summaryContainer}>
@@ -42,29 +54,16 @@ function scrollHeader(navigation, summary) {
             </View>
 
             <View style={styles.buttonsContainer}>
-                <View style={styles.buttonContainer}>
-                    <Pressable
-                        onPress={() => { navigation.navigate("Ingredients", { recipe: recipe }) }}
-                        style={[styles.button, { backgroundColor: "#99FF55" }]}>
-                        <Icon name="carrot" size={32} style={styles.icons} />
-                    </Pressable>
-                    <Text>Ingredients</Text>
-                </View>
-
-                <View style={styles.buttonContainer}>
-                    <Pressable
-                        onPress={() => { navigation.navigate("Instructions", { recipe: recipe }) }}
-                        style={[styles.button, { backgroundColor: "#FFDD00" }]}>
-                        <Icon name="utensil-spoon" size={32} style={styles.icons} />
-                    </Pressable>
-                    <Text>Instructions</Text>
-                </View>
+                {button(navigation, "Ingredients", "carrot", recipe)}
+                {button(navigation, "Instructions", "utensil-spoon", recipe)}
             </View>
 
-            <Text style={[text_style, { fontSize: 24 }]}>Similar Recipes</Text>
+            <Text style={[text_style, styles.similarHeader]}>Similar Recipes</Text>
         </View>
     )
 }
+
+
 
 
 export default function Recipe({ route, navigation }) {
@@ -80,7 +79,7 @@ export default function Recipe({ route, navigation }) {
             {header(recipe)}
 
             <FlatList
-                ListHeaderComponent={scrollHeader(navigation, summary)}
+                ListHeaderComponent={scrollHeader(navigation, summary, recipe)}
                 style={{ marginTop: 10, width: "90%", alignSelf: "center" }}
                 data={similarRecipes}
                 scrollEnabled={true}
@@ -91,10 +90,8 @@ export default function Recipe({ route, navigation }) {
                         navigation={navigation} recipe={item} setIsLoading={setIsLoading} args={{ enableTagContainer: false }}
                     />
                 )}
-                ItemSeparatorComponent={
-                    <View style={{ height: 5, width: "100%" }} />
-                }
-                ListFooterComponent={(<View style={{ paddingBottom: 10, height: 10 }}></View>)}
+                ItemSeparatorComponent={<Spacing />}
+                ListFooterComponent={<Spacing spacing={10} />}
             />
 
             <LoadingModal isVisible={isLoading} isLoading={isLoading} />

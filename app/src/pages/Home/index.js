@@ -75,7 +75,7 @@ export default function Home({ navigation }) {
 
                 <View style={{ justifyContent: "center", flex: 1 }}>
                     <Pressable style={styles.button} onPress={make_search}>
-                        <Icon name="utensils" size={40} style={styles.icons} />
+                        <Icon name={"utensils"} size={40} style={styles.icons} />
                     </Pressable>
                 </View>
 

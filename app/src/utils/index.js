@@ -1,4 +1,5 @@
 import { ingredient } from "../types";
+import { highlight_color } from "../design";
 import { Text } from "react-native";
 
 /**
@@ -22,7 +23,7 @@ export const set_params = (default_args, args) => {
  * @param {Number} value
  * @returns rounded ml.
  */
-export const round_ml = (value : Number) => {
+export const round_ml = (value: Number) => {
     if (value >= 10) {
         value /= 10;
         value = Math.ceil(value) * 10;
@@ -79,7 +80,7 @@ export const format_summary = (summary) => {
         var splitted2 = splitted[i].split("</b>")
         for (j = 0; j < splitted2.length; j++) {
 
-            info.push(focus ? <Text style={{ fontWeight: 'bold', color: "#B6B681" }}>{splitted2[j]}</Text> : <Text>{splitted2[j]}</Text>)
+            info.push(focus ? <Text style={{ fontWeight: 'bold', color: highlight_color }}>{splitted2[j]}</Text> : <Text>{splitted2[j]}</Text>)
             focus = !focus
         }
     }

@@ -10,7 +10,6 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
     textNumber: {
-        fontWeight: 500,
         color: "orange"
     },
     textContainer: {

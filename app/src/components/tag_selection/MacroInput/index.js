@@ -31,8 +31,9 @@ export default function MacroInput({ list, manager }: {
     const [matches, setMatches] = useState([]);
 
     const addTag = () => {
-        if (input == "")
+        if (input.length == 0)
             return
+
         if (minValue == "" && maxValue == "") {
             setValueError("Amount values have not been set.")
             return
@@ -47,24 +48,35 @@ export default function MacroInput({ list, manager }: {
                 return
             }    
         }
-        if (matches.length == 0 && input.length == 0)
+
+        const filteredData = allMacros.filter(item => {
+            const searchTerm = input.toLowerCase();
+            const fullName = item.name.toLowerCase();
+
+            return searchTerm && fullName == searchTerm;
+        })
+        if (filteredData.length == 0){
+            setInputError(true)
             return
+        }
+
 
         var newArray = list;
         if (minValue != "") {
             const filteredData = newArray.filter(item => item.name !== "min" + input)
-            newArray = [...filteredData, { name: "min" + input, amount: minValue, unit: "g" }]
+            newArray = [...filteredData, { name: "min" + input, amount: minValue, unit: unit }]
         }
 
         if (maxValue != "") {
             const filteredData = newArray.filter(item => item.name !== "max" + input)
-            newArray = [...filteredData, { name: "max" + input, amount: maxValue, unit: "g" }]
+            newArray = [...filteredData, { name: "max" + input, amount: maxValue, unit: unit }]
         }
 
         setInput("")
         setUnit("")
         setMinValue("")
         setMaxValue("")
+        setMatches([])
 
         Keyboard.dismiss()
 

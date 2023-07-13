@@ -27,7 +27,7 @@ export default function TagDiet({ list, manager }: {
     }
 
     return (
-        <View style={styles.mainContainer}>
+        <View>
             <TagContainer tagList={allDiets} args={{ iconArgs: { onClick: addDiet, changeColor: true } }} />
         </View>
     );

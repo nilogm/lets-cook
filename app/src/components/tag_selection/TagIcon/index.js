@@ -14,6 +14,10 @@ export type tag_args = {
 
 /**
  * Display for tags. Can be modified using "args" keywords.
+ *  - "focus" (boolean) changes display of tag to be highlighted.
+ *  - "onClick" (function) function handler that executes when clicked.
+ *  - "changeColor" (boolean) allows color to be toggled (by 'onClick').
+ *  - "color" (string) tag color.
  * @param {tag} tag
  * @param {tag_args} args
  * @returns 
@@ -49,7 +53,7 @@ export default function TagIcon({ tag, args }: {
     return (
         <Pressable style={[styles.boxContainer, { backgroundColor: args.color }, enabled && styles.enabled]}
             onPress={onPressed}>
-            <Text style={[text_style, styles.text, args.focus ? styles.textFocus : enabled ? styles.enabledText : styles.textLesser]}>
+            <Text style={[text_style, styles.text, args.focus ? styles.textFocus : enabled ? styles.enabledText : null]}>
                 {
                     tag.name == undefined ?
                         <Text>{tag}</Text>

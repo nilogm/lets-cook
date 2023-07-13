@@ -70,7 +70,7 @@ export default function RecipeSearchButton({ navigation, recipe, setIsLoading, a
                     args.enableTagContainer &&
                     <View style={styles.tagContainer}>
                         <Line width="90%" />
-                        <TagContainer tagList={[...ingredients, ...nutrients]} args={{ small: true, iconArgs: { color: highlight_color } }}></TagContainer>
+                        <TagContainer tagList={[...ingredients, ...nutrients]} args={{ small: 4, iconArgs: { color: highlight_color } }}/>
                     </View>
                 }
 

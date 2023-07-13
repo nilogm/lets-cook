@@ -4,7 +4,7 @@ import { tag } from "../../../types";
 import { search_item } from "../../../api";
 import TagContainer from "../TagContainer";
 import styles from "./style";
-import { error_text_style, inputbox_error, inputbox_style } from "../../../design";
+import { error_text_style, inputbox_error, inputbox_style, text_style } from "../../../design";
 
 /**
  * Input for ingredients.
@@ -97,7 +97,7 @@ export default function TagInput({ list, manager }: {
                                     </View>
                                     :
                                     <Pressable style={styles.autocompleteBox} onPress={() => setTag(item)}>
-                                        <Text style={styles.autocompleteText}>{item.name}</Text>
+                                        <Text style={text_style}>{item.name}</Text>
                                     </Pressable>
                                 }
                             </View>

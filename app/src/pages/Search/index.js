@@ -48,7 +48,7 @@ export default function Search({ route, navigation }) {
                     scrollEnabled={true}
                     showsHorizontalScrollIndicator={false}
                     data={[...ingredients, ...macros, ...diets]}
-                    renderItem={({ item }) => (<TagIcon tag={item} />)}
+                    renderItem={({ item }) => (<TagIcon tag={item} args={{focus: true}}/>)}
                 />
             </View>
 

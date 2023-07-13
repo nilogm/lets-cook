@@ -14,7 +14,6 @@ const styles = StyleSheet.create({
     },
     unit: {
         fontSize: 20,
-        fontWeight: 500,
         color: highlight_color,
     },
     text: {
