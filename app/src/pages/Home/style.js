@@ -4,15 +4,13 @@ import { highlight_color } from "../../design";
 
 const styles = StyleSheet.create({
     container: {
-        paddingTop: 30,
+        paddingTop: 60,
         height: "100%",
-        backgroundColor: "#0000000A"
     },
     title: {
         width: "80%",
         alignSelf: "center",
         fontSize: 56,
-        // fontWeight: 300,
         marginBottom: 20,
     },
     button: {

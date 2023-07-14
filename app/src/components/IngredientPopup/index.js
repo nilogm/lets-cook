@@ -67,8 +67,8 @@ export default function IngredientPopup({ ingredient, substitutes, message, togg
                 data={substitutes}
                 contentContainerStyle={{ alignItems: "center" }}
                 renderItem={({ item }) => (
-                    <Text style={text_style, styles.text}>
-                        <Text>{item.comparison} = </Text>
+                    <Text style={styles.text}>
+                        <Text style={text_style}>{item.comparison} = </Text>
                         <Text style={styles.selectedText}>{item.substitute}</Text>
                     </Text>
                 )}

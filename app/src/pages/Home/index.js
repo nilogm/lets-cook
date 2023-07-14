@@ -93,17 +93,3 @@ export default function Home({ navigation }) {
         </KeyboardAvoid>
     )
 }
-
-
-
-/*
-    cannellini bean
-    cauliflower
-    berry banna
-
-    red lentil soup
-    asparagus 
-    garlicky kale
-    slow cooker beef staw
-
-*/

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, Pressable, FlatList } from "react-native";
-import { round_ml } from '../../utils';
+import { round_amount } from '../../utils';
 import { make_search } from '../../api';
 import { substitute, ingredient } from '../../types';
 import IngredientDisplay from '../../components/IngredientDisplay';
@@ -26,8 +26,9 @@ export default function Ingredients({ route }) {
         var found_usPreference = Object.keys(element).filter(item => item === "usPreference").length == 1;
         if (!found_usPreference)
             element.usPreference = false
-        element.measures.metric.amount = round_ml(element.measures.metric.amount);
-        element.measures.us.amount = round_ml(element.measures.us.amount);
+        element.measures.metric.amount = round_amount(element.measures.metric.amount);
+        element.measures.us.amount = round_amount(element.measures.us.amount);
+        console.log(element.measures.us.amount);
     })
     const [ingredients, setIngredients] = useState(ingredients_);
 

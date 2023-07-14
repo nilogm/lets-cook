@@ -19,17 +19,19 @@ export const set_params = (default_args, args) => {
 }
 
 /**
- * Rounds up milliliters.
+ * Rounds up quantities.
  * @param {Number} value
- * @returns rounded ml.
+ * @returns rounded unit.
  */
-export const round_ml = (value: Number) => {
-    if (value >= 10) {
+export const round_amount = (value) => {
+    value = Number(value)
+    if (value % 1 != 0)
+        value = value.toFixed(2);
+
+    if (value > 10){
         value /= 10;
         value = Math.ceil(value) * 10;
     }
-    else if (value % 1 != 0)
-        value.toFixed(2);
 
     return value
 }
