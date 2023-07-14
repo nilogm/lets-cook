@@ -1,4 +1,4 @@
-import { FlatList, Pressable, View, Text, ActivityIndicator, Modal } from "react-native";
+import { FlatList, Pressable, View, Text, ActivityIndicator } from "react-native";
 import { useState } from 'react';
 import { LinearGradient } from "expo-linear-gradient";
 import RecipeSearchButton from "../../components/RecipeSearchButton"
@@ -14,8 +14,7 @@ export default function Search({ route, navigation }) {
 
     const [isLoadingMore, setIsLoadingMore] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-    const [offset, setOffset] = useState(7);
-    const [haveMoreSimilar, setHaveMoreSimilar] = useState(false)
+    const [offset, setOffset] = useState(7);   
     var haveMoreRecipes = true
 
     const data = route.params;
@@ -37,8 +36,6 @@ export default function Search({ route, navigation }) {
         if (results.length < 7)
             haveMoreRecipes = false
     }
-
-
 
     return (
         <View >

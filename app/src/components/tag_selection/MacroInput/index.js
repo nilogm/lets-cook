@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { Pressable, TextInput, View, Text, FlatList, Keyboard } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import { tag } from "../../../types";

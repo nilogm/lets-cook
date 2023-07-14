@@ -1,7 +1,6 @@
 import { Text, View, Image, Pressable } from "react-native";
-import { useState } from "react";
 import { LinearGradient } from 'expo-linear-gradient';
-import { get_key, get_similar } from "../../api";
+import { get_similar } from "../../api";
 import { set_params } from "../../utils";
 import { recipe, ingredient, nutrients } from "../../types";
 import { Line } from "../assets";

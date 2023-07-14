@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { View, Text, Pressable } from "react-native";
+import { Text, Pressable } from "react-native";
 import { tag } from "../../../types";
 import { set_params } from "../../../utils";
 import styles from "./style"

@@ -1,5 +1,4 @@
 import { FlatList, View, Text } from 'react-native';
-import { useState } from 'react';
 import { tag } from '../../../types';
 import { tag_args } from "../TagIcon"
 import { set_params } from '../../../utils';

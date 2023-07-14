@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { TextInput, View, FlatList, Pressable, Text, Keyboard, ActivityIndicator } from "react-native";
+import { TextInput, View, FlatList, Pressable, Text, ActivityIndicator } from "react-native";
 import { tag } from "../../../types";
 import { search_item } from "../../../api";
 import TagContainer from "../TagContainer";

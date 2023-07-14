@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { View, Text, FlatList, Modal, Pressable, Image } from "react-native";
-import { makeSearch, get_name, get_image } from "../../utils";
-import IngredientPopup from "../../components/IngredientPopup";
+import { View, Text, FlatList, Pressable, Image } from "react-native";
+import { get_name, get_image } from "../../utils";
 import LoadingModal from "../../components/LoadingModal";
 import styles from "./style";
 import { popup_style, text_style } from "../../design";

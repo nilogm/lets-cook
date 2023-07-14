@@ -2,7 +2,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import React, { useEffect, useState } from 'react';
-import { Switch } from 'react-native';
+
 
 import Home from "./src/pages/Home"
 import Search from "./src/pages/Search"

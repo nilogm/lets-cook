@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Pressable, FlatList, Modal, ActivityIndicator } from "react-native";
+import { View, Pressable, FlatList } from "react-native";
 import { round_ml } from '../../utils';
 import { make_search } from '../../api';
 import { substitute, ingredient } from '../../types';
