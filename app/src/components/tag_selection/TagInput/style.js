@@ -12,9 +12,6 @@ const styles = StyleSheet.create({
         backgroundColor: "#FFFFFF",
         padding: 10 
     },
-    autocompleteText: { 
-        fontWeight: 300
-    },
 });
 
 export default styles

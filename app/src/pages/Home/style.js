@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
         width: "80%",
         alignSelf: "center",
         fontSize: 56,
-        fontWeight: 300,
+        // fontWeight: 300,
         marginBottom: 20,
     },
     button: {

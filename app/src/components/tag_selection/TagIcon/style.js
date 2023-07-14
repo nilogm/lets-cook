@@ -7,26 +7,21 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         padding: 10,
         paddingVertical: 5,
-        paddingRight: 5,
         borderRadius: 20,
         flexDirection: "row",
         margin: 3,
+        opacity: 0.6
     },
     enabled : {
         backgroundColor: "#33df33",
     },
     text: {
         color: "black",
-        marginEnd: 5,
+        fontSize: 12,
     },
     textFocus: {
         fontSize: 16,
-    },
-    textLesser: {
-        fontSize: 12,
-    },
-    textLesserContent: {
-        fontWeight: 300,
+        fontWeight: "bold"
     },
     enabledText : {
         fontSize: 12,

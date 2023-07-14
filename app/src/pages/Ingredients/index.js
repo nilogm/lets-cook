@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Pressable, FlatList, Modal, ActivityIndicator } from "react-native";
+import { View, Pressable, FlatList } from "react-native";
 import { round_ml } from '../../utils';
 import { make_search } from '../../api';
 import { substitute, ingredient } from '../../types';
@@ -7,6 +7,7 @@ import IngredientDisplay from '../../components/IngredientDisplay';
 import IngredientPopup from '../../components/IngredientPopup';
 import LoadingModal from '../../components/LoadingModal';
 import styles from "./style";
+import { Line } from '../../components/assets';
 
 
 export default function Ingredients({ route }) {
@@ -27,7 +28,6 @@ export default function Ingredients({ route }) {
             element.usPreference = false
         element.measures.metric.amount = round_ml(element.measures.metric.amount);
         element.measures.us.amount = round_ml(element.measures.us.amount);
-        console.log(element.measures.us)
     })
     const [ingredients, setIngredients] = useState(ingredients_);
 
@@ -66,7 +66,7 @@ export default function Ingredients({ route }) {
         <View>
             <FlatList
                 style={styles.container}
-                contentContainerStyle={{ paddingBottom: 50, }}
+                contentContainerStyle={{ paddingBottom: 50 }}
                 data={ingredients}
                 scrollEnabled={true}
                 showsVerticalScrollIndicator={false}
@@ -75,7 +75,7 @@ export default function Ingredients({ route }) {
                         <IngredientDisplay item={item} />
                     </Pressable>
                 )}
-                ItemSeparatorComponent={<View style={{ height: 1, margin: 10, width: "100%", backgroundColor: "#CCCCCC" }} />}
+                ItemSeparatorComponent={<Line/>}
             />
 
             <LoadingModal

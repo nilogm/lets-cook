@@ -1,4 +1,4 @@
-import { FlatList, Pressable, View, Text, ActivityIndicator, Modal } from "react-native";
+import { FlatList, Pressable, View, Text, ActivityIndicator } from "react-native";
 import { useState } from 'react';
 import { LinearGradient } from "expo-linear-gradient";
 import RecipeSearchButton from "../../components/RecipeSearchButton"
@@ -10,12 +10,11 @@ import { text_style } from "../../design";
 
 
 
-export default function RecipeSearch({ route, navigation }) {
+export default function Search({ route, navigation }) {
 
     const [isLoadingMore, setIsLoadingMore] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-    const [offset, setOffset] = useState(7);
-    const [haveMoreSimilar, setHaveMoreSimilar] = useState(false)
+    const [offset, setOffset] = useState(7);   
     var haveMoreRecipes = true
 
     const data = route.params;
@@ -38,8 +37,6 @@ export default function RecipeSearch({ route, navigation }) {
             haveMoreRecipes = false
     }
 
-
-
     return (
         <View >
             <View style={styles.container}>
@@ -48,7 +45,7 @@ export default function RecipeSearch({ route, navigation }) {
                     scrollEnabled={true}
                     showsHorizontalScrollIndicator={false}
                     data={[...ingredients, ...macros, ...diets]}
-                    renderItem={({ item }) => (<TagIcon tag={item} />)}
+                    renderItem={({ item }) => (<TagIcon tag={item} args={{focus: true}}/>)}
                 />
             </View>
 

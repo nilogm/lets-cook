@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { View, Text, Pressable } from "react-native";
+import { Text, Pressable } from "react-native";
 import { tag } from "../../../types";
 import { set_params } from "../../../utils";
 import styles from "./style"
+import { text_style } from "../../../design";
 
 export type tag_args = {
     focus: boolean,
@@ -13,6 +14,10 @@ export type tag_args = {
 
 /**
  * Display for tags. Can be modified using "args" keywords.
+ *  - "focus" (boolean) changes display of tag to be highlighted.
+ *  - "onClick" (function) function handler that executes when clicked.
+ *  - "changeColor" (boolean) allows color to be toggled (by 'onClick').
+ *  - "color" (string) tag color.
  * @param {tag} tag
  * @param {tag_args} args
  * @returns 
@@ -41,14 +46,14 @@ export default function TagIcon({ tag, args }: {
     }
 
     var unit = tag.unit;
-    if (tag && tag.unitLong != undefined) {
+    if (tag && tag.unitLong != undefined)
         unit = tag.unitLong;
-    }
+
 
     return (
-        <Pressable style={[styles.boxContainer, { backgroundColor: args.color, opacity: 0.6 }, enabled && styles.enabled]}
+        <Pressable style={[styles.boxContainer, { backgroundColor: args.color }, enabled && styles.enabled]}
             onPress={onPressed}>
-            <Text style={[styles.text, args.focus ? styles.textFocus : enabled ? styles.enabledText : styles.textLesser]}>
+            <Text style={[text_style, styles.text, args.focus ? styles.textFocus : enabled ? styles.enabledText : null]}>
                 {
                     tag.name == undefined ?
                         <Text>{tag}</Text>
@@ -57,7 +62,7 @@ export default function TagIcon({ tag, args }: {
                 }
                 {
                     (tag.amount != null) &&
-                    <Text style={styles.textLesserContent}>: {tag.amount} {unit}</Text>
+                    <Text style={text_style}>: {tag.amount} {unit}</Text>
                 }
             </Text>
         </Pressable>

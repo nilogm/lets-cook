@@ -18,11 +18,6 @@ export default function Home({ navigation }) {
     const [isLoading, setIsLoading] = useState(false);
     const [modalVisible, toggleModal] = useState(false);
 
-    const [unitUS, setUnitUS] = useState(false);
-    const toggle = (state) => {
-        setUnitUS(state);
-    }
-
     const [ingredients, setIngredients] = useState([]);
     const [macros, setMacros] = useState([]);
     const [diets, setDiets] = useState([]);
@@ -65,8 +60,6 @@ export default function Home({ navigation }) {
         navigation.navigate('Search', results);
     }
 
-
-
     return (
         <KeyboardAvoid>
             <View style={[styles.container, { height: height }]}>
@@ -82,7 +75,7 @@ export default function Home({ navigation }) {
 
                 <View style={{ justifyContent: "center", flex: 1 }}>
                     <Pressable style={styles.button} onPress={make_search}>
-                        <Icon name="utensils" size={40} style={styles.icons} />
+                        <Icon name={"utensils"} size={40} style={styles.icons} />
                     </Pressable>
                 </View>
 

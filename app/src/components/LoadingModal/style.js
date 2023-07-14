@@ -7,11 +7,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     popupView: {
+        backgroundColor: "white",
         alignContent: "center",
         elevation: 5,
         padding: 20,
         gap: 10,
-        backgroundColor: "white",
     },
     container: {
         backgroundColor: "white",
@@ -25,7 +25,6 @@ const styles = StyleSheet.create({
     },
     text: {
         textAlign: 'center',
-        fontWeight: 300,
     },
 });
 

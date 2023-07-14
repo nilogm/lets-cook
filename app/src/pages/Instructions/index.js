@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { View, Text, FlatList, Modal, Pressable, Image } from "react-native";
-import { makeSearch, get_name, get_image } from "../../utils";
-import IngredientPopup from "../../components/IngredientPopup";
+import { View, Text, FlatList, Pressable, Image } from "react-native";
+import { get_name, get_image } from "../../utils";
 import LoadingModal from "../../components/LoadingModal";
 import styles from "./style";
-import { popup_style } from "../../design";
+import { popup_style, text_style } from "../../design";
+import { Line } from "../../components/assets";
 
 
 export default function Instructions({ route }) {
@@ -32,13 +32,13 @@ export default function Instructions({ route }) {
 				showsVerticalScrollIndicator={false}
 				renderItem={({ item }) => (
 					<Pressable onPress={() => loadPopup(item)}>
-						<Text style={styles.text}>
+						<Text style={[text_style, styles.text]}>
 							<Text style={styles.textNumber}>{item.number}. </Text>
 							<Text>{item.step}</Text>
 						</Text>
 					</Pressable>
 				)}
-				ItemSeparatorComponent={<View style={styles.line} />}
+				ItemSeparatorComponent={<Line />}
 			/>
 
 			<LoadingModal
@@ -53,12 +53,12 @@ export default function Instructions({ route }) {
 						renderItem={({ item }) => (
 							<View style={styles.headerContainer}>
 								<Image source={{ uri: get_image(item.image) }} style={styles.image} />
-								<Text style={styles.text}>{get_name(item.name)}</Text>
+								<Text style={[text_style, styles.text]}>{get_name(item.name)}</Text>
 							</View>
 						)}
-						ItemSeparatorComponent={<View style={styles.line} />}
+						ItemSeparatorComponent={<Line />}
 						ListHeaderComponent={
-							<Text style={[styles.text, { marginBottom: 20 }]}>{step}</Text>
+							<Text style={[text_style, styles.text, { marginBottom: 20 }]}>{step}</Text>
 						}
 					/>
 				)}

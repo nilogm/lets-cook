@@ -3,7 +3,6 @@ import { View } from "react-native";
 import { tag } from "../../../types";
 import { allDiets } from "../../../data";
 import TagContainer from "../TagContainer";
-import styles from "./style";
 
 /**
  * Tag container display with selectable tags.
@@ -28,7 +27,7 @@ export default function TagDiet({ list, manager }: {
     }
 
     return (
-        <View style={styles.mainContainer}>
+        <View>
             <TagContainer tagList={allDiets} args={{ iconArgs: { onClick: addDiet, changeColor: true } }} />
         </View>
     );

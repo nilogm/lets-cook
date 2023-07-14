@@ -1,7 +1,6 @@
 import { Text, View, Image, Pressable } from "react-native";
-import { useState } from "react";
 import { LinearGradient } from 'expo-linear-gradient';
-import { get_key, get_similar } from "../../api";
+import { get_similar } from "../../api";
 import { set_params } from "../../utils";
 import { recipe, ingredient, nutrients } from "../../types";
 import { Line } from "../assets";
@@ -11,11 +10,10 @@ import { highlight_color, text_style } from "../../design";
 
 type args = {
     enableTagContainer: boolean,
-    isUS_measure: boolean,
 };
 
 /**
- * Button that displays basic recipe information. Optionally, more data can be displayed.
+ * Pressable display with basic recipe information. Optionally, more data can be displayed.
  * @param {recipe} recipe data from recipe to be displayed.
  * @param {function} setIsLoading function handler to update loading state.
  * @param {args} args arguments related to the style of the component.
@@ -30,12 +28,12 @@ export default function RecipeSearchButton({ navigation, recipe, setIsLoading, a
         setIsLoading(true)
         const page_data = await get_similar(recipe)
         setIsLoading(false)
-        navigation.navigate('Recipe', page_data)
+        // navigation.navigate('Recipe', page_data)
+        navigation.push('Recipe', page_data)
     }
 
     var default_args = {
         "enableTagContainer": true,
-        "isUS_measure": false,
     };
     args = set_params(default_args, args);
 
@@ -72,7 +70,7 @@ export default function RecipeSearchButton({ navigation, recipe, setIsLoading, a
                     args.enableTagContainer &&
                     <View style={styles.tagContainer}>
                         <Line width="90%" />
-                        <TagContainer tagList={[...ingredients, ...nutrients]} args={{ small: true, iconArgs: { color: highlight_color } }}></TagContainer>
+                        <TagContainer tagList={[...ingredients, ...nutrients]} args={{ small: 4, iconArgs: { color: highlight_color } }}/>
                     </View>
                 }
 
