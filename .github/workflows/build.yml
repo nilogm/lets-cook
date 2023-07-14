@@ -3,7 +3,8 @@ name: EAS Build
 on:
   push:
     branches: 
-      - build
+      # This workflow is currently not working, branch is set to "null-branch"
+      - null-branch
 
 jobs:
   build:
@@ -27,5 +28,5 @@ jobs:
       - name: Install dependencies
         run: yarn install
 
-      - name: Publish update
-        run: eas update --auto
+      - name: Build application
+        run: eas build --platform android --profile preview --non-interactive
